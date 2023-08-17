@@ -12,7 +12,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     port: 3306,
     username: "root",
     password: "1234",
-    database: "dwebiii",
+    database: "empcd",
     synchronize: true,
     logging: true,
     entities: [User_1.default],
