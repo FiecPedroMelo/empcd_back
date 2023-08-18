@@ -3,15 +3,6 @@ import EmpcdServices from '../services/Empcd.Service';
 import Empcd from '../models/entities/Empcd';
 
 class EmpcdController{
-    private static instance: EmpcdController
-    private constructor() {}
-
-    public static Instance(): EmpcdController{
-        if(!EmpcdController.instance){
-            EmpcdController.instance = new EmpcdController()
-        }
-        return EmpcdController.instance
-    }
 
     public async createEmpcd(req: Request, res: Response) {
         try{
