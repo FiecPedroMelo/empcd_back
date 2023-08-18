@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import User from "./models/entities/User"
-
+import Empcd from "./models/entities/Empcd"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     database: "dwebiii",
     synchronize: true,
     logging: true,
-    entities: [User],
+    entities: [User, Empcd],
     subscribers: [],
     migrations: [],
 })

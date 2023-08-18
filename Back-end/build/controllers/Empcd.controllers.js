@@ -14,13 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Empcd_Service_1 = __importDefault(require("../services/Empcd.Service"));
 class EmpcdController {
-    constructor() { }
-    static Instance() {
-        if (!EmpcdController.instance) {
-            EmpcdController.instance = new EmpcdController();
-        }
-        return EmpcdController.instance;
-    }
     createEmpcd(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
