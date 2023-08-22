@@ -1,7 +1,8 @@
 import { Request,Response } from "express";
 import express, { Express } from "express";
 import cors from 'cors';
-import router from "../routes/User.Routes";
+import Userrouter from "../routes/User.Routes";
+import Empcdrouter from "../routes/Empcd.Routes";
 import { AppDataSource } from "../data-source";
 import morgan from "morgan";
 
@@ -21,7 +22,9 @@ app.get('/dados-fake', (req: Request, res: Response) => {
     setTimeout(() => res.json([3,6,5,3,2,7,5]), 5000)
 })
 
-app.use('/users', router)
+app.use('/users', Userrouter)
+
+app.use('/empcd', Empcdrouter)
 
 app.listen(3000, ()=> {
     AppDataSource.initialize()
