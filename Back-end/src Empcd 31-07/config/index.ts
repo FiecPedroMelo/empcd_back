@@ -2,7 +2,7 @@ import { Request,Response } from "express";
 import express, { Express } from "express";
 import cors from 'cors';
 import Userrouter from "../routes/User.Routes";
-import Empcdrouter from "../routes/Empcd.Routes";
+import Candidatorouter from "../routes/Candidato.Routes";
 import { AppDataSource } from "../data-source";
 import morgan from "morgan";
 
@@ -15,7 +15,7 @@ app.use(morgan("Combinet"));
 
 app.get('/nome',(Res:Response, Req:Request)=>{
     
-    Res.send("Nome do projeto: EmPCD")
+    Res.send("Nome do projeto: Candidato")
 });
 
 app.get('/dados-fake', (req: Request, res: Response) => {
@@ -24,7 +24,7 @@ app.get('/dados-fake', (req: Request, res: Response) => {
 
 app.use('/users', Userrouter)
 
-app.use('/empcd', Empcdrouter)
+app.use('/candidato', Candidatorouter)
 
 app.listen(3000, ()=> {
     AppDataSource.initialize()

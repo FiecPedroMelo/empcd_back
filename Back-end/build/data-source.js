@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
 const User_1 = __importDefault(require("./models/entities/User"));
-const Empcd_1 = __importDefault(require("./models/entities/Empcd"));
+const Candidato_1 = __importDefault(require("./models/entities/Candidato"));
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
@@ -16,7 +16,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: "dwebiii",
     synchronize: true,
     logging: true,
-    entities: [User_1.default, Empcd_1.default],
+    entities: [User_1.default, Candidato_1.default],
     subscribers: [],
     migrations: [],
 });
