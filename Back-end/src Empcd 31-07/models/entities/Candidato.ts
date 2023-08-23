@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, UpdateDateColumn, Column, PrimaryColumn, CreateDateColumn } from "typeorm"
+import { Entity, Column, PrimaryColumn} from "typeorm"
 
 @Entity()
-export class Candidato{
+class Candidato{
     @PrimaryColumn()
     IdCand: string
 

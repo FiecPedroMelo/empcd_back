@@ -10,53 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-let Candidato = class Candidato {
+let Empresa = class Empresa {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
-], Candidato.prototype, "IdCand", void 0);
+], Empresa.prototype, "IdEmpresa", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "NomeCompleto", void 0);
+], Empresa.prototype, "RazaoSocial", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Email", void 0);
+], Empresa.prototype, "NomeFantasia", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Telefone", void 0);
+], Empresa.prototype, "Email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "CPF", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'date' }),
-    __metadata("design:type", Date)
-], Candidato.prototype, "DataNasc", void 0);
+], Empresa.prototype, "Site", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Endereco", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Formacao", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "ExpProfissional", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Senha", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Deficiencia", void 0);
-Candidato = __decorate([
+], Empresa.prototype, "Senha", void 0);
+Empresa = __decorate([
     (0, typeorm_1.Entity)()
-], Candidato);
-exports.default = Candidato;
+], Empresa);
+exports.default = Empresa;
