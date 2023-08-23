@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const User_Routes_1 = __importDefault(require("../routes/User.Routes"));
-const Candidato_Routes_1 = __importDefault(require("../routes/Candidato.Routes"));
 const data_source_1 = require("../data-source");
 const morgan_1 = __importDefault(require("morgan"));
+const User_Routes_1 = __importDefault(require("../routes/User.Routes"));
+const Candidato_Routes_1 = __importDefault(require("../routes/Candidato.Routes"));
+const Empresa_Routes_1 = __importDefault(require("../routes/Empresa.Routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -21,6 +22,7 @@ app.get('/dados-fake', (req, res) => {
 });
 app.use('/users', User_Routes_1.default);
 app.use('/candidato', Candidato_Routes_1.default);
+app.use('/empresa', Empresa_Routes_1.default);
 app.listen(3000, () => {
     data_source_1.AppDataSource.initialize()
         .then(() => {

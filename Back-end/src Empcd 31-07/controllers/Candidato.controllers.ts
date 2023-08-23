@@ -13,10 +13,10 @@ class CandidatoController{
             }
             const savedCandidato = await CandidatoServices.Instance().createCandidatoPerfil(Candidatoobject)
             res.send(`resquest saved whith successful ${JSON.stringify(savedCandidato)}`)
-            } catch (err) {
+        } catch (err) {
             res.status(500).send(err)
             console.log(err)
-            }
+        }
     }
 
     public async getAll(req: Request, res: Response) {

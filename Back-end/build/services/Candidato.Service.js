@@ -42,7 +42,7 @@ class CandidatoServices {
                 return yield Candidato_repositories_1.default.save(candidato);
             }
             catch (err) {
-                return Promise.reject(new Error('error cannot save Candidato'));
+                return Promise.reject(new Error('Error saving Candidato'));
             }
         });
     }
@@ -66,7 +66,7 @@ class CandidatoServices {
         return __awaiter(this, void 0, void 0, function* () {
             const deleteById = yield Candidato_repositories_1.default.delete({ IdCand });
             if (deleteById) {
-                return Promise.resolve('Deleted IdCand with success');
+                return Promise.resolve('Deleted IdCand successfully');
             }
             else {
                 return Promise.reject('Was not able to delete IdCand');
@@ -78,7 +78,7 @@ class CandidatoServices {
             try {
                 const data = yield Candidato_repositories_1.default.findOneBy({ IdCand });
                 if (!data) {
-                    return Promise.reject('IdCand was not found');
+                    return Promise.reject('Could not find IdCandidato');
                 }
                 data.NomeCompleto = valid.NomeCompleto;
                 data.Email = valid.Email;
