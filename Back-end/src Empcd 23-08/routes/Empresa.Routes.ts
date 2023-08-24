@@ -8,5 +8,7 @@ Empresarouter.get("/getAll", new EmpresaController().getAll);
 Empresarouter.get("/getEmpresaId", new EmpresaController().getEmpresaId);
 Empresarouter.post("/delete", new EmpresaController().deleteEmpresa);
 Empresarouter.post('/update', new EmpresaController().updateEmpresa);
+Empresarouter.post("/createVaga", new EmpresaController().createVaga);
+Empresarouter.post("/updateVaga", new EmpresaController().updateVaga);
 
 export default Empresarouter;
