@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(morgan("Combinet"));
 
 app.get('/nome',(Res:Response, Req:Request)=>{
-    
     Res.send("Nome do projeto: Candidato")
 });
 

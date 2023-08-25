@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn } from "typeorm";
 
-Entity()
-class Vaga{
+@Entity()
+export class Vaga{
     @PrimaryColumn()
     IdVaga: string
 
@@ -14,8 +14,8 @@ class Vaga{
     @Column()
     Local: string
 
-    @Column()
-    DataPostagem: Date
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
+    public DataPostagem: Date
 
     @Column()
     Requisitos: string

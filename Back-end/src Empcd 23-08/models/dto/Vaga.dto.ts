@@ -9,3 +9,15 @@ export interface VagaDto {
     Requisitos: string;
     DataFinal: Date;
 }
+export const VagaSchema = z.object({
+    IdEmpresa: z.string(),
+    TituloVaga: z.string(),
+    Local: z.string(),
+    DataPostagem: z.date(),
+    Requisitos: z.string(),
+    DataFinal: z.date()
+})
+
+export const VagaId = z.object({
+    IdVaga: z.string().min(6)
+})
