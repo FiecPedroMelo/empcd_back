@@ -4,6 +4,7 @@ exports.VagaId = exports.VagaSchema = void 0;
 const zod_1 = require("zod");
 exports.VagaSchema = zod_1.z.object({
     IdEmpresa: zod_1.z.string(),
+    IdCandidato: zod_1.z.string(),
     TituloVaga: zod_1.z.string(),
     Local: zod_1.z.string(),
     DataPostagem: zod_1.z.date(),

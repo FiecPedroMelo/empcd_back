@@ -22,6 +22,10 @@ __decorate([
     __metadata("design:type", String)
 ], Vaga.prototype, "IdEmpresa", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: null }),
+    __metadata("design:type", String)
+], Vaga.prototype, "IdCandidato", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Vaga.prototype, "TituloVaga", void 0);

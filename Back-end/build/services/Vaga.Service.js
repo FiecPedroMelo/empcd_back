@@ -60,5 +60,10 @@ class VagaServices {
             }
         });
     }
+    getVaga() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Vaga_repositories_1.default.find();
+        });
+    }
 }
 exports.default = VagaServices;

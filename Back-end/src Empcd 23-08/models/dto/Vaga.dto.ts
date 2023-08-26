@@ -8,9 +8,11 @@ export interface VagaDto {
     DataPostagem: Date;
     Requisitos: string;
     DataFinal: Date;
+    IdCandidato: string;
 }
 export const VagaSchema = z.object({
     IdEmpresa: z.string(),
+    IdCandidato: z.string(),
     TituloVaga: z.string(),
     Local: z.string(),
     DataPostagem: z.date(),

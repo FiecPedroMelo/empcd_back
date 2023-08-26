@@ -1,4 +1,4 @@
-import { Request, Response} from "express";
+import { Request, Response } from "express";
 import userService from "../services/User.Service";
 
 class userController {
@@ -9,6 +9,12 @@ class userController {
     async signUpUser(req: Request, res: Response) {
         const {name, email, password} = req.body;
         await new userService().signUpUser(name, email, password);
+    }
+
+    async signUpUsersInBatch(req: Request, res: Response) {
+        console.log(req.file);
+        await new userService().signUpUsersInBatch(req);
+        res.json('files')
     }
 }
 

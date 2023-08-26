@@ -45,6 +45,11 @@ class VagaServices{
             return Promise.reject(new Error('Unable to update Vaga'));
         }
     }
+
+    public async getVaga(): Promise<Vaga[]> {
+        return await VagaRepository.find()
+    }
+
 }
 
 export default VagaServices

@@ -8,6 +8,9 @@ export class Vaga{
     @Column()
     IdEmpresa: string
 
+    @Column({default: null})
+    IdCandidato: string
+
     @Column()
     TituloVaga: string
 
