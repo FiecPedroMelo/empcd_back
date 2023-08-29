@@ -44,5 +44,44 @@ class VagaController {
             }
         });
     }
+    getVagas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Vagaget = yield Vaga_Service_1.default.Instance().getVaga();
+                res.json(Vagaget);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
+    getVagaById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const idVaga = req.params.idVaga;
+                const Vagabyid = yield Vaga_Service_1.default.Instance().getVagaById(idVaga);
+                console.log(Vagabyid);
+                res.json(Vagabyid);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
+    candidataVaga(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const idVaga = req.params.id;
+                const idCand = req.params.idCand;
+                yield Vaga_Service_1.default.Instance().candidataVaga(idVaga, idCand);
+                res.json({ Mensagem: "Vaga already updated" });
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+    }
 }
 exports.default = VagaController;

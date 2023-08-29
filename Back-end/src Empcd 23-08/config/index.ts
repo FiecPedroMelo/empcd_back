@@ -5,6 +5,7 @@ import morgan from "morgan";
 import Userrouter from "../routes/User.Routes";
 import Candidatorouter from "../routes/Candidato.Routes";
 import Empresarouter from "../routes/Empresa.Routes";
+import Vagarouter from "../routes/Vaga.Routes";
 
 const app = express();
 app.use(cors());
@@ -22,17 +23,11 @@ app.get('/dados-fake', (req: Request, res: Response) => {
 
 app.use('/users', Userrouter)
 
-app.use('/candidato', Candidatorouter)
+app.use('/candidatos', Candidatorouter)
 
-app.use('/empresa', Empresarouter)
+app.use('/empresas', Empresarouter)
 
-app.listen(3000, ()=> {
-    AppDataSource.initialize()
-    .then(()=>{
-        console.log("banco iniciado")
-    })
-    .catch((err)=> console.log(err))
-    console.log("Esta Rodando")
-});
+app.use('/vagas', Vagarouter)
+
 
 export default app;

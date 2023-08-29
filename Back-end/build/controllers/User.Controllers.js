@@ -26,5 +26,12 @@ class userController {
             yield new User_Service_1.default().signUpUser(name, email, password);
         });
     }
+    signUpUsersInBatch(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.file);
+            yield new User_Service_1.default().signUpUsersInBatch(req);
+            res.json('files');
+        });
+    }
 }
 exports.default = userController;

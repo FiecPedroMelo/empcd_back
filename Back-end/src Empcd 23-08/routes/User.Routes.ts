@@ -5,6 +5,6 @@ const Userrouter = Router();
 
 Userrouter.post('/login', new userController().loginUser);
 Userrouter.post('/signUp', new userController().signUpUser);
-Userrouter.post('batch-sign-up', new userController().SignUpUsersInBatch);
+Userrouter.post('batch-sign-up', new userController().signUpUsersInBatch);
 
 export default Userrouter;

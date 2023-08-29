@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const Vaga_1 = __importDefault(require("../models/entities/Vaga"));
+const Candidato_repositories_1 = __importDefault(require("../models/repositories/Candidato.repositories"));
 const Vaga_repositories_1 = __importDefault(require("../models/repositories/Vaga.repositories"));
 class VagaServices {
     constructor() { }
@@ -63,6 +64,34 @@ class VagaServices {
     getVaga() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield Vaga_repositories_1.default.find();
+        });
+    }
+    getVagaById(IdVaga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
+            if (!vaga) {
+                return Promise.reject(new Error('Unable to find Vaga'));
+            }
+            return Promise.resolve(vaga);
+        });
+    }
+    candidataVaga(IdVaga, IdCand) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
+                const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand });
+                if (!vaga) {
+                    return Promise.reject(new Error('Could not find Vaga'));
+                }
+                if (!candidato) {
+                    return Promise.reject(new Error('Could not find Candidato'));
+                }
+                vaga === null || vaga === void 0 ? void 0 : vaga.candidatos.push(candidato);
+                return yield Vaga_repositories_1.default.save(vaga);
+            }
+            catch (err) {
+                return Promise.reject(new Error('Unable to update Vaga'));
+            }
         });
     }
 }

@@ -1,6 +1,8 @@
 import { v4 } from "uuid"
+import { CandidatoDto } from "../models/dto/Candidato.dto"
 import { VagaDto } from "../models/dto/Vaga.dto"
 import Vaga from "../models/entities/Vaga"
+import CandidatoRepository from "../models/repositories/Candidato.repositories"
 import VagaRepository from "../models/repositories/Vaga.repositories"
 
 class VagaServices{
@@ -48,6 +50,31 @@ class VagaServices{
 
     public async getVaga(): Promise<Vaga[]> {
         return await VagaRepository.find()
+    }
+
+    public async getVagaById(IdVaga: string): Promise<Vaga> {
+        const vaga = await VagaRepository.findOneBy({IdVaga})
+        if(!vaga){
+            return Promise.reject(new Error('Unable to find Vaga'))
+        }
+        return Promise.resolve(vaga)
+    }
+
+    public async candidataVaga(IdVaga: string, IdCand: string): Promise<Vaga> {
+        try {
+            const vaga = await VagaRepository.findOneBy({IdVaga})
+            const candidato = await CandidatoRepository.findOneBy({IdCand})
+            if(!vaga) {
+                return Promise.reject(new Error('Could not find Vaga'));
+            }
+            if(!candidato) {
+                return Promise.reject(new Error('Could not find Candidato'));
+            }
+            vaga?.candidatos.push(candidato)
+            return await VagaRepository.save(vaga)
+        } catch(err) {
+            return Promise.reject(new Error('Unable to update Vaga'));
+        }
     }
 
 }

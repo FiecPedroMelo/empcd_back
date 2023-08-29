@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable } from "typeorm";
+import Candidato from "./Candidato";
 
 @Entity()
 export class Vaga{
@@ -7,9 +8,6 @@ export class Vaga{
 
     @Column()
     IdEmpresa: string
-
-    @Column({default: null})
-    IdCandidato: string
 
     @Column()
     TituloVaga: string
@@ -25,6 +23,10 @@ export class Vaga{
 
     @Column()
     DataFinal: Date
+
+    @ManyToMany(() => Candidato)
+    @JoinTable()
+    candidatos: Candidato[]
 }
 
 export default Vaga;

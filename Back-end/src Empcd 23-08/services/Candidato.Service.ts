@@ -34,6 +34,7 @@ class CandidatoServices {
             return Promise.reject(new Error('Error saving Candidato'))
         }
     }
+    
     public async allCandidato(): Promise<Candidato[]> {
         return await CandidatoRepository.find()
     }

@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Vaga = void 0;
 const typeorm_1 = require("typeorm");
+const Candidato_1 = __importDefault(require("./Candidato"));
 let Vaga = exports.Vaga = class Vaga {
 };
 __decorate([
@@ -21,10 +25,6 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Vaga.prototype, "IdEmpresa", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: null }),
-    __metadata("design:type", String)
-], Vaga.prototype, "IdCandidato", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -45,6 +45,11 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
 ], Vaga.prototype, "DataFinal", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => Candidato_1.default),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Vaga.prototype, "candidatos", void 0);
 exports.Vaga = Vaga = __decorate([
     (0, typeorm_1.Entity)()
 ], Vaga);
