@@ -9,6 +9,7 @@ import Base64 from 'crypto-js/enc-base64'
 import { User } from "../models/entities/User";
 import userRepository from "../models/repositories/User.repositories";
 import logger from "../config/logger";
+import Jimp from "jimp";
 
 class userService {
 
@@ -56,6 +57,19 @@ class userService {
                 console.log(user);
                 userRepository.insert(user);
             });
+        }
+    }
+
+    async updateUserImage(req: Request){
+        const file = req.file;
+        const id = req.params.id;
+        const foundUser = await userRepository.findOneBy({id});
+        if(file != null && foundUser != null){
+            const image = await Jimp.read(file.path);
+            await image.resize(600,600);
+            await image.write('uploads/' + file.originalname)
+            foundUser.imageUrl = file.originalname;
+            await userRepository.save(foundUser);
         }
     }
 }
