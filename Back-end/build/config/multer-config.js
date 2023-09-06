@@ -13,7 +13,7 @@ const storage = multer_1.default.diskStorage({
         cb(null, `${tempFolder}`);
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 100);
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, file.fieldname + '-' + uniqueSuffix) + file.originalname.substring(file.originalname.indexOf('.'));
     }
 });
