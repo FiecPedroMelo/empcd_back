@@ -13,17 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_Service_1 = __importDefault(require("../services/User.Service"));
-class userController {
+class UserController {
     loginUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
-            yield new User_Service_1.default().loginUser(email, password);
+            try {
+                const token = yield new User_Service_1.default().loginUser(email, password);
+                res.json({ token });
+            }
+            catch (err) {
+                res.status(401).send("Login Failed");
+            }
         });
     }
     signUpUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, password } = req.body;
+            const { email, password, name } = req.body;
             yield new User_Service_1.default().signUpUser(name, email, password);
+            res.json('Bem criado!');
         });
     }
     signUpUsersInBatch(req, res) {
@@ -34,4 +41,4 @@ class userController {
         });
     }
 }
-exports.default = userController;
+exports.default = UserController;

@@ -31,7 +31,9 @@ class CandidatoServices {
                 candidato.NomeCompleto = valid.NomeCompleto;
                 candidato.Email = valid.Email;
                 candidato.Telefone = valid.Telefone;
-                candidato.CPF = valid.CPF;
+                let CPF = valid.CPF;
+                let novoCpf = CPF.substring(0, 2) + "." + CPF.substring(3, 5) + "." + CPF.substring(6, 8) + "-" + CPF.substring(9, CPF.length - 1);
+                candidato.CPF = novoCpf;
                 candidato.DataNasc = valid.DataNasc;
                 candidato.Endereco = valid.Endereco;
                 candidato.Formacao = valid.Formacao;
