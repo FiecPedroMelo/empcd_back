@@ -5,7 +5,7 @@ import Userrouter from "../routes/User.Routes";
 import Candidatorouter from "../routes/Candidato.Routes";
 import Empresarouter from "../routes/Empresa.Routes";
 import Vagarouter from "../routes/Vaga.Routes";
-import authRouter from "../routes/auth.router";
+import authRouter from "../routes/auth.Routes";
 import { validator } from "../controllers/auth.validator";
 import logger from "./logger";
 
