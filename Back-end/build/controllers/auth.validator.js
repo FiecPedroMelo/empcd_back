@@ -39,9 +39,9 @@ function validator(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const bearerHeader = req.headers['authorization'];
         const bearerMiddle = bearerHeader === null || bearerHeader === void 0 ? void 0 : bearerHeader.split(' ');
-        const bearerSecret = JSON.stringify(bearerMiddle);
-        const chegadeBearer = JSON.parse(bearerSecret);
-        const bearer = chegadeBearer.toString();
+        const bearerJson = JSON.stringify(bearerMiddle);
+        const bearerString = JSON.parse(bearerJson);
+        const bearer = bearerString.toString();
         const bearerToken = jwt.sign(req.params, bearer);
         try {
             const token = yield jwt.verify(bearerToken || '', constants_1.SECRET);
