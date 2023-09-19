@@ -25,13 +25,13 @@ app.get('/dados-fake', (req: Request, res: Response) => {
     setTimeout(() => res.json([3,6,5,3,2,7,5]), 5000)
 })
 
-app.use('/users', validator)
+//app.use('/users', validator)
 app.use('/users', Userrouter)
 app.use('/candidatos', validator)
 app.use('/candidatos', Candidatorouter)
-app.use('/empresas', validator)
+//app.use('/empresas', validator)
 app.use('/empresas', Empresarouter)
-app.use('/vagas', validator)
+//app.use('/vagas', validator)
 app.use('/vagas', Vagarouter)
 app.use('/auth', authRouter);
 app.get('/users', (req: Request,res: Response) => {

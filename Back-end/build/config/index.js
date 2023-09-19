@@ -24,13 +24,13 @@ app.get('/nome', (Res, Req) => {
 app.get('/dados-fake', (req, res) => {
     setTimeout(() => res.json([3, 6, 5, 3, 2, 7, 5]), 5000);
 });
-app.use('/users', auth_validator_1.validator);
+//app.use('/users', validator)
 app.use('/users', User_Routes_1.default);
 app.use('/candidatos', auth_validator_1.validator);
 app.use('/candidatos', Candidato_Routes_1.default);
-app.use('/empresas', auth_validator_1.validator);
+//app.use('/empresas', validator)
 app.use('/empresas', Empresa_Routes_1.default);
-app.use('/vagas', auth_validator_1.validator);
+//app.use('/vagas', validator)
 app.use('/vagas', Vaga_Routes_1.default);
 app.use('/auth', auth_router_1.default);
 app.get('/users', (req, res) => {

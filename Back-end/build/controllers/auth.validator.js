@@ -38,8 +38,11 @@ const constants_1 = require("../constants");
 function validator(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const bearerHeader = req.headers['authorization'];
-        const bearer = bearerHeader === null || bearerHeader === void 0 ? void 0 : bearerHeader.split(' ');
-        const bearerToken = bearer && bearer.length > 1 && bearer[1];
+        const bearerMiddle = bearerHeader === null || bearerHeader === void 0 ? void 0 : bearerHeader.split(' ');
+        const bearerSecret = JSON.stringify(bearerMiddle);
+        const chegadeBearer = JSON.parse(bearerSecret);
+        const bearer = chegadeBearer.toString();
+        const bearerToken = jwt.sign(req.params, bearer);
         try {
             const token = yield jwt.verify(bearerToken || '', constants_1.SECRET);
             req.authUser = { id: token.id };
@@ -48,10 +51,10 @@ function validator(req, res, next) {
                 next();
                 return;
             }
-            res.status(403).send("User not allowed");
+            res.status(403).send("User not allowed 1");
         }
         catch (err) {
-            res.status(403).send("User not allowed");
+            res.status(403).send("User not allowed 2");
         }
     });
 }
