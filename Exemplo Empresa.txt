@@ -1,0 +1,8 @@
+{
+        "IdEmpresa": "cdb50e24-8396-46d5-a0e7-c00ad5e6b95f",
+        "RazaoSocial": "SilFloresAcessórios",
+        "NomeFantasia": "SilFlores",
+        "Email": "silfloresacessorios@gmail.com",
+        "Site": "silflores.com.br",
+        "Senha": "12345678"
+    }

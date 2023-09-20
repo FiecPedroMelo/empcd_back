@@ -1,0 +1,12 @@
+{
+    "NomeCompleto": "Mais um Daniel",
+    "Email": "danielfranco346@gmail.com",
+    "Telefone": "(19)98102-9833",
+    "CPF": "549.666.858-74",
+    "DataNasc": "2006-06-03",
+    "Endereco": "Rua dos Bobos N° 1",
+    "Formacao": "Nenhum",
+    "ExpProfissional": "Nenhum",
+    "Senha": "123456789",
+    "Deficiencia": "Auditiva"
+}

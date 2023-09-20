@@ -4,12 +4,12 @@ import VagaController from "../controllers/Vaga.controllers";
 
 const Empresarouter = Router();
 
-Empresarouter.post("/", new EmpresaController().createEmpresa);
-Empresarouter.get("/", new EmpresaController().getAll);
-Empresarouter.get("/:idEmpresa", new EmpresaController().getEmpresaId);
-Empresarouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa);
-Empresarouter.put('/:idEmpresa', new EmpresaController().updateEmpresa);
-Empresarouter.post("/:idEmpresa/vaga/", new VagaController().createVaga);
-Empresarouter.put("/vaga/:idVaga", new VagaController().updateVaga);
+Empresarouter.post("/", new EmpresaController().createEmpresa); //ok
+Empresarouter.get("/", new EmpresaController().getAll); //ok
+Empresarouter.get("/:idEmpresa", new EmpresaController().getEmpresaId); //ok
+Empresarouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //rever
+Empresarouter.put('/:idEmpresa', new EmpresaController().updateEmpresa); //ok
+Empresarouter.post("/:idEmpresa/vaga/", new VagaController().createVaga); //ok
+Empresarouter.put("/vaga/:idVaga", new VagaController().updateVaga); //ok
 
 export default Empresarouter;

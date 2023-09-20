@@ -1,0 +1,8 @@
+{
+        "IdVaga": "06316ad7-7b1d-499d-b278-2e9d1f793f95",
+        "IdEmpresa": "cdb50e24-8396-46d5-a0e7-c00ad5e6b95f",
+        "TituloVaga": "Cozinheiro",
+        "Local": "Campinas",
+        "Requisitos": "Ensino Médio",
+        "DataFinal": "2023-10-19T03:00:00.000Z"
+}
