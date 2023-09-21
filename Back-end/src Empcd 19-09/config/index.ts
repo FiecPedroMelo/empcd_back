@@ -2,13 +2,12 @@ import express, { Request, Response, Express } from "express";
 import cors from 'cors';
 import morgan from "morgan";
 import logger from "./logger";
-
 import Userrouter from "../routes/User.Routes";
 import Candidatorouter from "../routes/Candidato.Routes";
 import Empresarouter from "../routes/Empresa.Routes";
 import Vagarouter from "../routes/Vaga.Routes";
 import { validator } from "../controllers/auth.validator";
-import authRouter from "../routes/auth.router.";
+import authRouter from "../routes/auth.router";
 
 const app = express();
 app.use(cors());
@@ -29,9 +28,9 @@ app.get('/dados-fake', (req: Request, res: Response) => {
 app.use('/users', Userrouter)
 app.use('/candidatos', validator)
 app.use('/candidatos', Candidatorouter)
-//app.use('/empresas', validator)
+app.use('/empresas', validator)
 app.use('/empresas', Empresarouter)
-//app.use('/vagas', validator)
+app.use('/vagas', validator)
 app.use('/vagas', Vagarouter)
 app.use('/auth', authRouter);
 app.get('/users', (req: Request,res: Response) => {

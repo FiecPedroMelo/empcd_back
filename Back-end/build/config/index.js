@@ -12,7 +12,7 @@ const Candidato_Routes_1 = __importDefault(require("../routes/Candidato.Routes")
 const Empresa_Routes_1 = __importDefault(require("../routes/Empresa.Routes"));
 const Vaga_Routes_1 = __importDefault(require("../routes/Vaga.Routes"));
 const auth_validator_1 = require("../controllers/auth.validator");
-const auth_router_1 = __importDefault(require("../routes/auth.router."));
+const auth_router_1 = __importDefault(require("../routes/auth.router"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -28,9 +28,9 @@ app.get('/dados-fake', (req, res) => {
 app.use('/users', User_Routes_1.default);
 app.use('/candidatos', auth_validator_1.validator);
 app.use('/candidatos', Candidato_Routes_1.default);
-//app.use('/empresas', validator)
+app.use('/empresas', auth_validator_1.validator);
 app.use('/empresas', Empresa_Routes_1.default);
-//app.use('/vagas', validator)
+app.use('/vagas', auth_validator_1.validator);
 app.use('/vagas', Vaga_Routes_1.default);
 app.use('/auth', auth_router_1.default);
 app.get('/users', (req, res) => {

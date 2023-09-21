@@ -19,7 +19,7 @@ class UserController {
             const { email, password } = req.body;
             try {
                 const token = yield new User_Service_1.default().loginUser(email, password);
-                res.json({ token });
+                res.status(200).send({ token: token });
             }
             catch (err) {
                 res.status(401).send("Login Failed");

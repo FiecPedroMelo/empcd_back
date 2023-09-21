@@ -6,7 +6,7 @@ class UserController {
             const {email, password} = req.body;
             try {
                 const token = await new UserService().loginUser(email, password);
-                res.json({token});
+                res.status(200).send({token: token});
             } catch(err) {
                 res.status(401).send("Login Failed");
             }
