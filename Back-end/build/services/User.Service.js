@@ -31,9 +31,9 @@ class userService {
         logger_1.default.debug("HashAntes: ", hashDigest);
         const privateKey = "FIEC2023";
         const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
-        logger_1.default.debug("HashDepos: ", hashDigest);
+        logger_1.default.debug("HashDepois: ", hashDigest);
         newUser.password = hmacDigest;
-        User_repositories_1.default.save(newUser);
+        return newUser;
     }
     loginUser(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -58,15 +58,15 @@ class userService {
     }
     signUpUsersInBatch(req) {
         return __awaiter(this, void 0, void 0, function* () {
-            const file = req.file;
-            const user = [];
+            const file = req.body;
+            const users = [];
             if (file != null) {
                 fs_1.default.createReadStream(file.path)
                     .pipe((0, csv_parser_1.default)())
-                    .on('data', (data) => user.push(data))
+                    .on('data', (data) => users.push(this.getUserFromData(data.name, data.email, data.password)))
                     .on('end', () => {
-                    console.log(user);
-                    User_repositories_1.default.insert(user);
+                    console.log(users);
+                    User_repositories_1.default.insert(users);
                 });
             }
         });

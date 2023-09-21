@@ -29,15 +29,24 @@ class UserController {
     signUpUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password, name } = req.body;
-            yield new User_Service_1.default().signUpUser(name, email, password);
-            res.json('Bem criado!');
+            try {
+                yield new User_Service_1.default().signUpUser(name, email, password);
+                res.json('Bem criado!');
+            }
+            catch (err) {
+                console.log(err);
+            }
         });
     }
     signUpUsersInBatch(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.file);
-            yield new User_Service_1.default().signUpUsersInBatch(req);
-            res.json('files');
+            const newUser = req.file;
+            console.log(req);
+            if (!newUser) {
+                return res.status(403).send('error importing user');
+            }
+            const savedUser = yield new User_Service_1.default().signUpUsersInBatch(req);
+            res.json(`request saved with successful ${JSON.stringify(savedUser)}`);
         });
     }
 }

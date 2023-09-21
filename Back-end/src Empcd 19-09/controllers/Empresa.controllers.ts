@@ -42,7 +42,8 @@ class EmpresaController{
 
     public async deleteEmpresa(req: Request, res: Response) {
         try {
-            const idEmpresa = req.params.id
+            const idEmpresa = req.params.idEmpresa
+            console.log(idEmpresa)
         const deleteid = await EmpresaServices.Instance().deleteEmpresaId(idEmpresa)
         res.json(deleteid)
         } catch (err) {
@@ -52,7 +53,7 @@ class EmpresaController{
 
     public async updateEmpresa(req: Request, res: Response) {
         try {
-            const idEmpresa = req.params.id
+            const idEmpresa = req.params.idEmpresa
             const EmpresaObject = req.body
             await EmpresaServices.Instance().updateEmpresa(idEmpresa, EmpresaObject)
             res.json({ Mensagem: "Empresa already updated"})

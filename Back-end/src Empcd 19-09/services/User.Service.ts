@@ -12,7 +12,7 @@ import logger from "../config/logger";
 
 class userService {
     
-    getUserFromData(name: string, email: string, password: string){
+    getUserFromData(name: string, email: string, password: string) : User{
         const newUser = new User();
         newUser.id = v4();
         newUser.email = email;
@@ -20,10 +20,10 @@ class userService {
         const hashDigest = sha256(password);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "FIEC2023"
-        const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey));
-        logger.debug("HashDepos: ",hashDigest)
+        const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey ))
+        logger.debug("HashDepois: ",hashDigest)
         newUser.password = hmacDigest;
-        userRepository.save(newUser);
+        return newUser;
     }
 
     async loginUser(email: string, password: string) {
@@ -46,15 +46,15 @@ class userService {
     }
 
     async signUpUsersInBatch(req: Request){
-        const file = req.file;
-        const user: User[] = [];
+        const file = req.body;
+        const users : User[] = [];
         if(file != null) {
             fs.createReadStream(file.path)
-            .pipe(csvParser())
-            .on('data', (data) => user.push(data))
-            .on('end', () => {
-                console.log(user);
-                userRepository.insert(user);
+                .pipe(csvParser())
+                .on('data', (data) => users.push(this.getUserFromData(data.name, data.email, data.password)))
+                .on('end', () => {
+                    console.log(users);
+                    userRepository.insert(users);
             });
         }
     }

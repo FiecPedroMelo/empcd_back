@@ -43,7 +43,7 @@ class CandidatoController{
 
     public async deleteCandidato(req: Request, res: Response) {
         try {
-            const idCandidato = req.params.id
+            const idCandidato = req.params.idCandidato
         const deleteid = await CandidatoServices.Instance().deleteCandidatoId(idCandidato)
         res.json(deleteid)
         } catch (err) {
@@ -53,7 +53,7 @@ class CandidatoController{
     
     public async updateCandidato(req: Request, res: Response) {
         try {
-            const idCandidato = req.params.id
+            const idCandidato = req.params.idCandidato
             const CandidatoObject = req.body
             await CandidatoServices.Instance().updateCandidato(idCandidato, CandidatoObject)
             res.json({ Mensagem: "Candidato already updated"})

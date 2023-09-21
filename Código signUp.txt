@@ -1,0 +1,9 @@
+pm.iterationData.get("name");
+pm.iterationData.get("email");
+pm.iterationData.get("password");
+
+{
+    "name": "{{name}}",
+    "email": "{{email}}",
+    "password": "{{password}}"
+}

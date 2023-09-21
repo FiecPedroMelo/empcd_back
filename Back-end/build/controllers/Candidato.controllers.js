@@ -60,7 +60,7 @@ class CandidatoController {
     deleteCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idCandidato = req.params.id;
+                const idCandidato = req.params.idCandidato;
                 const deleteid = yield Candidato_Service_1.default.Instance().deleteCandidatoId(idCandidato);
                 res.json(deleteid);
             }
@@ -72,7 +72,7 @@ class CandidatoController {
     updateCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idCandidato = req.params.id;
+                const idCandidato = req.params.idCandidato;
                 const CandidatoObject = req.body;
                 yield Candidato_Service_1.default.Instance().updateCandidato(idCandidato, CandidatoObject);
                 res.json({ Mensagem: "Candidato already updated" });

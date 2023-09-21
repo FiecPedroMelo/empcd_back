@@ -5,8 +5,8 @@ class UserController {
         async loginUser(req: Request, res: Response){
             const {email, password} = req.body;
             try {
-            const token = await new UserService().loginUser(email, password);
-            res.json({token});
+                const token = await new UserService().loginUser(email, password);
+                res.json({token});
             } catch(err) {
                 res.status(401).send("Login Failed");
             }
@@ -14,14 +14,23 @@ class UserController {
 
         async signUpUser(req: Request, res: Response){
             const {email, password, name} = req.body;
-            await new UserService().signUpUser(name, email, password);
-            res.json('Bem criado!');
+            try {
+                await new UserService().signUpUser(name, email, password);
+                res.json('Bem criado!');
+            } catch (err) {
+                console.log(err);
+            }
+            
         }
 
         async signUpUsersInBatch(req:Request, res:Response) {
-            console.log(req.file);
-            await new UserService().signUpUsersInBatch(req);
-            res.json('files');
+            const newUser = req.file
+            console.log(req)
+            if (!newUser) {
+                return res.status(403).send('error importing user')
+            }
+            const savedUser = await new UserService().signUpUsersInBatch(req);
+            res.json(`request saved with successful ${JSON.stringify(savedUser)}`);
         }
 
 }
