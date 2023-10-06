@@ -1,7 +1,15 @@
+import Base64 from "crypto-js/enc-base64";
+import sha256 from "crypto-js/sha256";
 import { v4 } from "uuid";
+import logger from "../config/logger";
 import { CandidatoDto } from "../models/dto/Candidato.dto";
 import Candidato from "../models/entities/Candidato";
 import CandidatoRepository from "../models/repositories/Candidato.repositories";
+import { Request } from "express";
+import csvParser from "csv-parser";
+import fs from "fs";
+import * as jwt from 'jsonwebtoken';
+import { SECRET } from "../constants";
 
 class CandidatoServices {
     private static instance: CandidatoServices
@@ -29,6 +37,7 @@ class CandidatoServices {
             candidato.ExpProfissional = valid.ExpProfissional
             candidato.Senha = valid.Senha
             candidato.Deficiencia = valid.Deficiencia
+            candidato.Cep = valid.Cep
             console.log(candidato)
 
             return await CandidatoRepository.save(candidato)
@@ -75,6 +84,7 @@ class CandidatoServices {
             data.ExpProfissional = valid.ExpProfissional
             data.Senha = valid.Senha
             data.Deficiencia = valid.Deficiencia
+            data.Cep = valid.Cep
 
             return await CandidatoRepository.save(data)
         } catch (err) {
@@ -84,3 +94,7 @@ class CandidatoServices {
 }
 
 export default CandidatoServices;
+
+function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
+    throw new Error("Function not implemented.");
+}

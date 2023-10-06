@@ -6,6 +6,9 @@ class Empresa{
     IdEmpresa: string;
 
     @Column()
+    CNPJ: string;
+
+    @Column()
     RazaoSocial: string;
 
     @Column()
@@ -15,10 +18,13 @@ class Empresa{
     Email: string;
 
     @Column()
-    Site: string;
+    Senha: string;
 
     @Column()
-    Senha: string;
+    Cep: string;
+
+    @Column()
+    Endereco: string;
 }
 
 export default Empresa;

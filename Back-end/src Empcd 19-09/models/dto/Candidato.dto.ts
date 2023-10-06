@@ -12,6 +12,7 @@ export interface CandidatoDto {
     ExpProfissional: string;
     Senha: string;
     Deficiencia: string;
+    Cep: string
 }
 
 export const CandidatoSchema = z.object({
@@ -24,7 +25,8 @@ export const CandidatoSchema = z.object({
     Formacao: z.string(),
     ExpProfissional: z.string(),
     Senha: z.string(),
-    Deficiencia: z.string()
+    Deficiencia: z.string(),
+    Cep: z.string()
 })
 
 export const VagaId = z.object({

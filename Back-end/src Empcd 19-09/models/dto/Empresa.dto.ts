@@ -2,19 +2,24 @@ import { z } from "zod";
 
 export interface EmpresaDto {
     IdEmpresa: string;
+    CNPJ: string;
     RazaoSocial: string;
     NomeFantasia: string;
     Email: string;
-    Site: string;
     Senha: string;
+    Cep: string;
+    Endereco: string;
 }
 
 export const EmpresaSchema = z.object({
+    CNPJ: z.string(),
     RazaoSocial: z.string(),
     NomeFantasia: z.string(),
     Email: z.string().min(7).max(35),
-    Site: z.string().min(10).max(30),
-    Senha: z.string()
+    Senha: z.string(),
+    Cep: z.string(),
+    Endereco: z.string(),
+
 })
 
 export const EmpresaId = z.object({

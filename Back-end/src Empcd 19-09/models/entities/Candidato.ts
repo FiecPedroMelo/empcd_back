@@ -24,6 +24,9 @@ class Candidato{
     Endereco: string
 
     @Column()
+    Cep: string
+
+    @Column()
     Formacao: string
 
     @Column()
