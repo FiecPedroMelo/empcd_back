@@ -1,5 +1,6 @@
 import Base64 from "crypto-js/enc-base64";
 import sha256 from "crypto-js/sha256";
+import hmacSHA512 from "crypto-js/hmac-sha512";
 import { v4 } from "uuid";
 import logger from "../config/logger";
 import Empresa from "../models/entities/Empresa";
@@ -36,7 +37,7 @@ class EmpresaLoginService {
         try{
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
-            const privateKey = "FIEC2023"
+            const privateKey = "Empcd"
             const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey ))
             logger.debug("HashDepois: ",hashDigest)
             const foundEmpresa = await EmpresaRepository.findOneBy({Email, Senha: hmacDigest});
@@ -70,7 +71,7 @@ class EmpresaLoginService {
             newEmpresa.ImagemEmpresa = ImagemEmpresa
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
-            const privateKey = "FIEC2023"
+            const privateKey = "Empcd"
             const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey));
             logger.debug("HashDepos: ",hashDigest)
             newEmpresa.Senha = hmacDigest;
@@ -110,7 +111,3 @@ class EmpresaLoginService {
 }
 
 export default EmpresaLoginService
-
-function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
-    throw new Error("Function not implemented.");
-}

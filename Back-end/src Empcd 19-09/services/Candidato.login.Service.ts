@@ -1,5 +1,6 @@
 import Base64 from "crypto-js/enc-base64";
 import sha256 from "crypto-js/sha256";
+import hmacSHA512 from "crypto-js/hmac-sha512";
 import { v4 } from "uuid";
 import logger from "../config/logger";
 import Candidato from "../models/entities/Candidato";
@@ -40,9 +41,8 @@ class CandidatoLoginService {
         try{
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
-            const privateKey = "FIEC2023"
+            const privateKey = "Empcd"
             const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
-            console.log(hmacDigest, hashDigest)
             logger.debug("HashDepois: ",hashDigest)
             const foundCandidato = await CandidatoRepository.findOneBy({Email, Senha: hmacDigest});
             if (foundCandidato) {
@@ -79,7 +79,7 @@ class CandidatoLoginService {
             newCandidato.ImagemCandidato = ImagemCandidato;
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
-            const privateKey = "FIEC2023"
+            const privateKey = "Empcd"
             const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey));
             logger.debug("HashDepos: ",hashDigest)
             newCandidato.Senha = hmacDigest;
@@ -120,7 +120,3 @@ class CandidatoLoginService {
 }
 
 export default CandidatoLoginService
-
-function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
-    throw new Error("Function not implemented.");
-}

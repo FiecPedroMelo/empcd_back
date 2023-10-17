@@ -37,6 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const enc_base64_1 = __importDefault(require("crypto-js/enc-base64"));
 const sha256_1 = __importDefault(require("crypto-js/sha256"));
+const hmac_sha512_1 = __importDefault(require("crypto-js/hmac-sha512"));
 const uuid_1 = require("uuid");
 const logger_1 = __importDefault(require("../config/logger"));
 const Empresa_1 = __importDefault(require("../models/entities/Empresa"));
@@ -61,7 +62,7 @@ class EmpresaLoginService {
         const hashDigest = (0, sha256_1.default)(Senha);
         logger_1.default.debug("HashAntes: ", hashDigest);
         const privateKey = "FIEC2023";
-        const hmacDigest = enc_base64_1.default.stringify(hmacSHA512(hashDigest, privateKey));
+        const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
         logger_1.default.debug("HashDepois: ", hashDigest);
         newEmpresa.Senha = hmacDigest;
         return newEmpresa;
@@ -71,8 +72,8 @@ class EmpresaLoginService {
             try {
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
-                const privateKey = "FIEC2023";
-                const hmacDigest = enc_base64_1.default.stringify(hmacSHA512(hashDigest, privateKey));
+                const privateKey = "Empcd";
+                const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
                 logger_1.default.debug("HashDepois: ", hashDigest);
                 const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email, Senha: hmacDigest });
                 if (foundEmpresa) {
@@ -106,8 +107,8 @@ class EmpresaLoginService {
                     newEmpresa.ImagemEmpresa = ImagemEmpresa;
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
-                const privateKey = "FIEC2023";
-                const hmacDigest = enc_base64_1.default.stringify(hmacSHA512(hashDigest, privateKey));
+                const privateKey = "Empcd";
+                const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
                 logger_1.default.debug("HashDepos: ", hashDigest);
                 newEmpresa.Senha = hmacDigest;
                 yield Empresa_repositories_1.default.save(newEmpresa);
@@ -149,6 +150,3 @@ class EmpresaLoginService {
     }
 }
 exports.default = EmpresaLoginService;
-function hmacSHA512(hashDigest, privateKey) {
-    throw new Error("Function not implemented.");
-}
