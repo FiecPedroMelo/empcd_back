@@ -28,11 +28,14 @@ class EmpresaServices {
             try {
                 const empresa = new Empresa_1.default();
                 empresa.IdEmpresa = (0, uuid_1.v4)();
+                empresa.CNPJ = valid.CNPJ;
                 empresa.RazaoSocial = valid.RazaoSocial;
                 empresa.NomeFantasia = valid.NomeFantasia;
                 empresa.Email = valid.Email;
-                empresa.Site = valid.Site;
                 empresa.Senha = valid.Senha;
+                empresa.Cep = valid.Cep;
+                empresa.Endereco = valid.Endereco;
+                empresa.ImagemEmpresa = valid.ImagemEmpresa;
                 console.log(empresa);
                 return yield Empresa_repositories_1.default.save(empresa);
             }
@@ -75,11 +78,14 @@ class EmpresaServices {
                 if (!data) {
                     return Promise.reject('Could not find IdEmpresa');
                 }
+                data.CNPJ = valid.CNPJ;
                 data.RazaoSocial = valid.RazaoSocial;
                 data.NomeFantasia = valid.NomeFantasia;
                 data.Email = valid.Email;
-                data.Site = valid.Site;
                 data.Senha = valid.Senha;
+                data.Cep = valid.Cep;
+                data.Endereco = valid.Endereco;
+                data.ImagemEmpresa = valid.ImagemEmpresa;
                 return yield Empresa_repositories_1.default.save(data);
             }
             catch (err) {

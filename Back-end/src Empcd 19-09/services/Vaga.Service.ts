@@ -61,18 +61,23 @@ class VagaServices{
     }
 
     public async candidataVaga(IdVaga: string, IdCand: string): Promise<Vaga> {
+        console.log(IdVaga, IdCand)
         try {
             const vaga = await VagaRepository.findOneBy({IdVaga})
+            console.log(vaga)
             const candidato = await CandidatoRepository.findOneBy({IdCand})
+            console.log(candidato)
             if(!vaga) {
                 return Promise.reject(new Error('Could not find Vaga'));
             }
             if(!candidato) {
                 return Promise.reject(new Error('Could not find Candidato'));
             }
+            if (!vaga.candidatos) vaga.candidatos = []
             vaga?.candidatos.push(candidato)
             return await VagaRepository.save(vaga)
         } catch(err) {
+            console.log(err);
             return Promise.reject(new Error('Unable to update Vaga'));
         }
     }

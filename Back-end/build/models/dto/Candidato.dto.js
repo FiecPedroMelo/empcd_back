@@ -12,7 +12,10 @@ exports.CandidatoSchema = zod_1.z.object({
     Formacao: zod_1.z.string(),
     ExpProfissional: zod_1.z.string(),
     Senha: zod_1.z.string(),
-    Deficiencia: zod_1.z.string()
+    Deficiencia: zod_1.z.string(),
+    Cep: zod_1.z.string(),
+    ImagemCandidato: zod_1.z.string(),
+    Habilidades: zod_1.z.string()
 });
 exports.VagaId = zod_1.z.object({
     IdCand: zod_1.z.string().min(6)

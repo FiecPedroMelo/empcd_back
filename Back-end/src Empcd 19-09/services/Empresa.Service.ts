@@ -24,6 +24,7 @@ class EmpresaServices {
             empresa.Senha = valid.Senha
             empresa.Cep = valid.Cep
             empresa.Endereco = valid.Endereco
+            empresa.ImagemEmpresa = valid.ImagemEmpresa
             console.log(empresa)
 
             return await EmpresaRepository.save(empresa)
@@ -67,12 +68,15 @@ class EmpresaServices {
             data.Senha = valid.Senha
             data.Cep = valid.Cep
             data.Endereco = valid.Endereco
+            data.ImagemEmpresa = valid.ImagemEmpresa
 
             return await EmpresaRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Empresa'));
         }
     }
+
+    
 }
 
 export default EmpresaServices;

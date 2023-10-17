@@ -1,7 +1,5 @@
 import { Response, Request} from 'express';
 import CandidatoServices from '../services/Candidato.Service';
-import CandidatoLoginService from '../services/Candidato.login.Service';
-import Candidato from '../models/entities/Candidato';
 
 class CandidatoController{
 
@@ -62,6 +60,8 @@ class CandidatoController{
             res.status(500).send(err)
         }
     }
+
+    
 }
 
 export default CandidatoController

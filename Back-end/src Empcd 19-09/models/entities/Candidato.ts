@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn} from "typeorm"
+import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable} from "typeorm"
+import Vaga from "./Vaga"
 
 @Entity()
 class Candidato{
@@ -33,10 +34,21 @@ class Candidato{
     ExpProfissional: string
 
     @Column()
+    Habilidades: string
+
+    @Column()
     Senha: string
 
     @Column()
     Deficiencia: string
+
+    @Column({nullable: true})
+    ImagemCandidato: string
+
+    @ManyToMany(() => Vaga, )
+    @JoinTable()
+    vaga: Vaga[]
+
     static body: any
 }
 

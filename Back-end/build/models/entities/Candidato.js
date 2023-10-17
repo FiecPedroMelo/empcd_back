@@ -8,8 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Vaga_1 = __importDefault(require("./Vaga"));
 let Candidato = class Candidato {
 };
 __decorate([
@@ -43,6 +47,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Candidato.prototype, "Cep", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Candidato.prototype, "Formacao", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -51,11 +59,24 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Candidato.prototype, "Habilidades", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Candidato.prototype, "Senha", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Candidato.prototype, "Deficiencia", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Candidato.prototype, "ImagemCandidato", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => Vaga_1.default),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Candidato.prototype, "vaga", void 0);
 Candidato = __decorate([
     (0, typeorm_1.Entity)()
 ], Candidato);

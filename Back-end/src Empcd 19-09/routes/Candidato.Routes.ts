@@ -2,17 +2,19 @@ import { Router } from "express";
 import CandidatoController from "../controllers/Candidato.controllers";
 import CandidatoLoginController from "../controllers/Candidato.login.controller";
 import VagaController from "../controllers/Vaga.controllers";
+import { upload } from "../config/multer-config";
 
-const Candidatorouter = Router();
+const CandidatoRouter = Router();
 
-Candidatorouter.post('/login', new CandidatoLoginController().loginCandidato); //ok?
-Candidatorouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok
-// Candidatorouter.post('/batch-sign-up', new CandidatoLoginController().signUpCandidatosInBatch); tempo perdido
-Candidatorouter.post("/", new CandidatoController().createCandidato); //ok
-Candidatorouter.get("/", new CandidatoController().getAll); //ok
-Candidatorouter.get("/:idCand", new CandidatoController().getCandidatoId); //ok
-Candidatorouter.delete("/:idCand", new CandidatoController().deleteCandidato); //ok
-Candidatorouter.put('/:idCand', new CandidatoController().updateCandidato); //ok
-Candidatorouter.put('/:idCand/vaga/:idVaga', new VagaController().candidataVaga); //rever
+CandidatoRouter.post('/login', new CandidatoLoginController().loginCandidato); //ok
+CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok
+CandidatoRouter.post("/", new CandidatoController().createCandidato); //ok
+CandidatoRouter.get("/", new CandidatoController().getAll); //ok
+CandidatoRouter.get("/:idCand", new CandidatoController().getCandidatoId); //ok
+CandidatoRouter.delete("/:idCand", new CandidatoController().deleteCandidato); //ok
+CandidatoRouter.put('/:idCand', new CandidatoController().updateCandidato); //ok
+CandidatoRouter.put('/:idCand/vaga/:idVaga', new VagaController().candidataVaga); //ok
+CandidatoRouter.put('/update-image', upload.single('image'), new CandidatoLoginController().updateCandidatoImage) //ver
 
-export default Candidatorouter;
+
+export default CandidatoRouter;

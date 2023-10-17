@@ -2,7 +2,6 @@ import Base64 from "crypto-js/enc-base64";
 import sha256 from "crypto-js/sha256";
 import { v4 } from "uuid";
 import logger from "../config/logger";
-import { CandidatoDto } from "../models/dto/Candidato.dto";
 import Candidato from "../models/entities/Candidato";
 import CandidatoRepository from "../models/repositories/Candidato.repositories";
 import { Request } from "express";
@@ -10,9 +9,10 @@ import csvParser from "csv-parser";
 import fs from "fs";
 import * as jwt from 'jsonwebtoken';
 import { SECRET } from "../constants";
+import Jimp from "jimp";
 
 class CandidatoLoginService {
-    getCandidatoFromData(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string) : Candidato{
+    getCandidatoFromData(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string, Habilidades:string, ImagemCandidato:string) : Candidato{
         const newCandidato = new Candidato();
         newCandidato.IdCand = v4();
         newCandidato.Email = Email;
@@ -25,6 +25,8 @@ class CandidatoLoginService {
         newCandidato.ExpProfissional = ExpProfissional;
         newCandidato.Deficiencia = Deficiencia;
         newCandidato.Cep = Cep;
+        newCandidato.Habilidades = Habilidades;
+        newCandidato.ImagemCandidato = ImagemCandidato;
         const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "FIEC2023"
@@ -53,12 +55,12 @@ class CandidatoLoginService {
             }
 
         } catch (err) {
-            return 'Candidato not found' + err;
+            return 'Candidato not found ' + err;
         }
         
     }
 
-    async signUpCandidato(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string) {
+    async signUpCandidato(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string, Habilidades:string, ImagemCandidato:string) {
         try{
             const newCandidato = new Candidato();
             newCandidato.IdCand = v4();
@@ -72,6 +74,8 @@ class CandidatoLoginService {
             newCandidato.ExpProfissional = ExpProfissional;
             newCandidato.Deficiencia = Deficiencia;
             newCandidato.Cep = Cep;
+            newCandidato.Habilidades = Habilidades;
+            newCandidato.ImagemCandidato = ImagemCandidato;
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "FIEC2023"
@@ -92,11 +96,23 @@ class CandidatoLoginService {
         if(file != null) {
             fs.createReadStream(file.path)
                 .pipe(csvParser())
-                .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.Senha, data.Telefone, data.CPF, data.DataNasc, data.Endereco, data.Formacao, data.ExpProfissional, data.Deficiencia, data.Cep)))
+                .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.Senha, data.Telefone, data.CPF, data.DataNasc, data.Endereco, data.Formacao, data.ExpProfissional, data.Deficiencia, data.Cep, data.Habilidades, data.ImagemCandidato)))
                 .on('end', () => {
                     console.log(Candidatos);
                     CandidatoRepository.insert(Candidatos);
             });
+        }
+    }
+    async updateCandidatoImage(req: Request){
+        const file = req.file;
+        const {id} = (req as any).authUser;
+        const foundCandidato = await CandidatoRepository.findOneBy({IdCand: id});
+        if(file != null && foundCandidato != null){
+            const image = await Jimp.read(file.path);
+            await image.resize(600,600);
+            await image.writeAsync('uploads/' + file.originalname);
+            foundCandidato.ImagemCandidato = file.originalname;
+            await CandidatoRepository.save(foundCandidato)
         }
     }
 }

@@ -25,6 +25,9 @@ class Empresa{
 
     @Column()
     Endereco: string;
+
+    @Column({nullable: true})
+    ImagemEmpresa: string;
 }
 
 export default Empresa;

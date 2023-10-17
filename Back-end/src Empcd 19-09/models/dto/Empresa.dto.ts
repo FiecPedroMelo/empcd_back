@@ -9,6 +9,7 @@ export interface EmpresaDto {
     Senha: string;
     Cep: string;
     Endereco: string;
+    ImagemEmpresa: string;
 }
 
 export const EmpresaSchema = z.object({
@@ -19,7 +20,7 @@ export const EmpresaSchema = z.object({
     Senha: z.string(),
     Cep: z.string(),
     Endereco: z.string(),
-
+    ImagemEmpresa: z.string()
 })
 
 export const EmpresaId = z.object({

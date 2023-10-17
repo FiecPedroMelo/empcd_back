@@ -77,19 +77,25 @@ class VagaServices {
     }
     candidataVaga(IdVaga, IdCand) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(IdVaga, IdCand);
             try {
                 const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
+                console.log(vaga);
                 const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand });
+                console.log(candidato);
                 if (!vaga) {
                     return Promise.reject(new Error('Could not find Vaga'));
                 }
                 if (!candidato) {
                     return Promise.reject(new Error('Could not find Candidato'));
                 }
+                if (!vaga.candidatos)
+                    vaga.candidatos = [];
                 vaga === null || vaga === void 0 ? void 0 : vaga.candidatos.push(candidato);
                 return yield Vaga_repositories_1.default.save(vaga);
             }
             catch (err) {
+                console.log(err);
                 return Promise.reject(new Error('Unable to update Vaga'));
             }
         });

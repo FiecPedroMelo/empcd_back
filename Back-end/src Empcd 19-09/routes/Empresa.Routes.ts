@@ -1,15 +1,18 @@
 import { Router } from "express";
 import EmpresaController from "../controllers/Empresa.controllers";
 import VagaController from "../controllers/Vaga.controllers";
+import EmpresaLoginController from "../controllers/Empresa.login.Controllers";
+import { upload } from "../config/multer-config";
 
-const Empresarouter = Router();
+const EmpresaRouter = Router();
 
-Empresarouter.post("/", new EmpresaController().createEmpresa); //ok
-Empresarouter.get("/", new EmpresaController().getAll); //ok
-Empresarouter.get("/:idEmpresa", new EmpresaController().getEmpresaId); //ok
-Empresarouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //ok
-Empresarouter.put('/:idEmpresa', new EmpresaController().updateEmpresa); //ok
-Empresarouter.post("/:idEmpresa/vaga/", new VagaController().createVaga); //ok
-Empresarouter.put("/vaga/:idVaga", new VagaController().updateVaga); //ok
+EmpresaRouter.post("/", new EmpresaController().createEmpresa); //ok
+EmpresaRouter.get("/", new EmpresaController().getAll); //ok
+EmpresaRouter.get("/:idEmpresa", new EmpresaController().getEmpresaId); //ok
+EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //ok
+EmpresaRouter.put('/:idEmpresa', new EmpresaController().updateEmpresa); //ok
+EmpresaRouter.post("/:idEmpresa/vaga/", new VagaController().createVaga); //ok
+EmpresaRouter.put("/vaga/:idVaga", new VagaController().updateVaga); //ok
+EmpresaRouter.put('/update-image', upload.single('image'), new EmpresaLoginController().updateEmpresaImage) //ver
 
-export default Empresarouter;
+export default EmpresaRouter;

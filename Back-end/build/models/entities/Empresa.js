@@ -19,6 +19,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Empresa.prototype, "CNPJ", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Empresa.prototype, "RazaoSocial", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -31,11 +35,19 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Empresa.prototype, "Site", void 0);
+], Empresa.prototype, "Senha", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Empresa.prototype, "Senha", void 0);
+], Empresa.prototype, "Cep", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Empresa.prototype, "Endereco", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Empresa.prototype, "ImagemEmpresa", void 0);
 Empresa = __decorate([
     (0, typeorm_1.Entity)()
 ], Empresa);

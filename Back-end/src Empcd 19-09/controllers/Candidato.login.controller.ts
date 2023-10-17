@@ -1,6 +1,4 @@
 import { Response, Request} from 'express';
-import CandidatoServices from '../services/Candidato.Service';
-import Candidato from '../models/entities/Candidato';
 import CandidatoLoginService from '../services/Candidato.login.Service';
 
 class CandidatoLoginController {
@@ -15,9 +13,9 @@ class CandidatoLoginController {
     }
 
     async signUpCandidato(req: Request, res: Response){
-        const {NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep} = req.body;
+        const {NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato} = req.body;
         try {
-            await new CandidatoLoginService().signUpCandidato(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep);
+            await new CandidatoLoginService().signUpCandidato(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato);
             res.json('Bem criado!');
         } catch (err) {
             console.log(err);
@@ -33,6 +31,12 @@ class CandidatoLoginController {
         }
         const savedCandidato = await new CandidatoLoginService().signUpCandidatosInBatch(req);
         res.json(`request saved with successful ${JSON.stringify(savedCandidato)}`);
+    }
+
+    async updateCandidatoImage(req:Request, res:Response) {
+        console.log(req.file);
+        await new CandidatoLoginService().updateCandidatoImage(req);
+        res.json('files');
     }
 }
 

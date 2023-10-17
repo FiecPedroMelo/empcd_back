@@ -52,7 +52,7 @@ class VagaController {
 
     public async candidataVaga(req: Request, res: Response) {
         try{
-            const idVaga = req.params.id
+            const idVaga = req.params.idVaga
             const idCand = req.params.idCand
             await VagaServices.Instance().candidataVaga(idVaga, idCand)
             res.json({Mensagem: "Vaga already updated"})

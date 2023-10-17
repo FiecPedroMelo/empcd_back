@@ -1,15 +1,9 @@
-import Base64 from "crypto-js/enc-base64";
-import sha256 from "crypto-js/sha256";
 import { v4 } from "uuid";
-import logger from "../config/logger";
 import { CandidatoDto } from "../models/dto/Candidato.dto";
 import Candidato from "../models/entities/Candidato";
 import CandidatoRepository from "../models/repositories/Candidato.repositories";
 import { Request } from "express";
-import csvParser from "csv-parser";
-import fs from "fs";
-import * as jwt from 'jsonwebtoken';
-import { SECRET } from "../constants";
+import Jimp from "jimp";
 
 class CandidatoServices {
     private static instance: CandidatoServices
@@ -38,6 +32,8 @@ class CandidatoServices {
             candidato.Senha = valid.Senha
             candidato.Deficiencia = valid.Deficiencia
             candidato.Cep = valid.Cep
+            candidato.Habilidades = valid.Habilidades
+            candidato.ImagemCandidato = valid.ImagemCandidato
             console.log(candidato)
 
             return await CandidatoRepository.save(candidato)
@@ -85,7 +81,8 @@ class CandidatoServices {
             data.Senha = valid.Senha
             data.Deficiencia = valid.Deficiencia
             data.Cep = valid.Cep
-
+            data.Habilidades = valid.Habilidades
+            data.ImagemCandidato = valid.ImagemCandidato
             return await CandidatoRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Candidato'))

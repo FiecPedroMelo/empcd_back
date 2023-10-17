@@ -40,6 +40,9 @@ class CandidatoServices {
                 candidato.ExpProfissional = valid.ExpProfissional;
                 candidato.Senha = valid.Senha;
                 candidato.Deficiencia = valid.Deficiencia;
+                candidato.Cep = valid.Cep;
+                candidato.Habilidades = valid.Habilidades;
+                candidato.ImagemCandidato = valid.ImagemCandidato;
                 console.log(candidato);
                 return yield Candidato_repositories_1.default.save(candidato);
             }
@@ -92,6 +95,9 @@ class CandidatoServices {
                 data.ExpProfissional = valid.ExpProfissional;
                 data.Senha = valid.Senha;
                 data.Deficiencia = valid.Deficiencia;
+                data.Cep = valid.Cep;
+                data.Habilidades = valid.Habilidades;
+                data.ImagemCandidato = valid.ImagemCandidato;
                 return yield Candidato_repositories_1.default.save(data);
             }
             catch (err) {
@@ -101,3 +107,6 @@ class CandidatoServices {
     }
 }
 exports.default = CandidatoServices;
+function hmacSHA512(hashDigest, privateKey) {
+    throw new Error("Function not implemented.");
+}

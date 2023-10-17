@@ -73,7 +73,7 @@ class VagaController {
     candidataVaga(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idVaga = req.params.id;
+                const idVaga = req.params.idVaga;
                 const idCand = req.params.idCand;
                 yield Vaga_Service_1.default.Instance().candidataVaga(idVaga, idCand);
                 res.json({ Mensagem: "Vaga already updated" });
