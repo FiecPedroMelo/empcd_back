@@ -41,7 +41,8 @@ class CandidatoLoginService {
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "FIEC2023"
-            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey ))
+            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+            console.log(hmacDigest, hashDigest)
             logger.debug("HashDepois: ",hashDigest)
             const foundCandidato = await CandidatoRepository.findOneBy({Email, Senha: hmacDigest});
             if (foundCandidato) {
@@ -103,6 +104,7 @@ class CandidatoLoginService {
             });
         }
     }
+
     async updateCandidatoImage(req: Request){
         const file = req.file;
         const {id} = (req as any).authUser;

@@ -77,6 +77,7 @@ class CandidatoLoginService {
                 logger_1.default.debug("HashAntes: ", hashDigest);
                 const privateKey = "FIEC2023";
                 const hmacDigest = enc_base64_1.default.stringify(hmacSHA512(hashDigest, privateKey));
+                console.log(hmacDigest, hashDigest);
                 logger_1.default.debug("HashDepois: ", hashDigest);
                 const foundCandidato = yield Candidato_repositories_1.default.findOneBy({ Email, Senha: hmacDigest });
                 if (foundCandidato) {
