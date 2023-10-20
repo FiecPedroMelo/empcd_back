@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import Vaga from "../entities/Vaga";
+import Vaga from "../entities/Vagas";
 
 const vagaRepository = AppDataSource.getRepository(Vaga);
 

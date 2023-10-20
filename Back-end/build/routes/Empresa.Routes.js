@@ -9,6 +9,8 @@ const Vaga_controllers_1 = __importDefault(require("../controllers/Vaga.controll
 const Empresa_login_Controllers_1 = __importDefault(require("../controllers/Empresa.login.Controllers"));
 const multer_config_1 = require("../config/multer-config");
 const EmpresaRouter = (0, express_1.Router)();
+EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa); //ok
+EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa); //ok
 EmpresaRouter.post("/", new Empresa_controllers_1.default().createEmpresa); //ok
 EmpresaRouter.get("/", new Empresa_controllers_1.default().getAll); //ok
 EmpresaRouter.get("/:idEmpresa", new Empresa_controllers_1.default().getEmpresaId); //ok

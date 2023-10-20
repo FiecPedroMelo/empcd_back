@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable 
 import Candidato from "./Candidato";
 
 @Entity()
-export class Vaga{
+export class Vagas{
     @PrimaryColumn()
     IdVaga: string
 
@@ -29,4 +29,4 @@ export class Vaga{
     candidatos: Candidato[]
 }
 
-export default Vaga;
+export default Vagas;

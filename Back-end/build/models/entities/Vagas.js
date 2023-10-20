@@ -12,72 +12,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Vagas = void 0;
 const typeorm_1 = require("typeorm");
-const Vagas_1 = __importDefault(require("./Vagas"));
-let Candidato = class Candidato {
+const Candidato_1 = __importDefault(require("./Candidato"));
+let Vagas = exports.Vagas = class Vagas {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
-], Candidato.prototype, "IdCand", void 0);
+], Vagas.prototype, "IdVaga", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "NomeCompleto", void 0);
+], Vagas.prototype, "IdEmpresa", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Email", void 0);
+], Vagas.prototype, "TituloVaga", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Telefone", void 0);
+], Vagas.prototype, "Local", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "CPF", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'date' }),
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" }),
     __metadata("design:type", Date)
-], Candidato.prototype, "DataNasc", void 0);
+], Vagas.prototype, "DataPostagem", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Candidato.prototype, "Endereco", void 0);
+], Vagas.prototype, "Requisitos", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Cep", void 0);
+    __metadata("design:type", Date)
+], Vagas.prototype, "DataFinal", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Formacao", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "ExpProfissional", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Habilidades", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Senha", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Candidato.prototype, "Deficiencia", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Candidato.prototype, "ImagemCandidato", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => Vagas_1.default),
+    (0, typeorm_1.ManyToMany)(() => Candidato_1.default),
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
-], Candidato.prototype, "vaga", void 0);
-Candidato = __decorate([
+], Vagas.prototype, "candidatos", void 0);
+exports.Vagas = Vagas = __decorate([
     (0, typeorm_1.Entity)()
-], Candidato);
-exports.default = Candidato;
+], Vagas);
+exports.default = Vagas;

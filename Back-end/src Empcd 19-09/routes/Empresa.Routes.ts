@@ -6,6 +6,8 @@ import { upload } from "../config/multer-config";
 
 const EmpresaRouter = Router();
 
+EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa);//ok
+EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa);//ok
 EmpresaRouter.post("/", new EmpresaController().createEmpresa); //ok
 EmpresaRouter.get("/", new EmpresaController().getAll); //ok
 EmpresaRouter.get("/:idEmpresa", new EmpresaController().getEmpresaId); //ok

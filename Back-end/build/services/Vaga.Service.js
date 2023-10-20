@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
-const Vaga_1 = __importDefault(require("../models/entities/Vaga"));
+const Vagas_1 = __importDefault(require("../models/entities/Vagas"));
 const Candidato_repositories_1 = __importDefault(require("../models/repositories/Candidato.repositories"));
 const Vaga_repositories_1 = __importDefault(require("../models/repositories/Vaga.repositories"));
 class VagaServices {
@@ -27,7 +27,7 @@ class VagaServices {
     createVaga(valid) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const vaga = new Vaga_1.default();
+                const vaga = new Vagas_1.default();
                 vaga.IdVaga = (0, uuid_1.v4)();
                 vaga.IdEmpresa = valid.IdEmpresa;
                 vaga.TituloVaga = valid.TituloVaga;

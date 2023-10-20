@@ -5,10 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
-const User_1 = __importDefault(require("./models/entities/User"));
 const Candidato_1 = __importDefault(require("./models/entities/Candidato"));
 const Empresa_1 = __importDefault(require("./models/entities/Empresa"));
-const Vaga_1 = __importDefault(require("./models/entities/Vaga"));
+const Vagas_1 = require("./models/entities/Vagas");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
@@ -18,7 +17,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: "empcd",
     synchronize: true,
     logging: true,
-    entities: [User_1.default, Candidato_1.default, Empresa_1.default, Vaga_1.default],
+    entities: [Candidato_1.default, Empresa_1.default, Vagas_1.Vagas],
     subscribers: [],
     migrations: []
 });

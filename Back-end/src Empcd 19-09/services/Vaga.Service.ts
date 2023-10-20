@@ -1,7 +1,7 @@
 import { v4 } from "uuid"
 import { CandidatoDto } from "../models/dto/Candidato.dto"
 import { VagaDto } from "../models/dto/Vaga.dto"
-import Vaga from "../models/entities/Vaga"
+import Vaga from "../models/entities/Vagas"
 import CandidatoRepository from "../models/repositories/Candidato.repositories"
 import VagaRepository from "../models/repositories/Vaga.repositories"
 
@@ -75,6 +75,7 @@ class VagaServices{
             }
             if (!vaga.candidatos) vaga.candidatos = []
             vaga?.candidatos.push(candidato)
+            
             return await VagaRepository.save(vaga)
         } catch(err) {
             console.log(err);
