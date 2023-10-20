@@ -8,13 +8,14 @@ const CandidatoRouter = Router();
 
 CandidatoRouter.post('/login', new CandidatoLoginController().loginCandidato); //ok
 CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok
+CandidatoRouter.put('/update-image', upload.single('image'), new CandidatoLoginController().updateCandidatoImage) //ver
 CandidatoRouter.post("/", new CandidatoController().createCandidato); //ok
 CandidatoRouter.get("/", new CandidatoController().getAll); //ok
 CandidatoRouter.get("/:idCand", new CandidatoController().getCandidatoId); //ok
 CandidatoRouter.delete("/:idCand", new CandidatoController().deleteCandidato); //ok
 CandidatoRouter.put('/:idCand', new CandidatoController().updateCandidato); //ok
 CandidatoRouter.put('/:idCand/vaga/:idVaga', new VagaController().candidataVaga); //ok
-CandidatoRouter.put('/update-image', upload.single('image'), new CandidatoLoginController().updateCandidatoImage) //ver
+
 
 
 export default CandidatoRouter;
