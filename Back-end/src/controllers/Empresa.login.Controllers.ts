@@ -13,9 +13,9 @@ class EmpresaLoginController {
     }
 
     async signUpEmpresa(req: Request, res: Response){
-        const {CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa} = req.body;
+        const {RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa} = req.body;
         try {
-            await new EmpresaLoginService().signUpEmpresa(CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa);
+            await new EmpresaLoginService().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa);
             res.json('Bem criado!');
         } catch (err) {
             console.log(err);

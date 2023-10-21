@@ -1,8 +1,8 @@
 {
-        "IdVaga": "06316ad7-7b1d-499d-b278-2e9d1f793f95",
-        "IdEmpresa": "cdb50e24-8396-46d5-a0e7-c00ad5e6b95f",
-        "TituloVaga": "Cozinheiro",
-        "Local": "Campinas",
-        "Requisitos": "Ensino Médio",
-        "DataFinal": "2023-10-19T03:00:00.000Z"
+        "IdEmpresa": "3970e2de-177c-45bb-9115-f0adc7597a5d",
+        "TituloVaga": "Gerente",
+        "Local": "Rio de Janeiro",
+        "DataPostagem": "2023-10-20T19:45:00.000Z",
+        "Requisitos": "Ensino Superior",
+        "DataFinal": "2023-10-31T00:00:00.000Z"
 }

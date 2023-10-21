@@ -46,7 +46,6 @@ function validator(req, res, next) {
         try {
             const token = yield jwt.verify(bearerToken || '', constants_1.SECRET);
             req.authUser = { id: token.id };
-            console.log(req.headers.authUser);
             if (token) {
                 next();
                 return;

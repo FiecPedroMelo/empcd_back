@@ -13,19 +13,21 @@ import { SECRET } from "../constants";
 import Jimp from "jimp";
 
 class CandidatoLoginService {
-    getCandidatoFromData(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string, Habilidades:string, ImagemCandidato:string) : Candidato{
+    getCandidatoFromData(NomeCompleto: string, Email:string, CPF:string, Telefone:string, Senha: string, Genero: string, Deficiencia: string, DataNasc:Date, Estado:string, Cidade:string, Bairro: string, Formacao:string, ExpAnteriores:string, Habilidades:string, ImagemCandidato:string) : Candidato{
         const newCandidato = new Candidato();
         newCandidato.IdCand = v4();
-        newCandidato.Email = Email;
         newCandidato.NomeCompleto = NomeCompleto;
-        newCandidato.Telefone = Telefone;
+        newCandidato.Email = Email;
         newCandidato.CPF = CPF;
-        newCandidato.DataNasc = DataNasc;
-        newCandidato.Endereco = Endereco;
-        newCandidato.Formacao = Formacao;
-        newCandidato.ExpProfissional = ExpProfissional;
+        newCandidato.Telefone = Telefone;
+        newCandidato.Genero = Genero;
         newCandidato.Deficiencia = Deficiencia;
-        newCandidato.Cep = Cep;
+        newCandidato.DataNasc = DataNasc;
+        newCandidato.Estado = Estado;
+        newCandidato.Cidade = Cidade;
+        newCandidato.Bairro = Bairro;
+        newCandidato.Formacao = Formacao;
+        newCandidato.ExpAnteriores = ExpAnteriores;
         newCandidato.Habilidades = Habilidades;
         newCandidato.ImagemCandidato = ImagemCandidato;
         const hashDigest = sha256(Senha);
@@ -61,20 +63,22 @@ class CandidatoLoginService {
         
     }
 
-    async signUpCandidato(NomeCompleto: string, Email:string, Senha: string, Telefone:string, CPF:string, DataNasc:Date, Endereco:string, Formacao:string, ExpProfissional:string, Deficiencia: string, Cep:string, Habilidades:string, ImagemCandidato:string) {
+    async signUpCandidato(NomeCompleto: string, Email:string, CPF:string, Telefone:string, Senha: string, Genero: string, Deficiencia: string, DataNasc:Date, Estado:string, Cidade:string, Bairro: string, Formacao:string, ExpAnteriores:string, Habilidades:string, ImagemCandidato:string) {
         try{
             const newCandidato = new Candidato();
             newCandidato.IdCand = v4();
-            newCandidato.Email = Email;
             newCandidato.NomeCompleto = NomeCompleto;
-            newCandidato.Telefone = Telefone;
+            newCandidato.Email = Email;
             newCandidato.CPF = CPF;
-            newCandidato.DataNasc = DataNasc;
-            newCandidato.Endereco = Endereco;
-            newCandidato.Formacao = Formacao;
-            newCandidato.ExpProfissional = ExpProfissional;
+            newCandidato.Telefone = Telefone;
+            newCandidato.Genero = Genero;
             newCandidato.Deficiencia = Deficiencia;
-            newCandidato.Cep = Cep;
+            newCandidato.DataNasc = DataNasc;
+            newCandidato.Estado = Estado;
+            newCandidato.Cidade = Cidade;
+            newCandidato.Bairro = Bairro;
+            newCandidato.Formacao = Formacao;
+            newCandidato.ExpAnteriores = ExpAnteriores;
             newCandidato.Habilidades = Habilidades;
             newCandidato.ImagemCandidato = ImagemCandidato;
             const hashDigest = sha256(Senha);
@@ -97,7 +101,7 @@ class CandidatoLoginService {
         if(file != null) {
             fs.createReadStream(file.path)
                 .pipe(csvParser())
-                .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.Senha, data.Telefone, data.CPF, data.DataNasc, data.Endereco, data.Formacao, data.ExpProfissional, data.Deficiencia, data.Cep, data.Habilidades, data.ImagemCandidato)))
+                .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.CPF, data.Telefone, data.Senha, data.Genero, data.Deficiencia, data.DataNasc, data.Estado, data.Cidade, data.Bairro, data.Formacao, data.ExpAnteriores, data.Habilidades, data.ImagemCandidato)))
                 .on('end', () => {
                     console.log(Candidatos);
                     CandidatoRepository.insert(Candidatos);

@@ -13,9 +13,9 @@ class CandidatoLoginController {
     }
 
     async signUpCandidato(req: Request, res: Response){
-        const {NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato} = req.body;
+        const {NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato} = req.body;
         try {
-            await new CandidatoLoginService().signUpCandidato(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato);
+            await new CandidatoLoginService().signUpCandidato(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato);
             res.json('Bem criado!');
         } catch (err) {
             console.log(err);

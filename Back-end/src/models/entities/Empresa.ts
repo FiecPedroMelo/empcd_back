@@ -6,9 +6,6 @@ class Empresa{
     IdEmpresa: string;
 
     @Column()
-    CNPJ: string;
-
-    @Column()
     RazaoSocial: string;
 
     @Column()
@@ -18,13 +15,22 @@ class Empresa{
     Email: string;
 
     @Column()
+    Site: string;
+
+    @Column()
     Senha: string;
 
     @Column()
-    Cep: string;
+    CNPJ: string;
 
     @Column()
-    Endereco: string;
+    Cidade: string;
+
+    @Column()
+    Bairro: string;
+
+    @Column()
+    UF: string;
 
     @Column({nullable: true})
     ImagemEmpresa: string;

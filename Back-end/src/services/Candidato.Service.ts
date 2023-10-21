@@ -21,17 +21,19 @@ class CandidatoServices {
             candidato.IdCand = v4()
             candidato.NomeCompleto = valid.NomeCompleto
             candidato.Email = valid.Email
-            candidato.Telefone = valid.Telefone
             let CPF = valid.CPF
             let novoCpf = CPF.substring(0, 2) + "." + CPF.substring(3, 5) + "." + CPF.substring(6, 8) + "-" + CPF.substring(9, CPF.length - 1)
             candidato.CPF = novoCpf
-            candidato.DataNasc = valid.DataNasc
-            candidato.Endereco = valid.Endereco
-            candidato.Formacao = valid.Formacao
-            candidato.ExpProfissional = valid.ExpProfissional
+            candidato.Telefone = valid.Telefone
             candidato.Senha = valid.Senha
+            candidato.Genero = valid.Genero
             candidato.Deficiencia = valid.Deficiencia
-            candidato.Cep = valid.Cep
+            candidato.DataNasc = valid.DataNasc
+            candidato.Estado = valid.Estado
+            candidato.Cidade = valid.Cidade
+            candidato.Bairro = valid.Bairro
+            candidato.Formacao = valid.Formacao
+            candidato.ExpAnteriores = valid.ExpAnteriores
             candidato.Habilidades = valid.Habilidades
             candidato.ImagemCandidato = valid.ImagemCandidato
             console.log(candidato)
@@ -70,19 +72,21 @@ class CandidatoServices {
             if (!data) {
                 return Promise.reject('Could not find IdCandidato')
             }
-            data.NomeCompleto = valid.NomeCompleto
-            data.Email = valid.Email
-            data.Telefone = valid.Telefone
-            data.CPF = valid.CPF
-            data.DataNasc = valid.DataNasc
-            data.Endereco = valid.Endereco
-            data.Formacao = valid.Formacao
-            data.ExpProfissional = valid.ExpProfissional
-            data.Senha = valid.Senha
-            data.Deficiencia = valid.Deficiencia
-            data.Cep = valid.Cep
-            data.Habilidades = valid.Habilidades
-            data.ImagemCandidato = valid.ImagemCandidato
+            data.NomeCompleto
+            data.Email
+            data.CPF
+            data.Telefone
+            data.Senha
+            data.Genero
+            data.Deficiencia
+            data.DataNasc
+            data.Estado
+            data.Cidade
+            data.Bairro
+            data.Formacao
+            data.ExpAnteriores
+            data.Habilidades
+            data.ImagemCandidato
             return await CandidatoRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Candidato'))

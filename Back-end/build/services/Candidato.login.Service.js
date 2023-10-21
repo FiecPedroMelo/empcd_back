@@ -48,19 +48,21 @@ const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
 const jimp_1 = __importDefault(require("jimp"));
 class CandidatoLoginService {
-    getCandidatoFromData(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato) {
+    getCandidatoFromData(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato) {
         const newCandidato = new Candidato_1.default();
         newCandidato.IdCand = (0, uuid_1.v4)();
-        newCandidato.Email = Email;
         newCandidato.NomeCompleto = NomeCompleto;
-        newCandidato.Telefone = Telefone;
+        newCandidato.Email = Email;
         newCandidato.CPF = CPF;
-        newCandidato.DataNasc = DataNasc;
-        newCandidato.Endereco = Endereco;
-        newCandidato.Formacao = Formacao;
-        newCandidato.ExpProfissional = ExpProfissional;
+        newCandidato.Telefone = Telefone;
+        newCandidato.Genero = Genero;
         newCandidato.Deficiencia = Deficiencia;
-        newCandidato.Cep = Cep;
+        newCandidato.DataNasc = DataNasc;
+        newCandidato.Estado = Estado;
+        newCandidato.Cidade = Cidade;
+        newCandidato.Bairro = Bairro;
+        newCandidato.Formacao = Formacao;
+        newCandidato.ExpAnteriores = ExpAnteriores;
         newCandidato.Habilidades = Habilidades;
         newCandidato.ImagemCandidato = ImagemCandidato;
         const hashDigest = (0, sha256_1.default)(Senha);
@@ -96,21 +98,23 @@ class CandidatoLoginService {
             }
         });
     }
-    signUpCandidato(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato) {
+    signUpCandidato(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const newCandidato = new Candidato_1.default();
                 newCandidato.IdCand = (0, uuid_1.v4)();
-                newCandidato.Email = Email;
                 newCandidato.NomeCompleto = NomeCompleto;
-                newCandidato.Telefone = Telefone;
+                newCandidato.Email = Email;
                 newCandidato.CPF = CPF;
-                newCandidato.DataNasc = DataNasc;
-                newCandidato.Endereco = Endereco;
-                newCandidato.Formacao = Formacao;
-                newCandidato.ExpProfissional = ExpProfissional;
+                newCandidato.Telefone = Telefone;
+                newCandidato.Genero = Genero;
                 newCandidato.Deficiencia = Deficiencia;
-                newCandidato.Cep = Cep;
+                newCandidato.DataNasc = DataNasc;
+                newCandidato.Estado = Estado;
+                newCandidato.Cidade = Cidade;
+                newCandidato.Bairro = Bairro;
+                newCandidato.Formacao = Formacao;
+                newCandidato.ExpAnteriores = ExpAnteriores;
                 newCandidato.Habilidades = Habilidades;
                 newCandidato.ImagemCandidato = ImagemCandidato;
                 const hashDigest = (0, sha256_1.default)(Senha);
@@ -134,7 +138,7 @@ class CandidatoLoginService {
             if (file != null) {
                 fs_1.default.createReadStream(file.path)
                     .pipe((0, csv_parser_1.default)())
-                    .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.Senha, data.Telefone, data.CPF, data.DataNasc, data.Endereco, data.Formacao, data.ExpProfissional, data.Deficiencia, data.Cep, data.Habilidades, data.ImagemCandidato)))
+                    .on('data', (data) => Candidatos.push(this.getCandidatoFromData(data.NomeCompleto, data.Email, data.CPF, data.Telefone, data.Senha, data.Genero, data.Deficiencia, data.DataNasc, data.Estado, data.Cidade, data.Bairro, data.Formacao, data.ExpAnteriores, data.Habilidades, data.ImagemCandidato)))
                     .on('end', () => {
                     console.log(Candidatos);
                     Candidato_repositories_1.default.insert(Candidatos);

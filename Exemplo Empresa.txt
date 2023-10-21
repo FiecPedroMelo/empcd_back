@@ -1,8 +1,8 @@
 {
-        "IdEmpresa": "cdb50e24-8396-46d5-a0e7-c00ad5e6b95f",
+        "CNPJ": "66.943.583/0001-00",
         "RazaoSocial": "SilFloresAcessórios",
         "NomeFantasia": "SilFlores",
         "Email": "silfloresacessorios@gmail.com",
-        "Site": "silflores.com.br",
+        "Cep": "03582-070",
         "Senha": "12345678"
 }

@@ -48,16 +48,17 @@ const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
 const jimp_1 = __importDefault(require("jimp"));
 class EmpresaLoginService {
-    getEmpresaFromData(CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa) {
+    getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa) {
         const newEmpresa = new Empresa_1.default();
         newEmpresa.IdEmpresa = (0, uuid_1.v4)();
-        newEmpresa.CNPJ = CNPJ,
+        newEmpresa.RazaoSocial = RazaoSocial,
             newEmpresa.NomeFantasia = NomeFantasia,
             newEmpresa.Email = Email,
-            newEmpresa.Senha = Senha,
-            newEmpresa.Endereco = Endereco,
-            newEmpresa.RazaoSocial = RazaoSocial,
-            newEmpresa.Cep = Cep,
+            newEmpresa.Site = Site,
+            newEmpresa.CNPJ = CNPJ,
+            newEmpresa.Cidade = Cidade,
+            newEmpresa.Bairro = Bairro,
+            newEmpresa.UF = UF,
             newEmpresa.ImagemEmpresa = ImagemEmpresa;
         const hashDigest = (0, sha256_1.default)(Senha);
         logger_1.default.debug("HashAntes: ", hashDigest);
@@ -92,18 +93,19 @@ class EmpresaLoginService {
             }
         });
     }
-    signUpEmpresa(CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa) {
+    signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const newEmpresa = new Empresa_1.default();
                 newEmpresa.IdEmpresa = (0, uuid_1.v4)();
-                newEmpresa.CNPJ = CNPJ,
+                newEmpresa.RazaoSocial = RazaoSocial,
                     newEmpresa.NomeFantasia = NomeFantasia,
                     newEmpresa.Email = Email,
-                    newEmpresa.Senha = Senha,
-                    newEmpresa.Endereco = Endereco,
-                    newEmpresa.RazaoSocial = RazaoSocial,
-                    newEmpresa.Cep = Cep,
+                    newEmpresa.Site = Site,
+                    newEmpresa.CNPJ = CNPJ,
+                    newEmpresa.Cidade = Cidade,
+                    newEmpresa.Bairro = Bairro,
+                    newEmpresa.UF = UF,
                     newEmpresa.ImagemEmpresa = ImagemEmpresa;
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
@@ -126,7 +128,7 @@ class EmpresaLoginService {
             if (file != null) {
                 fs_1.default.createReadStream(file.path)
                     .pipe((0, csv_parser_1.default)())
-                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.CNPJ, data.RazaoSocial, data.NomeFantasia, data.Email, data.Senha, data.Cep, data.Endereco, data.ImagemEmpresa)))
+                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF, data.ImagemEmpresa)))
                     .on('end', () => {
                     console.log(Empresas);
                     Empresa_repositories_1.default.insert(Empresas);

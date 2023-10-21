@@ -17,13 +17,15 @@ class EmpresaServices {
         try {
             const empresa = new Empresa()
             empresa.IdEmpresa = v4()
-            empresa.CNPJ = valid.CNPJ
             empresa.RazaoSocial = valid.RazaoSocial
             empresa.NomeFantasia = valid.NomeFantasia
             empresa.Email = valid.Email
+            empresa.Site = valid.Site
             empresa.Senha = valid.Senha
-            empresa.Cep = valid.Cep
-            empresa.Endereco = valid.Endereco
+            empresa.CNPJ = valid.CNPJ
+            empresa.Cidade = valid.Cidade
+            empresa.Bairro = valid.Bairro
+            empresa.UF = valid.UF
             empresa.ImagemEmpresa = valid.ImagemEmpresa
             console.log(empresa)
 
@@ -61,13 +63,15 @@ class EmpresaServices {
             if (!data) {
                 return Promise.reject('Could not find IdEmpresa')
             }
-            data.CNPJ = valid.CNPJ
             data.RazaoSocial = valid.RazaoSocial
             data.NomeFantasia = valid.NomeFantasia
             data.Email = valid.Email
+            data.Site = valid.Site
             data.Senha = valid.Senha
-            data.Cep = valid.Cep
-            data.Endereco = valid.Endereco
+            data.CNPJ = valid.CNPJ
+            data.Cidade = valid.Cidade
+            data.Bairro = valid.Bairro
+            data.UF = valid.UF
             data.ImagemEmpresa = valid.ImagemEmpresa
 
             return await EmpresaRepository.save(data)

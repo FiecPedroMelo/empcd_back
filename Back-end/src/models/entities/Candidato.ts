@@ -13,34 +13,40 @@ class Candidato{
     Email: string
 
     @Column()
-    Telefone: string
-
-    @Column()
     CPF: string
 
-    @Column({type: 'date'})
-    DataNasc: Date
-
     @Column()
-    Endereco: string
-
-    @Column()
-    Cep: string
-
-    @Column()
-    Formacao: string
-
-    @Column()
-    ExpProfissional: string
-
-    @Column()
-    Habilidades: string
+    Telefone: string
 
     @Column()
     Senha: string
 
     @Column()
+    Genero: string
+
+    @Column()
     Deficiencia: string
+
+    @Column({type: 'date'})
+    DataNasc: Date
+
+    @Column()
+    Estado: string
+
+    @Column()
+    Cidade: string
+
+    @Column()
+    Bairro: string
+
+    @Column()
+    Formacao: string
+
+    @Column()
+    ExpAnteriores: string
+
+    @Column()
+    Habilidades: string
 
     @Column({nullable: true})
     ImagemCandidato: string

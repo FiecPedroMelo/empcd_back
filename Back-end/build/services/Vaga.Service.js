@@ -30,11 +30,11 @@ class VagaServices {
                 const vaga = new Vagas_1.default();
                 vaga.IdVaga = (0, uuid_1.v4)();
                 vaga.IdEmpresa = valid.IdEmpresa;
-                vaga.TituloVaga = valid.TituloVaga;
-                vaga.Local = valid.Local;
+                vaga.TituloCargo = valid.TituloCargo;
+                vaga.Localizacao = valid.Localizacao;
                 vaga.DataPostagem = valid.DataPostagem;
                 vaga.Requisitos = valid.Requisitos;
-                vaga.DataFinal = valid.DataFinal;
+                vaga.Descricao = valid.Descricao;
                 return yield Vaga_repositories_1.default.save(vaga);
             }
             catch (err) {
@@ -49,11 +49,11 @@ class VagaServices {
                 if (!data) {
                     return Promise.reject(new Error('Could not find IdVaga'));
                 }
-                data.TituloVaga = valid.TituloVaga;
-                data.Local = valid.Local;
+                data.TituloCargo = valid.TituloCargo;
+                data.Localizacao = valid.Localizacao;
                 data.DataPostagem = valid.DataPostagem;
                 data.Requisitos = valid.Requisitos;
-                data.DataFinal = valid.DataFinal;
+                data.Descricao = valid.Descricao;
                 return yield Vaga_repositories_1.default.save(data);
             }
             catch (err) {

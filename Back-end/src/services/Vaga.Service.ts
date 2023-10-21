@@ -20,11 +20,11 @@ class VagaServices{
             const vaga = new Vaga()
             vaga.IdVaga = v4()
             vaga.IdEmpresa = valid.IdEmpresa
-            vaga.TituloVaga = valid.TituloVaga
-            vaga.Local = valid.Local
+            vaga.TituloCargo = valid.TituloCargo
+            vaga.Localizacao = valid.Localizacao
             vaga.DataPostagem = valid.DataPostagem
             vaga.Requisitos = valid.Requisitos
-            vaga.DataFinal = valid.DataFinal
+            vaga.Descricao = valid.Descricao
             return await VagaRepository.save(vaga)
         } catch (err) {
             return Promise.reject(new Error('Error saving vaga'));
@@ -37,11 +37,11 @@ class VagaServices{
             if (!data) {
                 return Promise.reject(new Error('Could not find IdVaga'));
             }
-            data.TituloVaga = valid.TituloVaga
-            data.Local = valid.Local
+            data.TituloCargo = valid.TituloCargo
+            data.Localizacao = valid.Localizacao
             data.DataPostagem = valid.DataPostagem
             data.Requisitos = valid.Requisitos
-            data.DataFinal = valid.DataFinal
+            data.Descricao = valid.Descricao
             return await VagaRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Vaga'));

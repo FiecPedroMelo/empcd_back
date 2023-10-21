@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable } from "typeorm";
-import Candidato from "./Candidato";
 
 @Entity()
 export class Vagas{
@@ -10,10 +9,10 @@ export class Vagas{
     IdEmpresa: string
 
     @Column()
-    TituloVaga: string
+    TituloCargo: string
 
     @Column()
-    Local: string
+    Localizacao: string
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public DataPostagem: Date
@@ -22,11 +21,7 @@ export class Vagas{
     Requisitos: string
 
     @Column()
-    DataFinal: Date
-
-    @ManyToMany(() => Candidato)
-    @JoinTable()
-    candidatos: Candidato[]
+    Descricao: string
 }
 
 export default Vagas;

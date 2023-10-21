@@ -28,9 +28,9 @@ class CandidatoLoginController {
     }
     signUpCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato } = req.body;
+            const { NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato } = req.body;
             try {
-                yield new Candidato_login_Service_1.default().signUpCandidato(NomeCompleto, Email, Senha, Telefone, CPF, DataNasc, Endereco, Formacao, ExpProfissional, Deficiencia, Cep, Habilidades, ImagemCandidato);
+                yield new Candidato_login_Service_1.default().signUpCandidato(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato);
                 res.json('Bem criado!');
             }
             catch (err) {

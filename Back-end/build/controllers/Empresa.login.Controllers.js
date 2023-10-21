@@ -28,9 +28,9 @@ class EmpresaLoginController {
     }
     signUpEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa } = req.body;
+            const { RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa } = req.body;
             try {
-                yield new Empresa_login_Service_1.default().signUpEmpresa(CNPJ, RazaoSocial, NomeFantasia, Email, Senha, Cep, Endereco, ImagemEmpresa);
+                yield new Empresa_login_Service_1.default().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa);
                 res.json('Bem criado!');
             }
             catch (err) {
