@@ -8,8 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Vagas_1 = __importDefault(require("./Vagas"));
 let Empresa = class Empresa {
 };
 __decorate([
@@ -29,7 +33,7 @@ __decorate([
     __metadata("design:type", String)
 ], Empresa.prototype, "Email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Empresa.prototype, "Site", void 0);
 __decorate([
@@ -56,6 +60,11 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Empresa.prototype, "ImagemEmpresa", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Vagas_1.default, (vagas) => vagas.empresa) // note: we will create author property in the Photo class below
+    ,
+    __metadata("design:type", Array)
+], Empresa.prototype, "vagas", void 0);
 Empresa = __decorate([
     (0, typeorm_1.Entity)()
 ], Empresa);

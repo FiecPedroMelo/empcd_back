@@ -16,6 +16,10 @@ const uuid_1 = require("uuid");
 const Vagas_1 = __importDefault(require("../models/entities/Vagas"));
 const Candidato_repositories_1 = __importDefault(require("../models/repositories/Candidato.repositories"));
 const Vaga_repositories_1 = __importDefault(require("../models/repositories/Vaga.repositories"));
+const Empresa_repositories_1 = __importDefault(require("../models/repositories/Empresa.repositories"));
+const VagaPorEmpresa_dto_1 = require("../models/dto/VagaPorEmpresa.dto");
+const Vaga_aux_1 = require("../models/entities/Vaga_aux");
+const Vaga_aux_repositories_1 = __importDefault(require("../models/repositories/Vaga_aux.repositories"));
 class VagaServices {
     constructor() { }
     static Instance() {
@@ -29,7 +33,10 @@ class VagaServices {
             try {
                 const vaga = new Vagas_1.default();
                 vaga.IdVaga = (0, uuid_1.v4)();
-                vaga.IdEmpresa = valid.IdEmpresa;
+                const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: valid.IdEmpresa });
+                if (empresa == null)
+                    throw new Error(`No empresa found`);
+                vaga.empresa = empresa;
                 vaga.TituloCargo = valid.TituloCargo;
                 vaga.Localizacao = valid.Localizacao;
                 vaga.DataPostagem = valid.DataPostagem;
@@ -80,24 +87,49 @@ class VagaServices {
             console.log(IdVaga, IdCand);
             try {
                 const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
-                console.log(vaga);
                 const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand });
-                console.log(candidato);
                 if (!vaga) {
                     return Promise.reject(new Error('Could not find Vaga'));
                 }
                 if (!candidato) {
                     return Promise.reject(new Error('Could not find Candidato'));
                 }
-                if (!vaga.candidatos)
-                    vaga.candidatos = [];
-                vaga === null || vaga === void 0 ? void 0 : vaga.candidatos.push(candidato);
-                return yield Vaga_repositories_1.default.save(vaga);
+                if (!vaga.Status) {
+                    return Promise.reject(new Error('Vaga is already closed'));
+                }
+                const vaga_aux = new Vaga_aux_1.Vaga_aux();
+                vaga_aux.IdVagaAux = (0, uuid_1.v4)();
+                vaga_aux.IdVaga = vaga.IdVaga;
+                vaga_aux.IdCand = candidato.IdCand;
+                return yield Vaga_aux_repositories_1.default.save(vaga_aux);
             }
             catch (err) {
                 console.log(err);
                 return Promise.reject(new Error('Unable to update Vaga'));
             }
+        });
+    }
+    vagaSearcher(NomeFantasia) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let vagas = [];
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ NomeFantasia });
+            try {
+                if (empresa) {
+                    const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: empresa });
+                    vagasPorEmpresa.forEach(vagaPorEmpresa => {
+                        const vagaResponse = new VagaPorEmpresa_dto_1.VagaPorEmpresaDto();
+                        vagaResponse.ImagemEmpresa = empresa.ImagemEmpresa;
+                        vagaResponse.NomeFantasia = empresa.NomeFantasia;
+                        vagaResponse.TituloCargo = vagaPorEmpresa.TituloCargo;
+                        vagaResponse.Descricao = vagaPorEmpresa.Descricao;
+                        vagas.push(vagaResponse);
+                    });
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+            return Promise.resolve(vagas);
         });
     }
 }

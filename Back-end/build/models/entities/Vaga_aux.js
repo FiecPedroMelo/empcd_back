@@ -25,10 +25,6 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Vaga_aux.prototype, "IdCand", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: true }),
-    __metadata("design:type", Boolean)
-], Vaga_aux.prototype, "Status", void 0);
 exports.Vaga_aux = Vaga_aux = __decorate([
     (0, typeorm_1.Entity)()
 ], Vaga_aux);

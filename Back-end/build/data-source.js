@@ -8,6 +8,7 @@ const typeorm_1 = require("typeorm");
 const Candidato_1 = __importDefault(require("./models/entities/Candidato"));
 const Empresa_1 = __importDefault(require("./models/entities/Empresa"));
 const Vagas_1 = require("./models/entities/Vagas");
+const Vaga_aux_1 = require("./models/entities/Vaga_aux");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
@@ -17,7 +18,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: "empcd",
     synchronize: true,
     logging: true,
-    entities: [Candidato_1.default, Empresa_1.default, Vagas_1.Vagas],
+    entities: [Candidato_1.default, Empresa_1.default, Vagas_1.Vagas, Vaga_aux_1.Vaga_aux],
     subscribers: [],
     migrations: []
 });

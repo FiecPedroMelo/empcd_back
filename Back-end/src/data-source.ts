@@ -3,6 +3,7 @@ import User from "./models/entities/User"
 import Candidato from "./models/entities/Candidato"
 import Empresa from "./models/entities/Empresa"
 import Vaga, { Vagas } from "./models/entities/Vagas"
+import { Vaga_aux } from "./models/entities/Vaga_aux"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: "empcd",
     synchronize: true,
     logging: true,
-    entities: [Candidato, Empresa, Vagas],
+    entities: [Candidato, Empresa, Vagas, Vaga_aux],
     subscribers: [],
     migrations: []
 })

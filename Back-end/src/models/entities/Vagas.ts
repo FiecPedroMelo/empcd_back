@@ -1,12 +1,13 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import Empresa from "./Empresa";
 
 @Entity()
 export class Vagas{
     @PrimaryColumn()
     IdVaga: string
 
-    @Column()
-    IdEmpresa: string
+    @ManyToOne(() => Empresa, (empresa) => empresa.vagas)
+    empresa: Empresa
 
     @Column()
     TituloCargo: string
@@ -22,6 +23,9 @@ export class Vagas{
 
     @Column()
     Descricao: string
+
+    @Column({default: true})
+    Status: boolean
 }
 
 export default Vagas;

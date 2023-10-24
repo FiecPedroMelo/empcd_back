@@ -60,6 +60,17 @@ class VagaController {
             res.status(500).send(err)
         }
     }
+
+    public async vagaSearcher(req: Request, res: Response) {
+        try {
+            const Vagaget = await VagaServices.Instance().vagaSearcher(req.params.NomeFantasia)
+            res.json(Vagaget)
+        } catch (err) {
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
 }
 
 export default VagaController

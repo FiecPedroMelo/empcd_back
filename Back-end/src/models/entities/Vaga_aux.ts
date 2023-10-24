@@ -11,9 +11,6 @@ export class Vaga_aux {
 
     @Column()
     IdCand: string
-
-    @Column({default: true})
-    Status: boolean
     
 //    @ManyToMany(() => Candidato)
 //    @JoinTable()
