@@ -17,7 +17,7 @@ const Vagas_1 = __importDefault(require("../models/entities/Vagas"));
 const Candidato_repositories_1 = __importDefault(require("../models/repositories/Candidato.repositories"));
 const Vaga_repositories_1 = __importDefault(require("../models/repositories/Vaga.repositories"));
 const Empresa_repositories_1 = __importDefault(require("../models/repositories/Empresa.repositories"));
-const VagaPorEmpresa_dto_1 = require("../models/dto/VagaPorEmpresa.dto");
+const ExibirVaga_dto_1 = require("../models/dto/ExibirVaga.dto");
 const Vaga_aux_1 = require("../models/entities/Vaga_aux");
 const Vaga_aux_repositories_1 = __importDefault(require("../models/repositories/Vaga_aux.repositories"));
 class VagaServices {
@@ -120,12 +120,12 @@ class VagaServices {
             try {
                 if (empresa) {
                     const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: empresa });
-                    vagasPorEmpresa.forEach(vagaPorEmpresa => {
-                        const vagaResponse = new VagaPorEmpresa_dto_1.VagaPorEmpresaDto();
-                        vagaResponse.ImagemEmpresa = vagaPorEmpresa.empresa.ImagemEmpresa;
-                        vagaResponse.NomeFantasia = vagaPorEmpresa.empresa.NomeFantasia;
-                        vagaResponse.TituloCargo = vagaPorEmpresa.TituloCargo;
-                        vagaResponse.DescricaoVaga = vagaPorEmpresa.DescricaoVaga;
+                    vagasPorEmpresa.forEach(Exibirvaga => {
+                        const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
+                        vagaResponse.ImagemEmpresa = Exibirvaga.empresa.ImagemEmpresa;
+                        vagaResponse.NomeFantasia = Exibirvaga.empresa.NomeFantasia;
+                        vagaResponse.TituloCargo = Exibirvaga.TituloCargo;
+                        vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga;
                         vagas.push(vagaResponse);
                     });
                 }
@@ -142,7 +142,7 @@ class VagaServices {
             try {
                 const TodasVagas = yield Vaga_repositories_1.default.find();
                 TodasVagas.forEach(vaga => {
-                    const vagaResponse = new VagaPorEmpresa_dto_1.VagaPorEmpresaDto();
+                    const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
                     vagaResponse.ImagemEmpresa = vaga.empresa.ImagemEmpresa;
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;

@@ -1,6 +1,4 @@
-import { z } from "zod";
-
-export class VagaPorEmpresaDto {
+export class ExibirVagaDto {
     ImagemEmpresa: string;
     NomeFantasia: string;
     TituloCargo: string;

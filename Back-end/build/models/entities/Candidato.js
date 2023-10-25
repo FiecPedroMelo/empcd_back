@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:type", String)
 ], Candidato.prototype, "Formacao", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)("longtext"),
     __metadata("design:type", String)
 ], Candidato.prototype, "ExpAnteriores", void 0);
 __decorate([

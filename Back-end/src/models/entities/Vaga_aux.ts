@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import Candidato from "./Candidato";
 import Empresa from "./Empresa";
 import Vagas from "./Vagas";

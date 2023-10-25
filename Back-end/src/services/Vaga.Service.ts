@@ -4,7 +4,7 @@ import Vaga from "../models/entities/Vagas"
 import CandidatoRepository from "../models/repositories/Candidato.repositories"
 import VagaRepository from "../models/repositories/Vaga.repositories"
 import EmpresaRepository from "../models/repositories/Empresa.repositories"
-import { VagaPorEmpresaDto } from "../models/dto/VagaPorEmpresa.dto"
+import { ExibirVagaDto } from "../models/dto/ExibirVaga.dto"
 import { Vaga_aux } from "../models/entities/Vaga_aux"
 import Vaga_auxRepository from "../models/repositories/Vaga_aux.repositories"
 
@@ -17,8 +17,6 @@ class VagaServices{
         }
         return VagaServices.instance
     }
-
-    
 
     public async createVaga(valid: VagaDto): Promise<Vaga> {
         try {
@@ -97,18 +95,18 @@ class VagaServices{
     }
 
 
-    public async vagaSearcherEmpresa( NomeFantasia: string ): Promise< VagaPorEmpresaDto[] > {
-        let vagas:VagaPorEmpresaDto[] = [];
+    public async vagaSearcherEmpresa( NomeFantasia: string ): Promise< ExibirVagaDto[] > {
+        let vagas:ExibirVagaDto[] = [];
         const empresa = await EmpresaRepository.findOneBy({NomeFantasia})
         try{
             if(empresa) {
                 const vagasPorEmpresa = await VagaRepository.findBy({empresa:empresa})
-                vagasPorEmpresa.forEach(vagaPorEmpresa => {
-                    const vagaResponse = new VagaPorEmpresaDto();
-                    vagaResponse.ImagemEmpresa = vagaPorEmpresa.empresa.ImagemEmpresa
-                    vagaResponse.NomeFantasia = vagaPorEmpresa.empresa.NomeFantasia
-                    vagaResponse.TituloCargo = vagaPorEmpresa.TituloCargo
-                    vagaResponse.DescricaoVaga = vagaPorEmpresa.DescricaoVaga
+                vagasPorEmpresa.forEach(Exibirvaga => {
+                    const vagaResponse = new ExibirVagaDto();
+                    vagaResponse.ImagemEmpresa = Exibirvaga.empresa.ImagemEmpresa
+                    vagaResponse.NomeFantasia = Exibirvaga.empresa.NomeFantasia
+                    vagaResponse.TituloCargo = Exibirvaga.TituloCargo
+                    vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga
                     vagas.push(vagaResponse)
                 })
             }
@@ -120,11 +118,11 @@ class VagaServices{
     }
 
     public async vagaSearcherCandidato() {
-        let vagas:VagaPorEmpresaDto[] = []
+        let vagas:ExibirVagaDto[] = []
         try {
             const TodasVagas = await VagaRepository.find()
             TodasVagas.forEach(vaga => {
-                const vagaResponse = new VagaPorEmpresaDto();
+                const vagaResponse = new ExibirVagaDto();
                 vagaResponse.ImagemEmpresa = vaga.empresa.ImagemEmpresa
                 vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
                 vagaResponse.TituloCargo = vaga.TituloCargo

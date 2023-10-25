@@ -42,7 +42,7 @@ class Candidato{
     @Column()
     Formacao: string
 
-    @Column()
+    @Column("longtext")
     ExpAnteriores: string
 
     @Column()
