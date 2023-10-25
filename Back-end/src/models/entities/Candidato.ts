@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable} from "typeorm"
-import Vaga from "./Vagas"
+import { Entity, Column, PrimaryColumn, OneToMany} from "typeorm"
+import { Vaga_aux } from "./Vaga_aux"
 
 @Entity()
 class Candidato{
@@ -51,9 +51,8 @@ class Candidato{
     @Column({nullable: true})
     ImagemCandidato: string
 
-    @ManyToMany(() => Vaga, )
-    @JoinTable()
-    vaga: Vaga[]
+    @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.candidato, {nullable: true})
+    vaga_aux: Vaga_aux[];
 
     static body: any
 }

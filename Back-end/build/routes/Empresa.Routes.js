@@ -19,4 +19,5 @@ EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEm
 EmpresaRouter.put('/:idEmpresa', new Empresa_controllers_1.default().updateEmpresa); //ok
 EmpresaRouter.post("/:idEmpresa/vaga/", new Vaga_controllers_1.default().createVaga); //ok
 EmpresaRouter.put("/vaga/:idVaga", new Vaga_controllers_1.default().updateVaga); //ok
+EmpresaRouter.get("/:NomeFantasia", new Vaga_controllers_1.default().vagaSearcherEmpresa);
 exports.default = EmpresaRouter;

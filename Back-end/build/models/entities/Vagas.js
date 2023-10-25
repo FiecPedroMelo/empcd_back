@@ -15,16 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Vagas = void 0;
 const typeorm_1 = require("typeorm");
 const Empresa_1 = __importDefault(require("./Empresa"));
+const Vaga_aux_1 = require("./Vaga_aux");
 let Vagas = exports.Vagas = class Vagas {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
 ], Vagas.prototype, "IdVaga", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vagas),
-    __metadata("design:type", Empresa_1.default)
-], Vagas.prototype, "empresa", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -44,11 +41,19 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Vagas.prototype, "Descricao", void 0);
+], Vagas.prototype, "DescricaoVaga", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], Vagas.prototype, "Status", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vagas),
+    __metadata("design:type", Empresa_1.default)
+], Vagas.prototype, "empresa", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.vagas, { nullable: true }),
+    __metadata("design:type", Vaga_aux_1.Vaga_aux)
+], Vagas.prototype, "vaga_aux", void 0);
 exports.Vagas = Vagas = __decorate([
     (0, typeorm_1.Entity)()
 ], Vagas);

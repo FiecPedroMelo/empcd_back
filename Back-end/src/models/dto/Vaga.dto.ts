@@ -7,7 +7,8 @@ export interface VagaDto {
     Localizacao: string;
     DataPostagem: Date;
     Requisitos: string;
-    Descricao: string;
+    DescricaoVaga: string;
+    Status: boolean;
 }
 export const VagaSchema = z.object({
     IdEmpresa: z.string(),
@@ -15,7 +16,8 @@ export const VagaSchema = z.object({
     Localizacao: z.string(),
     DataPostagem: z.date(),
     Requisitos: z.string(),
-    Descricao: z.string()
+    DescricaoVaga: z.string(),
+    Status: z.boolean()
 })
 
 export const VagaId = z.object({

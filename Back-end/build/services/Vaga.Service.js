@@ -39,9 +39,9 @@ class VagaServices {
                 vaga.empresa = empresa;
                 vaga.TituloCargo = valid.TituloCargo;
                 vaga.Localizacao = valid.Localizacao;
-                vaga.DataPostagem = valid.DataPostagem;
                 vaga.Requisitos = valid.Requisitos;
-                vaga.Descricao = valid.Descricao;
+                vaga.DescricaoVaga = valid.DescricaoVaga;
+                vaga.Status = valid.Status;
                 return yield Vaga_repositories_1.default.save(vaga);
             }
             catch (err) {
@@ -58,9 +58,8 @@ class VagaServices {
                 }
                 data.TituloCargo = valid.TituloCargo;
                 data.Localizacao = valid.Localizacao;
-                data.DataPostagem = valid.DataPostagem;
                 data.Requisitos = valid.Requisitos;
-                data.Descricao = valid.Descricao;
+                data.DescricaoVaga = valid.DescricaoVaga;
                 return yield Vaga_repositories_1.default.save(data);
             }
             catch (err) {
@@ -97,10 +96,15 @@ class VagaServices {
                 if (!vaga.Status) {
                     return Promise.reject(new Error('Vaga is already closed'));
                 }
+                const empresa = yield Empresa_repositories_1.default.findOneBy(vaga.empresa);
+                if (!empresa) {
+                    return Promise.reject(new Error('Could not find Empresa'));
+                }
                 const vaga_aux = new Vaga_aux_1.Vaga_aux();
                 vaga_aux.IdVagaAux = (0, uuid_1.v4)();
-                vaga_aux.IdVaga = vaga.IdVaga;
-                vaga_aux.IdCand = candidato.IdCand;
+                vaga_aux.empresa = empresa;
+                vaga_aux.vagas = vaga;
+                vaga_aux.candidato = candidato;
                 return yield Vaga_aux_repositories_1.default.save(vaga_aux);
             }
             catch (err) {
@@ -109,7 +113,7 @@ class VagaServices {
             }
         });
     }
-    vagaSearcher(NomeFantasia) {
+    vagaSearcherEmpresa(NomeFantasia) {
         return __awaiter(this, void 0, void 0, function* () {
             let vagas = [];
             const empresa = yield Empresa_repositories_1.default.findOneBy({ NomeFantasia });
@@ -118,10 +122,10 @@ class VagaServices {
                     const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: empresa });
                     vagasPorEmpresa.forEach(vagaPorEmpresa => {
                         const vagaResponse = new VagaPorEmpresa_dto_1.VagaPorEmpresaDto();
-                        vagaResponse.ImagemEmpresa = empresa.ImagemEmpresa;
-                        vagaResponse.NomeFantasia = empresa.NomeFantasia;
+                        vagaResponse.ImagemEmpresa = vagaPorEmpresa.empresa.ImagemEmpresa;
+                        vagaResponse.NomeFantasia = vagaPorEmpresa.empresa.NomeFantasia;
                         vagaResponse.TituloCargo = vagaPorEmpresa.TituloCargo;
-                        vagaResponse.Descricao = vagaPorEmpresa.Descricao;
+                        vagaResponse.DescricaoVaga = vagaPorEmpresa.DescricaoVaga;
                         vagas.push(vagaResponse);
                     });
                 }
@@ -130,6 +134,25 @@ class VagaServices {
                 console.log(err);
             }
             return Promise.resolve(vagas);
+        });
+    }
+    vagaSearcherCandidato() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let vagas = [];
+            try {
+                const TodasVagas = yield Vaga_repositories_1.default.find();
+                TodasVagas.forEach(vaga => {
+                    const vagaResponse = new VagaPorEmpresa_dto_1.VagaPorEmpresaDto();
+                    vagaResponse.ImagemEmpresa = vaga.empresa.ImagemEmpresa;
+                    vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
+                    vagaResponse.TituloCargo = vaga.TituloCargo;
+                    vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
+                    vagas.push(vagaResponse);
+                });
+            }
+            catch (err) {
+                console.log(err);
+            }
         });
     }
 }

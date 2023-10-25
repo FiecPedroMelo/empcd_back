@@ -5,7 +5,6 @@ class VagaController {
     public async createVaga(req: Request, res: Response) {
         try {
             const VagaObject = req.body;
-            console.log(VagaObject);
             if (!VagaObject) {
                 return res.status(204).send('Not all data in Vaga');
             }
@@ -61,9 +60,9 @@ class VagaController {
         }
     }
 
-    public async vagaSearcher(req: Request, res: Response) {
+    public async vagaSearcherEmpresa(req: Request, res: Response) {
         try {
-            const Vagaget = await VagaServices.Instance().vagaSearcher(req.params.NomeFantasia)
+            const Vagaget = await VagaServices.Instance().vagaSearcherEmpresa(req.params.NomeFantasia)
             res.json(Vagaget)
         } catch (err) {
             res.status(500).send(err)

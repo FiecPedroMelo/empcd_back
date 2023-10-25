@@ -8,7 +8,8 @@ exports.VagaSchema = zod_1.z.object({
     Localizacao: zod_1.z.string(),
     DataPostagem: zod_1.z.date(),
     Requisitos: zod_1.z.string(),
-    Descricao: zod_1.z.string()
+    DescricaoVaga: zod_1.z.string(),
+    Status: zod_1.z.boolean()
 });
 exports.VagaId = zod_1.z.object({
     IdVaga: zod_1.z.string().min(6)

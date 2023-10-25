@@ -1,18 +1,19 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import Candidato from "./Candidato";
+import Empresa from "./Empresa";
+import Vagas from "./Vagas";
 
 @Entity()
 export class Vaga_aux {
     @PrimaryColumn()
     IdVagaAux: string
 
-    @Column()
-    IdVaga: string
+    @ManyToOne(() => Empresa, (empresa) => empresa.vaga_aux)
+    empresa: Empresa
 
-    @Column()
-    IdCand: string
+    @ManyToOne(() => Candidato, (candidato) => candidato.vaga_aux)
+    candidato: Candidato
     
-//    @ManyToMany(() => Candidato)
-//    @JoinTable()
-//    candidatos: Candidato[]
+    @ManyToOne(() => Vagas, (vagas) => vagas.vaga_aux)
+    vagas: Vagas
 }

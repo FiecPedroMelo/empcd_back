@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import Vagas from "./Vagas";
+import { Vaga_aux } from "./Vaga_aux";
 
 @Entity()
 class Empresa{
@@ -36,8 +37,12 @@ class Empresa{
     @Column({nullable: true})
     ImagemEmpresa: string;
 
-    @OneToMany(() => Vagas, (vagas) => vagas.empresa) // note: we will create author property in the Photo class below
+    @OneToMany(() => Vagas, (vagas) => vagas.empresa, {nullable: true}) 
     vagas: Vagas[]
+
+    @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.empresa, {nullable: true}) 
+    vaga_aux: Vaga_aux[];
+
 }
 
 export default Empresa;

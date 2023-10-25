@@ -4,5 +4,5 @@ export class VagaPorEmpresaDto {
     ImagemEmpresa: string;
     NomeFantasia: string;
     TituloCargo: string;
-    Descricao: string;
+    DescricaoVaga: string;
 }

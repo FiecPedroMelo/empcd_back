@@ -17,7 +17,7 @@ export interface EmpresaDto {
 export const EmpresaSchema = z.object({
     RazaoSocial: z.string(),
     NomeFantasia: z.string(),
-    Email: z.string().min(7).max(35),
+    Email: z.string().min(7),
     Site: z.string(),
     Senha: z.string(),
     CNPJ: z.string().min(14).max(18),

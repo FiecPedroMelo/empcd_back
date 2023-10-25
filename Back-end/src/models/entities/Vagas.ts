@@ -1,13 +1,11 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, OneToMany } from "typeorm";
 import Empresa from "./Empresa";
+import { Vaga_aux } from "./Vaga_aux";
 
 @Entity()
 export class Vagas{
     @PrimaryColumn()
     IdVaga: string
-
-    @ManyToOne(() => Empresa, (empresa) => empresa.vagas)
-    empresa: Empresa
 
     @Column()
     TituloCargo: string
@@ -22,10 +20,16 @@ export class Vagas{
     Requisitos: string
 
     @Column()
-    Descricao: string
+    DescricaoVaga: string
 
     @Column({default: true})
     Status: boolean
+
+    @ManyToOne(() => Empresa, (empresa) => empresa.vagas)
+    empresa: Empresa
+
+    @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.vagas, {nullable: true})
+    vaga_aux: Vaga_aux
 }
 
 export default Vagas;

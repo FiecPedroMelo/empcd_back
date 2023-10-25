@@ -18,7 +18,6 @@ class VagaController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const VagaObject = req.body;
-                console.log(VagaObject);
                 if (!VagaObject) {
                     return res.status(204).send('Not all data in Vaga');
                 }
@@ -83,10 +82,10 @@ class VagaController {
             }
         });
     }
-    vagaSearcher(req, res) {
+    vagaSearcherEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const Vagaget = yield Vaga_Service_1.default.Instance().vagaSearcher(req.params.NomeFantasia);
+                const Vagaget = yield Vaga_Service_1.default.Instance().vagaSearcherEmpresa(req.params.NomeFantasia);
                 res.json(Vagaget);
             }
             catch (err) {
