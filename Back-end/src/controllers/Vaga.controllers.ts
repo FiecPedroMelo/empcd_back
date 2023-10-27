@@ -5,10 +5,14 @@ class VagaController {
     public async createVaga(req: Request, res: Response) {
         try {
             const VagaObject = req.body;
+            const idEmpresa = req.params.idEmpresa
             if (!VagaObject) {
                 return res.status(204).send('Not all data in Vaga');
             }
-            const savedVaga = await VagaServices.Instance().createVaga(VagaObject)
+            if (!idEmpresa) {
+                return res.status(500).send(`No valid Id`);
+            }
+            const savedVaga = await VagaServices.Instance().createVaga(VagaObject, idEmpresa);
             res.send(`request saved with succesful ${JSON.stringify(savedVaga)}`)
         } catch (err) {
             res.status(500).send(err)

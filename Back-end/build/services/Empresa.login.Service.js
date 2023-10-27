@@ -133,7 +133,6 @@ class EmpresaLoginService {
             const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
             logger_1.default.debug("HashDepois: ", hashDigest);
             const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email: Email, Senha: hmacDigest });
-            console.log(foundEmpresa);
             if (foundEmpresa) {
                 const IdEmpresa = foundEmpresa.IdEmpresa;
                 return IdEmpresa;

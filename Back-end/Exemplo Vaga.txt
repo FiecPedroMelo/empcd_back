@@ -1,0 +1,6 @@
+{
+        "TituloCargo": "Gerente",
+        "Localizacao": "Rio de Janeiro",
+        "Requisitos": "Ensino Superior",
+        "DescricaoVaga": "Gerência"
+}

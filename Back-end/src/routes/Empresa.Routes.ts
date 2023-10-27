@@ -6,18 +6,18 @@ import { upload } from "../config/multer-config";
 
 const EmpresaRouter = Router();
 
-EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa);//ok
-EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa);//ok
-EmpresaRouter.put('/update-image', upload.single('image'), new EmpresaLoginController().updateEmpresaImage) //ver
-EmpresaRouter.post("/", new EmpresaController().createEmpresa); //ok
-EmpresaRouter.get("/", new EmpresaController().getAll); //ok
-EmpresaRouter.get("/:idEmpresa", new EmpresaController().EmpresaById); //ok
+EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa);
+EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa);
+EmpresaRouter.put('/update-image', upload.single('image'), new EmpresaLoginController().updateEmpresaImage)
+EmpresaRouter.post("/", new EmpresaController().createEmpresa); 
+EmpresaRouter.get("/", new EmpresaController().getAll); 
+EmpresaRouter.get("/:idEmpresa", new EmpresaController().EmpresaById); 
 EmpresaRouter.get("/:Email/:Senha", new EmpresaLoginController().GetIdEmpresa);
-EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //ok
-EmpresaRouter.put('/:idEmpresa', new EmpresaController().updateEmpresa); //ok
-EmpresaRouter.post("/:idEmpresa/vaga/", new VagaController().createVaga); //ok
-EmpresaRouter.put("/vaga/:idVaga", new VagaController().updateVaga); //ok
-EmpresaRouter.get("/:NomeFantasia", new VagaController().vagaSearcherEmpresa)
+EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); 
+EmpresaRouter.put('/:idEmpresa', new EmpresaController().updateEmpresa); 
+EmpresaRouter.post("/:idEmpresa/vaga", new VagaController().createVaga); 
+EmpresaRouter.put("/vaga/:idVaga", new VagaController().updateVaga); 
+EmpresaRouter.get("/:idEmpresa/vaga", new VagaController().vagaSearcherEmpresa)
 
 
 export default EmpresaRouter;

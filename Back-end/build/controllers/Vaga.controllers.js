@@ -18,10 +18,14 @@ class VagaController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const VagaObject = req.body;
+                const idEmpresa = req.params.idEmpresa;
                 if (!VagaObject) {
                     return res.status(204).send('Not all data in Vaga');
                 }
-                const savedVaga = yield Vaga_Service_1.default.Instance().createVaga(VagaObject);
+                if (!idEmpresa) {
+                    return res.status(500).send(`No valid Id`);
+                }
+                const savedVaga = yield Vaga_Service_1.default.Instance().createVaga(VagaObject, idEmpresa);
                 res.send(`request saved with succesful ${JSON.stringify(savedVaga)}`);
             }
             catch (err) {

@@ -50,11 +50,15 @@ class CandidatoLoginService {
             if (foundCandidato) {
                 const token = jwt.sign({idCand: foundCandidato.IdCand, Email: foundCandidato.Email, Senha: foundCandidato.Senha}, SECRET);
                 const validation: boolean = true;
-                return {token, validation}
+                const newToken = {token, validation}
+                const IdCand = foundCandidato.IdCand
+                return {newToken, IdCand}
             } else {
                 const token = '';
                 const validation: boolean = false;
-                return {token, validation}
+                const newToken = {token, validation}
+                const IdCand = '';
+                return {newToken, IdCand}
             }
 
         } catch (err) {
@@ -102,7 +106,6 @@ class CandidatoLoginService {
         const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
         logger.debug("HashDepois: ",hashDigest)
         const foundCandidato = await CandidatoRepository.findOneBy({Email: Email, Senha: hmacDigest});
-        console.log(foundCandidato)
         if(foundCandidato) {
             const IdCandidato = foundCandidato.IdCand
             return IdCandidato

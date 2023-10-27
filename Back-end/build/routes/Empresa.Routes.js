@@ -9,16 +9,16 @@ const Vaga_controllers_1 = __importDefault(require("../controllers/Vaga.controll
 const Empresa_login_Controllers_1 = __importDefault(require("../controllers/Empresa.login.Controllers"));
 const multer_config_1 = require("../config/multer-config");
 const EmpresaRouter = (0, express_1.Router)();
-EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa); //ok
-EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa); //ok
-EmpresaRouter.put('/update-image', multer_config_1.upload.single('image'), new Empresa_login_Controllers_1.default().updateEmpresaImage); //ver
-EmpresaRouter.post("/", new Empresa_controllers_1.default().createEmpresa); //ok
-EmpresaRouter.get("/", new Empresa_controllers_1.default().getAll); //ok
-EmpresaRouter.get("/:idEmpresa", new Empresa_controllers_1.default().EmpresaById); //ok
+EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa);
+EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa);
+EmpresaRouter.put('/update-image', multer_config_1.upload.single('image'), new Empresa_login_Controllers_1.default().updateEmpresaImage);
+EmpresaRouter.post("/", new Empresa_controllers_1.default().createEmpresa);
+EmpresaRouter.get("/", new Empresa_controllers_1.default().getAll);
+EmpresaRouter.get("/:idEmpresa", new Empresa_controllers_1.default().EmpresaById);
 EmpresaRouter.get("/:Email/:Senha", new Empresa_login_Controllers_1.default().GetIdEmpresa);
-EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa); //ok
-EmpresaRouter.put('/:idEmpresa', new Empresa_controllers_1.default().updateEmpresa); //ok
-EmpresaRouter.post("/:idEmpresa/vaga/", new Vaga_controllers_1.default().createVaga); //ok
-EmpresaRouter.put("/vaga/:idVaga", new Vaga_controllers_1.default().updateVaga); //ok
-EmpresaRouter.get("/:NomeFantasia", new Vaga_controllers_1.default().vagaSearcherEmpresa);
+EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa);
+EmpresaRouter.put('/:idEmpresa', new Empresa_controllers_1.default().updateEmpresa);
+EmpresaRouter.post("/:idEmpresa/vaga", new Vaga_controllers_1.default().createVaga);
+EmpresaRouter.put("/vaga/:idVaga", new Vaga_controllers_1.default().updateVaga);
+EmpresaRouter.get("/:idEmpresa/vaga", new Vaga_controllers_1.default().vagaSearcherEmpresa);
 exports.default = EmpresaRouter;

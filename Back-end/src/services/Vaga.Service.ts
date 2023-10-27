@@ -18,12 +18,15 @@ class VagaServices{
         return VagaServices.instance
     }
 
-    public async createVaga(valid: VagaDto): Promise<Vaga> {
+    public async createVaga(valid: VagaDto, IdEmpresa: string): Promise<Vaga> {
         try {
             const vaga = new Vaga()
             vaga.IdVaga = v4()
-            const empresa = await EmpresaRepository.findOneBy({IdEmpresa: valid.IdEmpresa})
-            if (empresa == null) throw new Error(`No empresa found`)
+            const empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa})
+            if (!empresa) {
+                return Promise.reject(new Error(`No empresa found`))
+            }
+            console.log(empresa)
             vaga.empresa = empresa
             vaga.TituloCargo = valid.TituloCargo
             vaga.Localizacao = valid.Localizacao
@@ -94,9 +97,9 @@ class VagaServices{
         }
     }
 
-    public async vagaSearcherEmpresa( NomeFantasia: string ): Promise< ExibirVagaDto[] > {
+    public async vagaSearcherEmpresa(IdEmpresa: string): Promise< ExibirVagaDto[] > {
         let vagas:ExibirVagaDto[] = [];
-        const empresa = await EmpresaRepository.findOneBy({NomeFantasia})
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
         try{
             if(empresa) {
                 const vagasPorEmpresa = await VagaRepository.findBy({empresa:empresa})

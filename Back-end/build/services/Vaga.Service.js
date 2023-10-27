@@ -28,14 +28,16 @@ class VagaServices {
         }
         return VagaServices.instance;
     }
-    createVaga(valid) {
+    createVaga(valid, IdEmpresa) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const vaga = new Vagas_1.default();
                 vaga.IdVaga = (0, uuid_1.v4)();
-                const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: valid.IdEmpresa });
-                if (empresa == null)
-                    throw new Error(`No empresa found`);
+                const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: IdEmpresa });
+                if (!empresa) {
+                    return Promise.reject(new Error(`No empresa found`));
+                }
+                console.log(empresa);
                 vaga.empresa = empresa;
                 vaga.TituloCargo = valid.TituloCargo;
                 vaga.Localizacao = valid.Localizacao;
@@ -113,10 +115,10 @@ class VagaServices {
             }
         });
     }
-    vagaSearcherEmpresa(NomeFantasia) {
+    vagaSearcherEmpresa(IdEmpresa) {
         return __awaiter(this, void 0, void 0, function* () {
             let vagas = [];
-            const empresa = yield Empresa_repositories_1.default.findOneBy({ NomeFantasia });
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
             try {
                 if (empresa) {
                     const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: empresa });

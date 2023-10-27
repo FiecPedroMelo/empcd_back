@@ -116,7 +116,6 @@ class EmpresaLoginService {
         const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
         logger.debug("HashDepois: ",hashDigest)
         const foundEmpresa = await EmpresaRepository.findOneBy({Email: Email, Senha: hmacDigest});
-        console.log(foundEmpresa)
         if(foundEmpresa) {
             const IdEmpresa = foundEmpresa.IdEmpresa
             return IdEmpresa

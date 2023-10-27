@@ -1,7 +1,0 @@
-{
-        "TituloVaga": "Gerente",
-        "Local": "Rio de Janeiro",
-        "DataPostagem": "2023-10-20T19:45:00.000Z",
-        "Requisitos": "Ensino Superior",
-        "DataFinal": "2023-10-31T00:00:00.000Z",
-}
