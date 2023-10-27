@@ -20,7 +20,19 @@ class CandidatoLoginController {
         } catch (err) {
             console.log(err);
         }
-        
+    }
+
+    async GetIdCandidato(req: Request, res: Response) {
+        try {
+            const Email = req.params.Email
+            const Senha = req.params.Senha
+            const IdCandidato = await new CandidatoLoginService().GetIdCandidato(Email, Senha)
+            console.log(IdCandidato)
+            res.json(IdCandidato)
+        } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
     }
 
     async signUpCandidatosInBatch(req:Request, res:Response) {

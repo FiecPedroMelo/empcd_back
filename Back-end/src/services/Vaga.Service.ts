@@ -94,7 +94,6 @@ class VagaServices{
         }
     }
 
-
     public async vagaSearcherEmpresa( NomeFantasia: string ): Promise< ExibirVagaDto[] > {
         let vagas:ExibirVagaDto[] = [];
         const empresa = await EmpresaRepository.findOneBy({NomeFantasia})

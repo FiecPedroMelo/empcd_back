@@ -14,7 +14,8 @@ EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEm
 EmpresaRouter.put('/update-image', multer_config_1.upload.single('image'), new Empresa_login_Controllers_1.default().updateEmpresaImage); //ver
 EmpresaRouter.post("/", new Empresa_controllers_1.default().createEmpresa); //ok
 EmpresaRouter.get("/", new Empresa_controllers_1.default().getAll); //ok
-EmpresaRouter.get("/:idEmpresa", new Empresa_controllers_1.default().getEmpresaId); //ok
+EmpresaRouter.get("/:idEmpresa", new Empresa_controllers_1.default().EmpresaById); //ok
+EmpresaRouter.get("/:Email/:Senha", new Empresa_login_Controllers_1.default().GetIdEmpresa);
 EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa); //ok
 EmpresaRouter.put('/:idEmpresa', new Empresa_controllers_1.default().updateEmpresa); //ok
 EmpresaRouter.post("/:idEmpresa/vaga/", new Vaga_controllers_1.default().createVaga); //ok

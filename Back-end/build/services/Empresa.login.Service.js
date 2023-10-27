@@ -80,12 +80,16 @@ class EmpresaLoginService {
                 if (foundEmpresa) {
                     const token = jwt.sign({ idEmpresa: foundEmpresa.IdEmpresa, Email: foundEmpresa.Email, Senha: foundEmpresa.Senha }, constants_1.SECRET);
                     const validation = true;
-                    return { token, validation };
+                    const newToken = { token, validation };
+                    const IdEmpresa = foundEmpresa.IdEmpresa;
+                    return { newToken, IdEmpresa };
                 }
                 else {
                     const token = '';
                     const validation = false;
-                    return { token, validation };
+                    const newToken = { token, validation };
+                    const IdEmpresa = '';
+                    return { newToken, IdEmpresa };
                 }
             }
             catch (err) {
@@ -111,13 +115,31 @@ class EmpresaLoginService {
                 logger_1.default.debug("HashAntes: ", hashDigest);
                 const privateKey = "Empcd";
                 const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
-                logger_1.default.debug("HashDepos: ", hashDigest);
+                logger_1.default.debug("HashDepois: ", hashDigest);
                 newEmpresa.Senha = hmacDigest;
                 yield Empresa_repositories_1.default.save(newEmpresa);
             }
             catch (err) {
                 console.log(err);
                 return 'Failed to sign Up' + err;
+            }
+        });
+    }
+    GetIdEmpresa(Email, Senha) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashDigest = (0, sha256_1.default)(Senha);
+            logger_1.default.debug("HashAntes: ", hashDigest);
+            const privateKey = "Empcd";
+            const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
+            logger_1.default.debug("HashDepois: ", hashDigest);
+            const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email: Email, Senha: hmacDigest });
+            console.log(foundEmpresa);
+            if (foundEmpresa) {
+                const IdEmpresa = foundEmpresa.IdEmpresa;
+                return IdEmpresa;
+            }
+            else {
+                return new Error("id Empresa not found");
             }
         });
     }

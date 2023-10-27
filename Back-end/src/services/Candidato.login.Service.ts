@@ -95,6 +95,22 @@ class CandidatoLoginService {
         
     }
 
+    async GetIdCandidato(Email: string, Senha: string) {
+        const hashDigest = sha256(Senha);
+        logger.debug("HashAntes: ", hashDigest)
+        const privateKey = "Empcd"
+        const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+        logger.debug("HashDepois: ",hashDigest)
+        const foundCandidato = await CandidatoRepository.findOneBy({Email: Email, Senha: hmacDigest});
+        console.log(foundCandidato)
+        if(foundCandidato) {
+            const IdCandidato = foundCandidato.IdCand
+            return IdCandidato
+        } else {
+            return new Error("id Candidato not found")
+        }
+    }
+
     async signUpCandidatosInBatch(req: Request){
         const file = req.body;
         const Candidatos : Candidato[] = [];

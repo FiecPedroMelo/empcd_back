@@ -28,10 +28,10 @@ class EmpresaController{
         }
     }
 
-    public async getEmpresaId(req: Request, res: Response) {
+    public async EmpresaById(req: Request, res: Response) {
         try {
             const idEmpresa = req.params.id
-            const Empresabyid = await EmpresaServices.Instance().IdbyEmpresa(idEmpresa)
+            const Empresabyid = await EmpresaServices.Instance().EmpresaById(idEmpresa)
             console.log(Empresabyid)
             res.json(Empresabyid)
         } catch (err) { 

@@ -38,6 +38,21 @@ class CandidatoLoginController {
             }
         });
     }
+    GetIdCandidato(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Email = req.params.Email;
+                const Senha = req.params.Senha;
+                const IdCandidato = yield new Candidato_login_Service_1.default().GetIdCandidato(Email, Senha);
+                console.log(IdCandidato);
+                res.json(IdCandidato);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
     signUpCandidatosInBatch(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const newCandidato = req.file;

@@ -55,11 +55,15 @@ class EmpresaLoginService {
             if (foundEmpresa) {
                 const token = jwt.sign({idEmpresa: foundEmpresa.IdEmpresa, Email: foundEmpresa.Email, Senha: foundEmpresa.Senha}, SECRET);
                 const validation: boolean = true;
-                return {token, validation}
+                const newToken = {token, validation}
+                const IdEmpresa = foundEmpresa.IdEmpresa
+                return {newToken, IdEmpresa}
             } else {
                 const token = '';
                 const validation: boolean = false;
-                return {token, validation}
+                const newToken = {token, validation}
+                const IdEmpresa = '';
+                return {newToken, IdEmpresa}
             }
 
         } catch (err) {
@@ -95,7 +99,7 @@ class EmpresaLoginService {
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "Empcd"
             const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey));
-            logger.debug("HashDepos: ",hashDigest)
+            logger.debug("HashDepois: ",hashDigest)
             newEmpresa.Senha = hmacDigest;
             await EmpresaRepository.save(newEmpresa);
         } catch (err) {
@@ -103,6 +107,22 @@ class EmpresaLoginService {
             return 'Failed to sign Up' + err;
         }
         
+    }
+
+    async GetIdEmpresa(Email: string, Senha: string) {
+        const hashDigest = sha256(Senha);
+        logger.debug("HashAntes: ", hashDigest)
+        const privateKey = "Empcd"
+        const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+        logger.debug("HashDepois: ",hashDigest)
+        const foundEmpresa = await EmpresaRepository.findOneBy({Email: Email, Senha: hmacDigest});
+        console.log(foundEmpresa)
+        if(foundEmpresa) {
+            const IdEmpresa = foundEmpresa.IdEmpresa
+            return IdEmpresa
+        } else {
+            return new Error("id Empresa not found")
+        }
     }
 
     async signUpEmpresasInBatch(req: Request){
@@ -118,6 +138,7 @@ class EmpresaLoginService {
             });
         }
     }
+    
     async updateEmpresaImage(req: Request){
         const file = req.file;
         const {id} = (req as any).authUser;

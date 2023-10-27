@@ -38,6 +38,21 @@ class EmpresaLoginController {
             }
         });
     }
+    GetIdEmpresa(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Email = req.params.Email;
+                const Senha = req.params.Senha;
+                const IdEmpresa = yield new Empresa_login_Service_1.default().GetIdEmpresa(Email, Senha);
+                console.log(IdEmpresa);
+                res.json(IdEmpresa);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
     signUpEmpresasInBatch(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const newEmpresa = req.file;

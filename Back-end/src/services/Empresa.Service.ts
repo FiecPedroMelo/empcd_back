@@ -1,4 +1,7 @@
+import Base64 from "crypto-js/enc-base64"
+import sha256 from "crypto-js/sha256"
 import { v4 } from "uuid"
+import logger from "../config/logger"
 import { EmpresaDto } from "../models/dto/Empresa.dto"
 import Empresa from "../models/entities/Empresa"
 import EmpresaRepository from "../models/repositories/Empresa.repositories"
@@ -39,7 +42,7 @@ class EmpresaServices {
         return await EmpresaRepository.find()
     }
 
-    public async IdbyEmpresa(IdEmpresa: string): Promise<Empresa> {
+    public async EmpresaById(IdEmpresa: string): Promise<Empresa> {
         const idEmpresa = await EmpresaRepository.findOneBy({IdEmpresa})
         if(idEmpresa) {
             return Promise.resolve(idEmpresa)
@@ -84,3 +87,7 @@ class EmpresaServices {
 }
 
 export default EmpresaServices;
+
+function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
+    throw new Error("Function not implemented.")
+}

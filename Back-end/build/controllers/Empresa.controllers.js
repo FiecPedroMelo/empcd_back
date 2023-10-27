@@ -43,11 +43,11 @@ class EmpresaController {
             }
         });
     }
-    getEmpresaId(req, res) {
+    EmpresaById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const idEmpresa = req.params.id;
-                const Empresabyid = yield Empresa_Service_1.default.Instance().IdbyEmpresa(idEmpresa);
+                const Empresabyid = yield Empresa_Service_1.default.Instance().EmpresaById(idEmpresa);
                 console.log(Empresabyid);
                 res.json(Empresabyid);
             }

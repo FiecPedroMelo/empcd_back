@@ -51,7 +51,7 @@ class EmpresaServices {
             return yield Empresa_repositories_1.default.find();
         });
     }
-    IdbyEmpresa(IdEmpresa) {
+    EmpresaById(IdEmpresa) {
         return __awaiter(this, void 0, void 0, function* () {
             const idEmpresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
             if (idEmpresa) {
@@ -99,3 +99,6 @@ class EmpresaServices {
     }
 }
 exports.default = EmpresaServices;
+function hmacSHA512(hashDigest, privateKey) {
+    throw new Error("Function not implemented.");
+}

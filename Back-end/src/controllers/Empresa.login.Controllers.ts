@@ -20,7 +20,20 @@ class EmpresaLoginController {
         } catch (err) {
             console.log(err);
         }
-        
+    }
+
+    
+    async GetIdEmpresa(req: Request, res: Response) {
+        try {
+            const Email = req.params.Email
+            const Senha = req.params.Senha
+            const IdEmpresa = await new EmpresaLoginService().GetIdEmpresa(Email, Senha)
+            console.log(IdEmpresa)
+            res.json(IdEmpresa)
+        } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
     }
 
     async signUpEmpresasInBatch(req:Request, res:Response) {

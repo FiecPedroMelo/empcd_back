@@ -11,6 +11,7 @@ const multer_config_1 = require("../config/multer-config");
 const CandidatoRouter = (0, express_1.Router)();
 CandidatoRouter.post('/login', new Candidato_login_controller_1.default().loginCandidato); //ok
 CandidatoRouter.post('/signUp', new Candidato_login_controller_1.default().signUpCandidato); //ok
+CandidatoRouter.get("/:Email/:Senha", new Candidato_login_controller_1.default().GetIdCandidato);
 CandidatoRouter.put('/update-image', multer_config_1.upload.single('image'), new Candidato_login_controller_1.default().updateCandidatoImage); //ver
 CandidatoRouter.post("/", new Candidato_controllers_1.default().createCandidato); //ok
 CandidatoRouter.get("/", new Candidato_controllers_1.default().getAll); //ok

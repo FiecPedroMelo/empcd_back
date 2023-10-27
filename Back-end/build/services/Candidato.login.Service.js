@@ -131,6 +131,24 @@ class CandidatoLoginService {
             }
         });
     }
+    GetIdCandidato(Email, Senha) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashDigest = (0, sha256_1.default)(Senha);
+            logger_1.default.debug("HashAntes: ", hashDigest);
+            const privateKey = "Empcd";
+            const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
+            logger_1.default.debug("HashDepois: ", hashDigest);
+            const foundCandidato = yield Candidato_repositories_1.default.findOneBy({ Email: Email, Senha: hmacDigest });
+            console.log(foundCandidato);
+            if (foundCandidato) {
+                const IdCandidato = foundCandidato.IdCand;
+                return IdCandidato;
+            }
+            else {
+                return new Error("id Candidato not found");
+            }
+        });
+    }
     signUpCandidatosInBatch(req) {
         return __awaiter(this, void 0, void 0, function* () {
             const file = req.body;

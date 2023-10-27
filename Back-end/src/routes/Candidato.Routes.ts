@@ -8,6 +8,7 @@ const CandidatoRouter = Router();
 
 CandidatoRouter.post('/login', new CandidatoLoginController().loginCandidato); //ok
 CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok
+CandidatoRouter.get("/:Email/:Senha", new CandidatoLoginController().GetIdCandidato);
 CandidatoRouter.put('/update-image', upload.single('image'), new CandidatoLoginController().updateCandidatoImage) //ver
 CandidatoRouter.post("/", new CandidatoController().createCandidato); //ok
 CandidatoRouter.get("/", new CandidatoController().getAll); //ok
