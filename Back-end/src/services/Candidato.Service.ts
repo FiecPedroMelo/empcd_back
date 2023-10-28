@@ -4,6 +4,10 @@ import Candidato from "../models/entities/Candidato";
 import CandidatoRepository from "../models/repositories/Candidato.repositories";
 import { Request } from "express";
 import Jimp from "jimp";
+import sha256 from "crypto-js/sha256";
+import logger from "../config/logger";
+import Base64 from "crypto-js/enc-base64";
+import hmacSHA512 from "crypto-js/hmac-sha512";
 
 class CandidatoServices {
     private static instance: CandidatoServices
@@ -35,7 +39,6 @@ class CandidatoServices {
             candidato.Formacao = valid.Formacao
             candidato.ExpAnteriores = valid.ExpAnteriores
             candidato.Habilidades = valid.Habilidades
-            candidato.ImagemCandidato = valid.ImagemCandidato
             console.log(candidato)
 
             return await CandidatoRepository.save(candidato)
@@ -72,21 +75,25 @@ class CandidatoServices {
             if (!data) {
                 return Promise.reject('Could not find IdCandidato')
             }
-            data.NomeCompleto
-            data.Email
-            data.CPF
-            data.Telefone
-            data.Senha
-            data.Genero
-            data.Deficiencia
-            data.DataNasc
-            data.Estado
-            data.Cidade
-            data.Bairro
-            data.Formacao
-            data.ExpAnteriores
-            data.Habilidades
-            data.ImagemCandidato
+            const hashDigest = sha256(valid.Senha);
+            logger.debug("HashAntes: ", hashDigest)
+            const privateKey = "Empcd"
+            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+            logger.debug("HashDepois: ",hashDigest)
+            data.Senha = hmacDigest
+            data.NomeCompleto = valid.NomeCompleto
+            data.Email = valid.Email
+            data.CPF = valid.CPF
+            data.Telefone = valid.Telefone
+            data.Genero = valid.Genero
+            data.Deficiencia = valid.Deficiencia
+            data.DataNasc = valid.DataNasc
+            data.Estado = valid.Estado
+            data.Cidade = valid.Cidade
+            data.Bairro = valid.Bairro
+            data.Formacao = valid.Formacao
+            data.ExpAnteriores = valid.ExpAnteriores
+            data.Habilidades = valid.Habilidades
             return await CandidatoRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Candidato'))
@@ -96,6 +103,3 @@ class CandidatoServices {
 
 export default CandidatoServices;
 
-function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
-    throw new Error("Function not implemented.");
-}

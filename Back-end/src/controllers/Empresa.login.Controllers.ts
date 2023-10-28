@@ -13,22 +13,21 @@ class EmpresaLoginController {
     }
 
     async signUpEmpresa(req: Request, res: Response){
-        const {RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa} = req.body;
+        const {RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF} = req.body;
         try {
-            await new EmpresaLoginService().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa);
+            await new EmpresaLoginService().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF);
             res.json('Bem criado!');
         } catch (err) {
             console.log(err);
         }
     }
-
     
     async GetIdEmpresa(req: Request, res: Response) {
+        const Email = req.params.Email;
+        const Senha = req.params.Senha;
+        const Token = req.params.Token;
         try {
-            const Email = req.params.Email
-            const Senha = req.params.Senha
-            const IdEmpresa = await new EmpresaLoginService().GetIdEmpresa(Email, Senha)
-            console.log(IdEmpresa)
+            const IdEmpresa = await new EmpresaLoginService().GetIdEmpresa(Email, Senha, Token);
             res.json(IdEmpresa)
         } catch(err){
             res.status(500).send(err)
@@ -44,12 +43,6 @@ class EmpresaLoginController {
         }
         const savedEmpresa = await new EmpresaLoginService().signUpEmpresasInBatch(req);
         res.json(`request saved with successful ${JSON.stringify(savedEmpresa)}`);
-    }
-
-    async updateEmpresaImage(req:Request, res:Response) {
-        console.log(req.file);
-        await new EmpresaLoginService().updateEmpresaImage(req);
-        res.json('files');
     }
 }
 

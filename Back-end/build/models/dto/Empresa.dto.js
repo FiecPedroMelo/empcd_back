@@ -11,8 +11,7 @@ exports.EmpresaSchema = zod_1.z.object({
     CNPJ: zod_1.z.string().min(14).max(18),
     Cidade: zod_1.z.string(),
     Bairro: zod_1.z.string(),
-    UF: zod_1.z.string().min(2).max(2),
-    ImagemEmpresa: zod_1.z.string(),
+    UF: zod_1.z.string().min(2).max(2)
 });
 exports.EmpresaId = zod_1.z.object({
     IdEmpresa: zod_1.z.string().min(6)

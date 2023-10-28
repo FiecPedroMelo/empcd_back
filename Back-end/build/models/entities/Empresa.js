@@ -58,10 +58,6 @@ __decorate([
     __metadata("design:type", String)
 ], Empresa.prototype, "UF", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Empresa.prototype, "ImagemEmpresa", void 0);
-__decorate([
     (0, typeorm_1.OneToMany)(() => Vagas_1.default, (vagas) => vagas.empresa, { nullable: true }),
     __metadata("design:type", Array)
 ], Empresa.prototype, "vagas", void 0);

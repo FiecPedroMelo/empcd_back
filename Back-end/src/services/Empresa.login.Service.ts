@@ -22,8 +22,7 @@ class EmpresaLoginService {
         CNPJ: string,
         Cidade: string,
         Bairro: string,
-        UF: string,
-        ImagemEmpresa: string) : Empresa{
+        UF: string) : Empresa{
         const newEmpresa = new Empresa();
         newEmpresa.IdEmpresa = v4();
         newEmpresa.RazaoSocial = RazaoSocial,
@@ -33,8 +32,7 @@ class EmpresaLoginService {
         newEmpresa.CNPJ = CNPJ,
         newEmpresa.Cidade = Cidade,
         newEmpresa.Bairro = Bairro,
-        newEmpresa.UF = UF,
-        newEmpresa.ImagemEmpresa = ImagemEmpresa
+        newEmpresa.UF = UF
         const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "FIEC2023"
@@ -49,7 +47,7 @@ class EmpresaLoginService {
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "Empcd"
-            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey ))
+            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
             logger.debug("HashDepois: ",hashDigest)
             const foundEmpresa = await EmpresaRepository.findOneBy({Email, Senha: hmacDigest});
             if (foundEmpresa) {
@@ -81,8 +79,7 @@ class EmpresaLoginService {
         CNPJ: string,
         Cidade: string,
         Bairro: string,
-        UF: string,
-        ImagemEmpresa: string) {
+        UF: string) {
         try{
             const newEmpresa = new Empresa();
             newEmpresa.IdEmpresa = v4();
@@ -93,8 +90,7 @@ class EmpresaLoginService {
             newEmpresa.CNPJ = CNPJ,
             newEmpresa.Cidade = Cidade,
             newEmpresa.Bairro = Bairro,
-            newEmpresa.UF = UF,
-            newEmpresa.ImagemEmpresa = ImagemEmpresa
+            newEmpresa.UF = UF
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "Empcd"
@@ -109,20 +105,22 @@ class EmpresaLoginService {
         
     }
 
-    async GetIdEmpresa(Email: string, Senha: string) {
+    async GetIdEmpresa(Email: string, Senha: string, Token: string) {
+        const decode = jwt.decode(Token)
+        console.log(decode);
         const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "Empcd"
         const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
         logger.debug("HashDepois: ",hashDigest)
-        const foundEmpresa = await EmpresaRepository.findOneBy({Email: Email, Senha: hmacDigest});
+        const foundEmpresa = await EmpresaRepository.findOneBy({Email, Senha: hmacDigest});
         if(foundEmpresa) {
             const IdEmpresa = foundEmpresa.IdEmpresa
             return IdEmpresa
         } else {
             return new Error("id Empresa not found")
         }
-    }
+    } //ok - conferir hash no front
 
     async signUpEmpresasInBatch(req: Request){
         const file = req.body;
@@ -130,24 +128,11 @@ class EmpresaLoginService {
         if(file != null) {
             fs.createReadStream(file.path)
                 .pipe(csvParser())
-                .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF, data.ImagemEmpresa)))
+                .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF)))
                 .on('end', () => {
                     console.log(Empresas);
                     EmpresaRepository.insert(Empresas);
             });
-        }
-    }
-    
-    async updateEmpresaImage(req: Request){
-        const file = req.file;
-        const {id} = (req as any).authUser;
-        const foundEmpresa = await EmpresaRepository.findOneBy({IdEmpresa: id});
-        if(file != null && foundEmpresa != null){
-            const image = await Jimp.read(file.path);
-            await image.resize(600,600);
-            await image.writeAsync('uploads/' + file.originalname);
-            foundEmpresa.ImagemEmpresa = file.originalname;
-            await EmpresaRepository.save(foundEmpresa)
         }
     }
 }

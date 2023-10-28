@@ -48,9 +48,6 @@ class Candidato{
     @Column()
     Habilidades: string
 
-    @Column({nullable: true})
-    ImagemCandidato: string
-
     @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.candidato, {nullable: true})
     vaga_aux: Vaga_aux[];
 

@@ -4,13 +4,13 @@ export interface VagaAuxDto {
     IdVagaAux: string;
     IdVaga: string;
     IdCand: string;
-    Status: boolean;
+    IdEmpresa: string;
 }
 
 export const VagaSchema = z.object({
     IdVaga: z.string(),
     IdCand: z.string(),
-    Status: z.boolean()
+    IdEmpresa: z.string()
 })
 
 export const VagaAuxId = z.object({

@@ -34,9 +34,6 @@ class Empresa{
     @Column()
     UF: string;
 
-    @Column({nullable: true})
-    ImagemEmpresa: string;
-
     @OneToMany(() => Vagas, (vagas) => vagas.empresa, {nullable: true}) 
     vagas: Vagas[]
 

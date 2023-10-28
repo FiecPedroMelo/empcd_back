@@ -16,7 +16,7 @@ class EmpresaController{
             res.status(500).send(err)
             console.log(err)
         }
-    }
+    } //ok
 
     public async getAll(req: Request, res: Response){
         try {
@@ -26,11 +26,11 @@ class EmpresaController{
             res.status(500).send(err)
             console.log(err)
         }
-    }
+    } //ok
 
     public async EmpresaById(req: Request, res: Response) {
         try {
-            const idEmpresa = req.params.id
+            const idEmpresa = req.params.idEmpresa
             const Empresabyid = await EmpresaServices.Instance().EmpresaById(idEmpresa)
             console.log(Empresabyid)
             res.json(Empresabyid)
@@ -38,7 +38,7 @@ class EmpresaController{
             res.status(500).send(err)
             console.log(err)
         }
-    }
+    } //ok
 
     public async deleteEmpresa(req: Request, res: Response) {
         try {

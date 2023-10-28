@@ -115,17 +115,20 @@ class VagaServices {
             }
         });
     }
-    vagaSearcherEmpresa(IdEmpresa) {
+    vagaSearcherEmpresa(idEmpresa) {
         return __awaiter(this, void 0, void 0, function* () {
             let vagas = [];
-            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
             try {
-                if (empresa) {
-                    const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: empresa });
+                const Empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: idEmpresa });
+                console.log({ Empresa });
+                if (!Empresa) {
+                    return Promise.reject(new Error('Unable to find empresa'));
+                }
+                else {
+                    const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: Empresa });
                     vagasPorEmpresa.forEach(Exibirvaga => {
                         const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
-                        vagaResponse.ImagemEmpresa = Exibirvaga.empresa.ImagemEmpresa;
-                        vagaResponse.NomeFantasia = Exibirvaga.empresa.NomeFantasia;
+                        vagaResponse.NomeFantasia = Empresa.NomeFantasia;
                         vagaResponse.TituloCargo = Exibirvaga.TituloCargo;
                         vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga;
                         vagas.push(vagaResponse);
@@ -145,7 +148,6 @@ class VagaServices {
                 const TodasVagas = yield Vaga_repositories_1.default.find();
                 TodasVagas.forEach(vaga => {
                     const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
-                    vagaResponse.ImagemEmpresa = vaga.empresa.ImagemEmpresa;
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga;

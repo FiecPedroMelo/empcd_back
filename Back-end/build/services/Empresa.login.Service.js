@@ -46,9 +46,8 @@ const csv_parser_1 = __importDefault(require("csv-parser"));
 const fs_1 = __importDefault(require("fs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
-const jimp_1 = __importDefault(require("jimp"));
 class EmpresaLoginService {
-    getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa) {
+    getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF) {
         const newEmpresa = new Empresa_1.default();
         newEmpresa.IdEmpresa = (0, uuid_1.v4)();
         newEmpresa.RazaoSocial = RazaoSocial,
@@ -58,8 +57,7 @@ class EmpresaLoginService {
             newEmpresa.CNPJ = CNPJ,
             newEmpresa.Cidade = Cidade,
             newEmpresa.Bairro = Bairro,
-            newEmpresa.UF = UF,
-            newEmpresa.ImagemEmpresa = ImagemEmpresa;
+            newEmpresa.UF = UF;
         const hashDigest = (0, sha256_1.default)(Senha);
         logger_1.default.debug("HashAntes: ", hashDigest);
         const privateKey = "FIEC2023";
@@ -97,7 +95,7 @@ class EmpresaLoginService {
             }
         });
     }
-    signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa) {
+    signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const newEmpresa = new Empresa_1.default();
@@ -109,8 +107,7 @@ class EmpresaLoginService {
                     newEmpresa.CNPJ = CNPJ,
                     newEmpresa.Cidade = Cidade,
                     newEmpresa.Bairro = Bairro,
-                    newEmpresa.UF = UF,
-                    newEmpresa.ImagemEmpresa = ImagemEmpresa;
+                    newEmpresa.UF = UF;
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
                 const privateKey = "Empcd";
@@ -125,14 +122,16 @@ class EmpresaLoginService {
             }
         });
     }
-    GetIdEmpresa(Email, Senha) {
+    GetIdEmpresa(Email, Senha, Token) {
         return __awaiter(this, void 0, void 0, function* () {
+            const decode = jwt.decode(Token);
+            console.log(decode);
             const hashDigest = (0, sha256_1.default)(Senha);
             logger_1.default.debug("HashAntes: ", hashDigest);
             const privateKey = "Empcd";
             const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
             logger_1.default.debug("HashDepois: ", hashDigest);
-            const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email: Email, Senha: hmacDigest });
+            const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email, Senha: hmacDigest });
             if (foundEmpresa) {
                 const IdEmpresa = foundEmpresa.IdEmpresa;
                 return IdEmpresa;
@@ -141,7 +140,7 @@ class EmpresaLoginService {
                 return new Error("id Empresa not found");
             }
         });
-    }
+    } //ok - conferir hash no front
     signUpEmpresasInBatch(req) {
         return __awaiter(this, void 0, void 0, function* () {
             const file = req.body;
@@ -149,25 +148,11 @@ class EmpresaLoginService {
             if (file != null) {
                 fs_1.default.createReadStream(file.path)
                     .pipe((0, csv_parser_1.default)())
-                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF, data.ImagemEmpresa)))
+                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF)))
                     .on('end', () => {
                     console.log(Empresas);
                     Empresa_repositories_1.default.insert(Empresas);
                 });
-            }
-        });
-    }
-    updateEmpresaImage(req) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const file = req.file;
-            const { id } = req.authUser;
-            const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: id });
-            if (file != null && foundEmpresa != null) {
-                const image = yield jimp_1.default.read(file.path);
-                yield image.resize(600, 600);
-                yield image.writeAsync('uploads/' + file.originalname);
-                foundEmpresa.ImagemEmpresa = file.originalname;
-                yield Empresa_repositories_1.default.save(foundEmpresa);
             }
         });
     }

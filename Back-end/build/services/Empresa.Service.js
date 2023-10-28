@@ -37,7 +37,6 @@ class EmpresaServices {
                 empresa.Cidade = valid.Cidade;
                 empresa.Bairro = valid.Bairro;
                 empresa.UF = valid.UF;
-                empresa.ImagemEmpresa = valid.ImagemEmpresa;
                 console.log(empresa);
                 return yield Empresa_repositories_1.default.save(empresa);
             }
@@ -89,7 +88,6 @@ class EmpresaServices {
                 data.Cidade = valid.Cidade;
                 data.Bairro = valid.Bairro;
                 data.UF = valid.UF;
-                data.ImagemEmpresa = valid.ImagemEmpresa;
                 return yield Empresa_repositories_1.default.save(data);
             }
             catch (err) {

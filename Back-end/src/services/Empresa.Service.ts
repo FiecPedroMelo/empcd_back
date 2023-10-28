@@ -26,7 +26,6 @@ class EmpresaServices {
             empresa.Cidade = valid.Cidade
             empresa.Bairro = valid.Bairro
             empresa.UF = valid.UF
-            empresa.ImagemEmpresa = valid.ImagemEmpresa
             console.log(empresa)
 
             return await EmpresaRepository.save(empresa)
@@ -72,8 +71,6 @@ class EmpresaServices {
             data.Cidade = valid.Cidade
             data.Bairro = valid.Bairro
             data.UF = valid.UF
-            data.ImagemEmpresa = valid.ImagemEmpresa
-
             return await EmpresaRepository.save(data)
         } catch (err) {
             return Promise.reject(new Error('Unable to update Empresa'));

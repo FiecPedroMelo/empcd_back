@@ -74,10 +74,6 @@ __decorate([
     __metadata("design:type", String)
 ], Candidato.prototype, "Habilidades", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Candidato.prototype, "ImagemCandidato", void 0);
-__decorate([
     (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.candidato, { nullable: true }),
     __metadata("design:type", Array)
 ], Candidato.prototype, "vaga_aux", void 0);

@@ -1,15 +1,16 @@
 {
     "NomeCompleto": "Dani",
     "Email": "danielsfranco346@gmail.com",
-    "Telefone": "(19)98102-9833",
     "CPF": "549.666.858-74",
-    "DataNasc": "2006-06-03",
-    "Endereco": "Rua dos Bobos N° 1",
-    "Cep": "12345-678",
-    "Formacao": "Nenhum",
-    "ExpProfissional": "Nenhum",
-    "Habilidades": "Nenhuma",
+    "Telefone": "(19)98102-9833",
     "Senha": "12345678",
+    "Genero": "Masculino",
     "Deficiencia": "Auditiva",
-    "ImagemCandidato": "aaaaa"
+    "DataNasc": "2006-06-03",
+    "Estado": "SP",
+    "Cidade": "Indaiatuba",
+    "Bairro": "Jardim Toscana",
+    "Formacao": "Nenhum",
+    "ExpAnteriores": "Nenhum",
+    "Habilidades": "Nenhuma"
 }

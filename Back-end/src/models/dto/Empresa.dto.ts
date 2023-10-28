@@ -11,7 +11,6 @@ export interface EmpresaDto {
     Cidade: string;
     Bairro: string;
     UF: string;
-    ImagemEmpresa: string;
 }
 
 export const EmpresaSchema = z.object({
@@ -23,8 +22,7 @@ export const EmpresaSchema = z.object({
     CNPJ: z.string().min(14).max(18),
     Cidade: z.string(),
     Bairro: z.string(),
-    UF: z.string().min(2).max(2),
-    ImagemEmpresa: z.string(),
+    UF: z.string().min(2).max(2)
 })
 
 export const EmpresaId = z.object({

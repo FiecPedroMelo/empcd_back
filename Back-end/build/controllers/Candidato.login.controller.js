@@ -64,12 +64,5 @@ class CandidatoLoginController {
             res.json(`request saved with successful ${JSON.stringify(savedCandidato)}`);
         });
     }
-    updateCandidatoImage(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.file);
-            yield new Candidato_login_Service_1.default().updateCandidatoImage(req);
-            res.json('files');
-        });
-    }
 }
 exports.default = CandidatoLoginController;

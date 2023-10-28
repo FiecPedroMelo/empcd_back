@@ -30,7 +30,7 @@ class EmpresaController {
                 console.log(err);
             }
         });
-    }
+    } //ok
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -42,11 +42,11 @@ class EmpresaController {
                 console.log(err);
             }
         });
-    }
+    } //ok
     EmpresaById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idEmpresa = req.params.id;
+                const idEmpresa = req.params.idEmpresa;
                 const Empresabyid = yield Empresa_Service_1.default.Instance().EmpresaById(idEmpresa);
                 console.log(Empresabyid);
                 res.json(Empresabyid);
@@ -56,7 +56,7 @@ class EmpresaController {
                 console.log(err);
             }
         });
-    }
+    } //ok
     deleteEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

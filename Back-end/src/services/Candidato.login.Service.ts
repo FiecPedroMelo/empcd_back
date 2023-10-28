@@ -29,7 +29,6 @@ class CandidatoLoginService {
         newCandidato.Formacao = Formacao;
         newCandidato.ExpAnteriores = ExpAnteriores;
         newCandidato.Habilidades = Habilidades;
-        newCandidato.ImagemCandidato = ImagemCandidato;
         const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "FIEC2023"
@@ -84,7 +83,6 @@ class CandidatoLoginService {
             newCandidato.Formacao = Formacao;
             newCandidato.ExpAnteriores = ExpAnteriores;
             newCandidato.Habilidades = Habilidades;
-            newCandidato.ImagemCandidato = ImagemCandidato;
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "Empcd"
@@ -125,19 +123,6 @@ class CandidatoLoginService {
                     console.log(Candidatos);
                     CandidatoRepository.insert(Candidatos);
             });
-        }
-    }
-
-    async updateCandidatoImage(req: Request){
-        const file = req.file;
-        const {id} = (req as any).authUser;
-        const foundCandidato = await CandidatoRepository.findOneBy({IdCand: id});
-        if(file != null && foundCandidato != null){
-            const image = await Jimp.read(file.path);
-            await image.resize(600,600);
-            await image.writeAsync('uploads/' + file.originalname);
-            foundCandidato.ImagemCandidato = file.originalname;
-            await CandidatoRepository.save(foundCandidato)
         }
     }
 }

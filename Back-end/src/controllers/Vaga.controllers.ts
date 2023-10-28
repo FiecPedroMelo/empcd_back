@@ -22,7 +22,7 @@ class VagaController {
 
     public async updateVaga(req: Request, res: Response) {
         try{
-            const idVaga = req.params.id
+            const idVaga = req.params.idVaga
             const VagaObject = req.body
             await VagaServices.Instance().updateVaga(idVaga, VagaObject)
             res.json({Mensagem: "Vaga already updated"})
@@ -66,7 +66,7 @@ class VagaController {
 
     public async vagaSearcherEmpresa(req: Request, res: Response) {
         try {
-            const Vagaget = await VagaServices.Instance().vagaSearcherEmpresa(req.params.NomeFantasia)
+            const Vagaget = await VagaServices.Instance().vagaSearcherEmpresa(req.params.idEmpresa)
             res.json(Vagaget)
         } catch (err) {
             res.status(500).send(err)

@@ -97,16 +97,18 @@ class VagaServices{
         }
     }
 
-    public async vagaSearcherEmpresa(IdEmpresa: string): Promise< ExibirVagaDto[] > {
+    public async vagaSearcherEmpresa(idEmpresa: string): Promise< ExibirVagaDto[] > {
         let vagas:ExibirVagaDto[] = [];
-        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
         try{
-            if(empresa) {
-                const vagasPorEmpresa = await VagaRepository.findBy({empresa:empresa})
+            const Empresa = await EmpresaRepository.findOneBy({IdEmpresa: idEmpresa});
+            console.log({Empresa})
+            if(!Empresa) {
+                return Promise.reject(new Error('Unable to find empresa'));
+            } else {
+                const vagasPorEmpresa = await VagaRepository.findBy({empresa:Empresa})
                 vagasPorEmpresa.forEach(Exibirvaga => {
                     const vagaResponse = new ExibirVagaDto();
-                    vagaResponse.ImagemEmpresa = Exibirvaga.empresa.ImagemEmpresa
-                    vagaResponse.NomeFantasia = Exibirvaga.empresa.NomeFantasia
+                    vagaResponse.NomeFantasia = Empresa.NomeFantasia
                     vagaResponse.TituloCargo = Exibirvaga.TituloCargo
                     vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga
                     vagas.push(vagaResponse)
@@ -125,7 +127,6 @@ class VagaServices{
             const TodasVagas = await VagaRepository.find()
             TodasVagas.forEach(vaga => {
                 const vagaResponse = new ExibirVagaDto();
-                vagaResponse.ImagemEmpresa = vaga.empresa.ImagemEmpresa
                 vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
                 vagaResponse.TituloCargo = vaga.TituloCargo
                 vagaResponse.DescricaoVaga = vaga.DescricaoVaga

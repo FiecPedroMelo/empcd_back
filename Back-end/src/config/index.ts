@@ -2,17 +2,15 @@ import express, { Request, Response, Express } from "express";
 import cors from 'cors';
 import morgan from "morgan";
 import logger from "./logger";
-import Userrouter from "../routes/User.Routes";
-import Candidatorouter from "../routes/Candidato.Routes";
-import Empresarouter from "../routes/Empresa.Routes";
-import Vagarouter from "../routes/Vaga.Routes";
-import { validator } from "../controllers/auth.validator";
+import UserRouter from "../routes/User.Routes";
+import CandidatoRouter from "../routes/Candidato.Routes";
+import EmpresaRouter from "../routes/Empresa.Routes";
+import VagaRouter from "../routes/Vaga.Routes";
 import authRouter from "../routes/Auth.Routes";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 app.use(morgan("Combinet"));
 
 app.get('/nome',(Res:Response, Req:Request)=>{
@@ -28,10 +26,10 @@ app.get('/dados-fake', (req: Request, res: Response) => {
 //app.use('/api/v1/candidatos', validator)
 //app.use('/api/v1/empresas', validator)
 //app.use('/api/v1/vagas', validator)
-app.use('/api/v1/users', Userrouter)
-app.use('/api/v1/candidatos', Candidatorouter)
-app.use('/api/v1/empresas', Empresarouter)
-app.use('/api/v1/vagas', Vagarouter)
+app.use('/api/v1/users', UserRouter)
+app.use('/api/v1/candidatos', CandidatoRouter)
+app.use('/api/v1/empresas', EmpresaRouter)
+app.use('/api/v1/vagas', VagaRouter)
 app.use('/api/v1/auth', authRouter);
 app.get('/api/v1/users', (req: Request,res: Response) => {
     res.json([])

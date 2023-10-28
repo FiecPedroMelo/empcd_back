@@ -37,7 +37,7 @@ class VagaController {
     updateVaga(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idVaga = req.params.id;
+                const idVaga = req.params.idVaga;
                 const VagaObject = req.body;
                 yield Vaga_Service_1.default.Instance().updateVaga(idVaga, VagaObject);
                 res.json({ Mensagem: "Vaga already updated" });
@@ -89,7 +89,7 @@ class VagaController {
     vagaSearcherEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const Vagaget = yield Vaga_Service_1.default.Instance().vagaSearcherEmpresa(req.params.NomeFantasia);
+                const Vagaget = yield Vaga_Service_1.default.Instance().vagaSearcherEmpresa(req.params.idEmpresa);
                 res.json(Vagaget);
             }
             catch (err) {

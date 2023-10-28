@@ -28,9 +28,9 @@ class EmpresaLoginController {
     }
     signUpEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa } = req.body;
+            const { RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF } = req.body;
             try {
-                yield new Empresa_login_Service_1.default().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, ImagemEmpresa);
+                yield new Empresa_login_Service_1.default().signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF);
                 res.json('Bem criado!');
             }
             catch (err) {
@@ -40,11 +40,11 @@ class EmpresaLoginController {
     }
     GetIdEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const Email = req.params.Email;
+            const Senha = req.params.Senha;
+            const Token = req.params.Token;
             try {
-                const Email = req.params.Email;
-                const Senha = req.params.Senha;
-                const IdEmpresa = yield new Empresa_login_Service_1.default().GetIdEmpresa(Email, Senha);
-                console.log(IdEmpresa);
+                const IdEmpresa = yield new Empresa_login_Service_1.default().GetIdEmpresa(Email, Senha, Token);
                 res.json(IdEmpresa);
             }
             catch (err) {
@@ -62,13 +62,6 @@ class EmpresaLoginController {
             }
             const savedEmpresa = yield new Empresa_login_Service_1.default().signUpEmpresasInBatch(req);
             res.json(`request saved with successful ${JSON.stringify(savedEmpresa)}`);
-        });
-    }
-    updateEmpresaImage(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.file);
-            yield new Empresa_login_Service_1.default().updateEmpresaImage(req);
-            res.json('files');
         });
     }
 }

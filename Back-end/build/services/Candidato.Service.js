@@ -15,6 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const Candidato_1 = __importDefault(require("../models/entities/Candidato"));
 const Candidato_repositories_1 = __importDefault(require("../models/repositories/Candidato.repositories"));
+const sha256_1 = __importDefault(require("crypto-js/sha256"));
+const logger_1 = __importDefault(require("../config/logger"));
+const enc_base64_1 = __importDefault(require("crypto-js/enc-base64"));
+const hmac_sha512_1 = __importDefault(require("crypto-js/hmac-sha512"));
 class CandidatoServices {
     constructor() { }
     static Instance() {
@@ -44,7 +48,6 @@ class CandidatoServices {
                 candidato.Formacao = valid.Formacao;
                 candidato.ExpAnteriores = valid.ExpAnteriores;
                 candidato.Habilidades = valid.Habilidades;
-                candidato.ImagemCandidato = valid.ImagemCandidato;
                 console.log(candidato);
                 return yield Candidato_repositories_1.default.save(candidato);
             }
@@ -87,21 +90,25 @@ class CandidatoServices {
                 if (!data) {
                     return Promise.reject('Could not find IdCandidato');
                 }
-                data.NomeCompleto;
-                data.Email;
-                data.CPF;
-                data.Telefone;
-                data.Senha;
-                data.Genero;
-                data.Deficiencia;
-                data.DataNasc;
-                data.Estado;
-                data.Cidade;
-                data.Bairro;
-                data.Formacao;
-                data.ExpAnteriores;
-                data.Habilidades;
-                data.ImagemCandidato;
+                const hashDigest = (0, sha256_1.default)(valid.Senha);
+                logger_1.default.debug("HashAntes: ", hashDigest);
+                const privateKey = "Empcd";
+                const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
+                logger_1.default.debug("HashDepois: ", hashDigest);
+                data.Senha = hmacDigest;
+                data.NomeCompleto = valid.NomeCompleto;
+                data.Email = valid.Email;
+                data.CPF = valid.CPF;
+                data.Telefone = valid.Telefone;
+                data.Genero = valid.Genero;
+                data.Deficiencia = valid.Deficiencia;
+                data.DataNasc = valid.DataNasc;
+                data.Estado = valid.Estado;
+                data.Cidade = valid.Cidade;
+                data.Bairro = valid.Bairro;
+                data.Formacao = valid.Formacao;
+                data.ExpAnteriores = valid.ExpAnteriores;
+                data.Habilidades = valid.Habilidades;
                 return yield Candidato_repositories_1.default.save(data);
             }
             catch (err) {
@@ -111,6 +118,3 @@ class CandidatoServices {
     }
 }
 exports.default = CandidatoServices;
-function hmacSHA512(hashDigest, privateKey) {
-    throw new Error("Function not implemented.");
-}

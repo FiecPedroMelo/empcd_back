@@ -1,8 +1,10 @@
 {
-        "CNPJ": "66.943.583/0001-00",
-        "RazaoSocial": "SilFloresAcessórios",
-        "NomeFantasia": "SilFlores",
-        "Email": "silfloresacessorios@gmail.com",
-        "Cep": "03582-070",
-        "Senha": "12345678"
+    "RazaoSocial": "Santos",
+    "NomeFantasia": "Santos",
+    "Email": "Santos@gmail.com",
+    "Site": "Santos.com",
+    "CNPJ": "99.435.826/0001-40",
+    "Cidade": "Indaiatuba",
+    "Bairro": "Jardim Regina",
+    "UF": "AC"
 }

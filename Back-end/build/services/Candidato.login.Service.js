@@ -46,7 +46,6 @@ const csv_parser_1 = __importDefault(require("csv-parser"));
 const fs_1 = __importDefault(require("fs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
-const jimp_1 = __importDefault(require("jimp"));
 class CandidatoLoginService {
     getCandidatoFromData(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato) {
         const newCandidato = new Candidato_1.default();
@@ -64,7 +63,6 @@ class CandidatoLoginService {
         newCandidato.Formacao = Formacao;
         newCandidato.ExpAnteriores = ExpAnteriores;
         newCandidato.Habilidades = Habilidades;
-        newCandidato.ImagemCandidato = ImagemCandidato;
         const hashDigest = (0, sha256_1.default)(Senha);
         logger_1.default.debug("HashAntes: ", hashDigest);
         const privateKey = "FIEC2023";
@@ -120,7 +118,6 @@ class CandidatoLoginService {
                 newCandidato.Formacao = Formacao;
                 newCandidato.ExpAnteriores = ExpAnteriores;
                 newCandidato.Habilidades = Habilidades;
-                newCandidato.ImagemCandidato = ImagemCandidato;
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
                 const privateKey = "Empcd";
@@ -164,20 +161,6 @@ class CandidatoLoginService {
                     console.log(Candidatos);
                     Candidato_repositories_1.default.insert(Candidatos);
                 });
-            }
-        });
-    }
-    updateCandidatoImage(req) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const file = req.file;
-            const { id } = req.authUser;
-            const foundCandidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: id });
-            if (file != null && foundCandidato != null) {
-                const image = yield jimp_1.default.read(file.path);
-                yield image.resize(600, 600);
-                yield image.writeAsync('uploads/' + file.originalname);
-                foundCandidato.ImagemCandidato = file.originalname;
-                yield Candidato_repositories_1.default.save(foundCandidato);
             }
         });
     }

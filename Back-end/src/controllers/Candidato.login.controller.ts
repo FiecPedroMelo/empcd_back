@@ -44,12 +44,6 @@ class CandidatoLoginController {
         const savedCandidato = await new CandidatoLoginService().signUpCandidatosInBatch(req);
         res.json(`request saved with successful ${JSON.stringify(savedCandidato)}`);
     }
-
-    async updateCandidatoImage(req:Request, res:Response) {
-        console.log(req.file);
-        await new CandidatoLoginService().updateCandidatoImage(req);
-        res.json('files');
-    }
 }
 
 export default CandidatoLoginController;
