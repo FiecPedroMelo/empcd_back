@@ -9,6 +9,6 @@ const VagaRouter = (0, express_1.Router)();
 // VagaRouter.post("/", new VagaController().createVaga); 
 // VagaRouter.put("/:idVaga", new VagaController().updateVaga); ok
 VagaRouter.get("/", new Vaga_controllers_1.default().getVagas); //ok
-VagaRouter.get("/:idVaga/getbyID", new Vaga_controllers_1.default().getVagaById); //ok
+VagaRouter.get("/:idVaga/getById", new Vaga_controllers_1.default().getVagaById); //ok
 //VagaRouter.get("/:NomeFantasia", new VagaController().vagaSearcherEmpresa) 
 exports.default = VagaRouter;

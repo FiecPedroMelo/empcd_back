@@ -45,3 +45,6 @@ class EmpresaLoginController {
 }
 
 export default EmpresaLoginController;
+
+
+//Fazer timer de login
