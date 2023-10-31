@@ -10,7 +10,8 @@ import csvParser from "csv-parser";
 import fs from "fs";
 import * as jwt from 'jsonwebtoken';
 import { SECRET } from "../constants";
-import Jimp from "jimp";
+import { jwtDecode } from "jwt-decode";
+
 
 class EmpresaLoginService {
     getEmpresaFromData(
@@ -53,15 +54,11 @@ class EmpresaLoginService {
             if (foundEmpresa) {
                 const token = jwt.sign({idEmpresa: foundEmpresa.IdEmpresa, Email: foundEmpresa.Email, Senha: foundEmpresa.Senha}, SECRET);
                 const validation: boolean = true;
-                const newToken = {token, validation}
-                const IdEmpresa = foundEmpresa.IdEmpresa
-                return {newToken, IdEmpresa}
+                return {token, validation}
             } else {
                 const token = '';
                 const validation: boolean = false;
-                const newToken = {token, validation}
-                const IdEmpresa = '';
-                return {newToken, IdEmpresa}
+                return {token, validation}
             }
 
         } catch (err) {
@@ -105,18 +102,26 @@ class EmpresaLoginService {
         
     }
 
-    async GetIdEmpresa(Email: string, Senha: string, Token: string) {
-        const decode = jwt.decode(Token)
-        console.log(decode);
-        const hashDigest = sha256(Senha);
+    async GetIdEmpresa(Token: string) {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        if(!payload) {
+            return new Error(`Invalid Empresa`);
+        }
+        /*const hashDigest = sha256(payload.Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "Empcd"
         const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
         logger.debug("HashDepois: ",hashDigest)
-        const foundEmpresa = await EmpresaRepository.findOneBy({Email, Senha: hmacDigest});
+        const foundEmpresa = await EmpresaRepository.findOneBy({Email: payload.Email, Senha: hmacDigest});
         if(foundEmpresa) {
             const IdEmpresa = foundEmpresa.IdEmpresa
             return IdEmpresa
+        } else {
+            return new Error("id Empresa not found")
+        }*/
+        if(payload.idEmpresa){
+            const idEmpresa = payload.idEmpresa
+            return idEmpresa
         } else {
             return new Error("id Empresa not found")
         }

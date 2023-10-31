@@ -7,6 +7,8 @@ import EmpresaRepository from "../models/repositories/Empresa.repositories"
 import { ExibirVagaDto } from "../models/dto/ExibirVaga.dto"
 import { Vaga_aux } from "../models/entities/Vaga_aux"
 import Vaga_auxRepository from "../models/repositories/Vaga_aux.repositories"
+import { jwtDecode } from "jwt-decode"
+import * as jwt from "jsonwebtoken"
 
 class VagaServices{
     private static instance: VagaServices
@@ -18,15 +20,16 @@ class VagaServices{
         return VagaServices.instance
     }
 
-    public async createVaga(valid: VagaDto, IdEmpresa: string): Promise<Vaga> {
+    public async createVaga(valid: VagaDto, Token: string): Promise<Vaga> {
         try {
+            const payload = jwtDecode(Token) as jwt.JwtPayload
+            const IdEmpresa: string = payload.idEmpresa
             const vaga = new Vaga()
             vaga.IdVaga = v4()
             const empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa})
             if (!empresa) {
                 return Promise.reject(new Error(`No empresa found`))
             }
-            console.log(empresa)
             vaga.empresa = empresa
             vaga.TituloCargo = valid.TituloCargo
             vaga.Localizacao = valid.Localizacao
@@ -67,11 +70,12 @@ class VagaServices{
         return Promise.resolve(vaga)
     }
 
-    public async candidataVaga(IdVaga: string, IdCand: string): Promise<Vaga_aux> {
-        console.log(IdVaga, IdCand)
+    public async candidataVaga(IdVaga: string, Token: string): Promise<Vaga_aux> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdCandidato: string = payload.IdCand
         try {
             const vaga = await VagaRepository.findOneBy({IdVaga})
-            const candidato = await CandidatoRepository.findOneBy({IdCand})
+            const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
             if(!vaga) {
                 return Promise.reject(new Error('Could not find Vaga'));
             }
@@ -97,11 +101,12 @@ class VagaServices{
         }
     }
 
-    public async vagaSearcherEmpresa(idEmpresa: string): Promise< ExibirVagaDto[] > {
+    public async vagaSearcherEmpresa(Token: string): Promise< ExibirVagaDto[] > {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
         let vagas:ExibirVagaDto[] = [];
         try{
-            const Empresa = await EmpresaRepository.findOneBy({IdEmpresa: idEmpresa});
-            console.log({Empresa})
+            const Empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa});
             if(!Empresa) {
                 return Promise.reject(new Error('Unable to find empresa'));
             } else {

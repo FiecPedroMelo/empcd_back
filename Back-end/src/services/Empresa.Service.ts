@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode"
+import * as jwt from "jsonwebtoken"
 import { v4 } from "uuid"
 import { EmpresaDto } from "../models/dto/Empresa.dto"
 import Empresa from "../models/entities/Empresa"
@@ -38,10 +40,12 @@ class EmpresaServices {
         return await EmpresaRepository.find()
     }
 
-    public async EmpresaById(IdEmpresa: string): Promise<Empresa> {
-        const idEmpresa = await EmpresaRepository.findOneBy({IdEmpresa})
-        if(idEmpresa) {
-            return Promise.resolve(idEmpresa)
+    public async EmpresaById(Token: string): Promise<Empresa> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
+        if(empresa) {
+            return Promise.resolve(empresa)
         } else {
             return Promise.reject("id Empresa not found")
         }

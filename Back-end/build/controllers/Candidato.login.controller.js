@@ -41,10 +41,8 @@ class CandidatoLoginController {
     GetIdCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const Email = req.params.Email;
-                const Senha = req.params.Senha;
-                const IdCandidato = yield new Candidato_login_Service_1.default().GetIdCandidato(Email, Senha);
-                console.log(IdCandidato);
+                const Token = req.params.Token;
+                const IdCandidato = yield new Candidato_login_Service_1.default().GetIdCandidato(Token);
                 res.json(IdCandidato);
             }
             catch (err) {

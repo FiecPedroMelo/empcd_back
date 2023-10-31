@@ -46,9 +46,8 @@ class CandidatoController {
     getCandidatoId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idCandidato = req.params.id;
-                const Candidatobyid = yield Candidato_Service_1.default.Instance().IdbyCandidato(idCandidato);
-                console.log(Candidatobyid);
+                const Token = req.params.Token;
+                const Candidatobyid = yield Candidato_Service_1.default.Instance().IdbyCandidato(Token);
                 res.json(Candidatobyid);
             }
             catch (err) {
@@ -60,8 +59,8 @@ class CandidatoController {
     deleteCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idCandidato = req.params.idCand;
-                const deleteid = yield Candidato_Service_1.default.Instance().deleteCandidatoId(idCandidato);
+                const Token = req.params.Token;
+                const deleteid = yield Candidato_Service_1.default.Instance().deleteCandidatoId(Token);
                 res.json(deleteid);
             }
             catch (err) {
@@ -72,9 +71,9 @@ class CandidatoController {
     updateCandidato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idCandidato = req.params.idCand;
+                const Token = req.params.Token;
                 const CandidatoObject = req.body;
-                yield Candidato_Service_1.default.Instance().updateCandidato(idCandidato, CandidatoObject);
+                yield Candidato_Service_1.default.Instance().updateCandidato(Token, CandidatoObject);
                 res.json({ Mensagem: "Candidato already updated" });
             }
             catch (err) {

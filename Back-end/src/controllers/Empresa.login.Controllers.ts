@@ -23,11 +23,9 @@ class EmpresaLoginController {
     }
     
     async GetIdEmpresa(req: Request, res: Response) {
-        const Email = req.params.Email;
-        const Senha = req.params.Senha;
         const Token = req.params.Token;
         try {
-            const IdEmpresa = await new EmpresaLoginService().GetIdEmpresa(Email, Senha, Token);
+            const IdEmpresa = await new EmpresaLoginService().GetIdEmpresa(Token);
             res.json(IdEmpresa)
         } catch(err){
             res.status(500).send(err)

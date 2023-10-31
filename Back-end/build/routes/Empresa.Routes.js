@@ -8,14 +8,14 @@ const Empresa_controllers_1 = __importDefault(require("../controllers/Empresa.co
 const Vaga_controllers_1 = __importDefault(require("../controllers/Vaga.controllers"));
 const Empresa_login_Controllers_1 = __importDefault(require("../controllers/Empresa.login.Controllers"));
 const EmpresaRouter = (0, express_1.Router)();
-EmpresaRouter.get("/:idEmpresa/getEmpresa", new Empresa_controllers_1.default().EmpresaById); //ok
-EmpresaRouter.get("/:Email/:Senha/:Token/getId", new Empresa_login_Controllers_1.default().GetIdEmpresa); //ok - conferir hash no front
-EmpresaRouter.get("/:idEmpresa/getVagas", new Vaga_controllers_1.default().vagaSearcherEmpresa); //ok
-EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa); //ok
-EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa); //ok
-EmpresaRouter.post("/:idEmpresa/vagas", new Vaga_controllers_1.default().createVaga); //ok
-EmpresaRouter.put('/:idEmpresa/updateEmpresa', new Empresa_controllers_1.default().updateEmpresa); //ok
-EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa);
+EmpresaRouter.get("/:Token/empresa", new Empresa_controllers_1.default().EmpresaById); //ok - token
+EmpresaRouter.get("/:Token/getId", new Empresa_login_Controllers_1.default().GetIdEmpresa); //ok - token
+EmpresaRouter.get("/:Token/getVagas", new Vaga_controllers_1.default().vagaSearcherEmpresa); //ok - token
+EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa); //ok - token
+EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa); //ok - token
+EmpresaRouter.post("/:Token/vagas", new Vaga_controllers_1.default().createVaga); //ok - token
+EmpresaRouter.put('/:idEmpresa/updateEmpresa', new Empresa_controllers_1.default().updateEmpresa); //Rever(Tabelas interligadas)
+EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa); //Rever(Tabelas interligadas)
 //EmpresaRouter.get("/", new EmpresaController().getAll);
 //EmpresaRouter.get("/vagas", new VagaController().getVagas); 
 //EmpresaRouter.get("/vagas/:idVaga", new VagaController().getVagaById); 

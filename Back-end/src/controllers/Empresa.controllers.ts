@@ -30,9 +30,8 @@ class EmpresaController{
 
     public async EmpresaById(req: Request, res: Response) {
         try {
-            const idEmpresa = req.params.idEmpresa
-            const Empresabyid = await EmpresaServices.Instance().EmpresaById(idEmpresa)
-            console.log(Empresabyid)
+            const Token = req.params.Token
+            const Empresabyid = await EmpresaServices.Instance().EmpresaById(Token)
             res.json(Empresabyid)
         } catch (err) { 
             res.status(500).send(err)

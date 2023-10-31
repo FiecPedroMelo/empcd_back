@@ -11,6 +11,7 @@ import fs from "fs";
 import * as jwt from 'jsonwebtoken';
 import { SECRET } from "../constants";
 import Jimp from "jimp";
+import { jwtDecode } from "jwt-decode";
 
 class CandidatoLoginService {
     getCandidatoFromData(NomeCompleto: string, Email:string, CPF:string, Telefone:string, Senha: string, Genero: string, Deficiencia: string, DataNasc:Date, Estado:string, Cidade:string, Bairro: string, Formacao:string, ExpAnteriores:string, Habilidades:string, ImagemCandidato:string) : Candidato{
@@ -97,16 +98,17 @@ class CandidatoLoginService {
         
     }
 
-    async GetIdCandidato(Email: string, Senha: string) {
-        const hashDigest = sha256(Senha);
+    async GetIdCandidato(Token: string) {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        /*const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "Empcd"
         const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
         logger.debug("HashDepois: ",hashDigest)
-        const foundCandidato = await CandidatoRepository.findOneBy({Email: Email, Senha: hmacDigest});
-        if(foundCandidato) {
-            const IdCandidato = foundCandidato.IdCand
-            return IdCandidato
+        const foundCandidato = await CandidatoRepository.findOneBy({Email: Email, Senha: payload.Senha});*/
+        if(payload.idCand) {
+            const IdCand = payload.idCand
+            return IdCand
         } else {
             return new Error("id Candidato not found")
         }

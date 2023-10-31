@@ -40,11 +40,9 @@ class EmpresaLoginController {
     }
     GetIdEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const Email = req.params.Email;
-            const Senha = req.params.Senha;
             const Token = req.params.Token;
             try {
-                const IdEmpresa = yield new Empresa_login_Service_1.default().GetIdEmpresa(Email, Senha, Token);
+                const IdEmpresa = yield new Empresa_login_Service_1.default().GetIdEmpresa(Token);
                 res.json(IdEmpresa);
             }
             catch (err) {

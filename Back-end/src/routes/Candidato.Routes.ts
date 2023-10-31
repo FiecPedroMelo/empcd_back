@@ -5,17 +5,17 @@ import VagaController from "../controllers/Vaga.controllers";
 
 const CandidatoRouter = Router();
 
-CandidatoRouter.post('/login', new CandidatoLoginController().loginCandidato); //ok
-CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok
+CandidatoRouter.post('/login', new CandidatoLoginController().loginCandidato); //ok - token
+CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato); //ok - token
 
-CandidatoRouter.get("/:Email/:Senha/getId", new CandidatoLoginController().GetIdCandidato); //ok
-CandidatoRouter.get("/", new CandidatoController().getAll); //ok
-CandidatoRouter.get("/:idCand", new CandidatoController().getCandidatoId); //ok
+CandidatoRouter.get("/:Token/getId", new CandidatoLoginController().GetIdCandidato); //ok - token
+CandidatoRouter.get("/", new CandidatoController().getAll); //ok - token
+CandidatoRouter.get("/:Token/getById", new CandidatoController().getCandidatoId); //ok - token
 
-CandidatoRouter.put('/:idCand/updateCandidato', new CandidatoController().updateCandidato); //ok
-CandidatoRouter.put('/:idCand/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok
+CandidatoRouter.put('/:Token/updateCandidato', new CandidatoController().updateCandidato); //ok - token
+CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok - token
 
-CandidatoRouter.delete("/:idCand/deleteCandidato", new CandidatoController().deleteCandidato); //ok
+CandidatoRouter.delete("/:Token/deleteCandidato", new CandidatoController().deleteCandidato); //ok 
 
 
 export default CandidatoRouter;

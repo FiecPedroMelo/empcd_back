@@ -5,17 +5,16 @@ import EmpresaLoginController from "../controllers/Empresa.login.Controllers";
 
 const EmpresaRouter = Router();
 
-EmpresaRouter.get("/:idEmpresa/getEmpresa", new EmpresaController().EmpresaById); //ok
-EmpresaRouter.get("/:Email/:Senha/:Token/getId", new EmpresaLoginController().GetIdEmpresa); //ok - conferir hash no front
-EmpresaRouter.get("/:idEmpresa/getVagas", new VagaController().vagaSearcherEmpresa); //ok
+EmpresaRouter.get("/:Token/empresa", new EmpresaController().EmpresaById); //ok - token
+EmpresaRouter.get("/:Token/getId", new EmpresaLoginController().GetIdEmpresa); //ok - token
+EmpresaRouter.get("/:Token/getVagas", new VagaController().vagaSearcherEmpresa); //ok - token
 
-EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok
-EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok
-EmpresaRouter.post("/:idEmpresa/vagas", new VagaController().createVaga); //ok
+EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok - token
+EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok - token
+EmpresaRouter.post("/:Token/vagas", new VagaController().createVaga); //ok - token
 
-EmpresaRouter.put('/:idEmpresa/updateEmpresa', new EmpresaController().updateEmpresa); //ok
-
-EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); 
+EmpresaRouter.put('/:idEmpresa/updateEmpresa', new EmpresaController().updateEmpresa); //Rever(Tabelas interligadas)
+EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //Rever(Tabelas interligadas)
 
 //EmpresaRouter.get("/", new EmpresaController().getAll);
 //EmpresaRouter.get("/vagas", new VagaController().getVagas); 

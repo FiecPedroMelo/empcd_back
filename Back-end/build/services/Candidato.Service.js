@@ -19,6 +19,7 @@ const sha256_1 = __importDefault(require("crypto-js/sha256"));
 const logger_1 = __importDefault(require("../config/logger"));
 const enc_base64_1 = __importDefault(require("crypto-js/enc-base64"));
 const hmac_sha512_1 = __importDefault(require("crypto-js/hmac-sha512"));
+const jwt_decode_1 = require("jwt-decode");
 class CandidatoServices {
     constructor() { }
     static Instance() {
@@ -61,20 +62,24 @@ class CandidatoServices {
             return yield Candidato_repositories_1.default.find();
         });
     }
-    IdbyCandidato(IdCand) {
+    IdbyCandidato(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const idCandidato = yield Candidato_repositories_1.default.findOneBy({ IdCand });
-            if (idCandidato) {
-                return Promise.resolve(idCandidato);
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdCandidato = payload.IdCand;
+            const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });
+            if (candidato) {
+                return Promise.resolve(candidato);
             }
             else {
                 return Promise.reject("id Candidato not found");
             }
         });
     }
-    deleteCandidatoId(IdCand) {
+    deleteCandidatoId(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteById = yield Candidato_repositories_1.default.delete({ IdCand });
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdCandidato = payload.idCand;
+            const deleteById = yield Candidato_repositories_1.default.delete({ IdCand: IdCandidato });
             if (deleteById) {
                 return Promise.resolve('Deleted IdCand successfully');
             }
@@ -83,10 +88,12 @@ class CandidatoServices {
             }
         });
     }
-    updateCandidato(IdCand, valid) {
+    updateCandidato(Token, valid) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield Candidato_repositories_1.default.findOneBy({ IdCand });
+                const payload = (0, jwt_decode_1.jwtDecode)(Token);
+                const IdCandidato = payload.IdCand;
+                const data = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });
                 if (!data) {
                     return Promise.reject('Could not find IdCandidato');
                 }

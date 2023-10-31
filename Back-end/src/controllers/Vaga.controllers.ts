@@ -5,14 +5,14 @@ class VagaController {
     public async createVaga(req: Request, res: Response) {
         try {
             const VagaObject = req.body;
-            const idEmpresa = req.params.idEmpresa
+            const Token = req.params.Token
             if (!VagaObject) {
                 return res.status(204).send('Not all data in Vaga');
             }
-            if (!idEmpresa) {
-                return res.status(500).send(`No valid Id`);
+            if (!Token) {
+                return res.status(500).send(`No valid Token`);
             }
-            const savedVaga = await VagaServices.Instance().createVaga(VagaObject, idEmpresa);
+            const savedVaga = await VagaServices.Instance().createVaga(VagaObject, Token);
             res.send(`request saved with succesful ${JSON.stringify(savedVaga)}`)
         } catch (err) {
             res.status(500).send(err)
@@ -56,8 +56,8 @@ class VagaController {
     public async candidataVaga(req: Request, res: Response) {
         try{
             const idVaga = req.params.idVaga
-            const idCand = req.params.idCand
-            await VagaServices.Instance().candidataVaga(idVaga, idCand)
+            const Token = req.params.Token
+            await VagaServices.Instance().candidataVaga(idVaga, Token)
             res.json({Mensagem: "Vaga already updated"})
         } catch (err) {
             res.status(500).send(err)
@@ -66,7 +66,7 @@ class VagaController {
 
     public async vagaSearcherEmpresa(req: Request, res: Response) {
         try {
-            const Vagaget = await VagaServices.Instance().vagaSearcherEmpresa(req.params.idEmpresa)
+            const Vagaget = await VagaServices.Instance().vagaSearcherEmpresa(req.params.Token)
             res.json(Vagaget)
         } catch (err) {
             res.status(500).send(err)

@@ -20,6 +20,7 @@ const Empresa_repositories_1 = __importDefault(require("../models/repositories/E
 const ExibirVaga_dto_1 = require("../models/dto/ExibirVaga.dto");
 const Vaga_aux_1 = require("../models/entities/Vaga_aux");
 const Vaga_aux_repositories_1 = __importDefault(require("../models/repositories/Vaga_aux.repositories"));
+const jwt_decode_1 = require("jwt-decode");
 class VagaServices {
     constructor() { }
     static Instance() {
@@ -28,16 +29,17 @@ class VagaServices {
         }
         return VagaServices.instance;
     }
-    createVaga(valid, IdEmpresa) {
+    createVaga(valid, Token) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const payload = (0, jwt_decode_1.jwtDecode)(Token);
+                const IdEmpresa = payload.idEmpresa;
                 const vaga = new Vagas_1.default();
                 vaga.IdVaga = (0, uuid_1.v4)();
                 const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: IdEmpresa });
                 if (!empresa) {
                     return Promise.reject(new Error(`No empresa found`));
                 }
-                console.log(empresa);
                 vaga.empresa = empresa;
                 vaga.TituloCargo = valid.TituloCargo;
                 vaga.Localizacao = valid.Localizacao;
@@ -83,12 +85,13 @@ class VagaServices {
             return Promise.resolve(vaga);
         });
     }
-    candidataVaga(IdVaga, IdCand) {
+    candidataVaga(IdVaga, Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(IdVaga, IdCand);
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdCandidato = payload.IdCand;
             try {
                 const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
-                const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand });
+                const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });
                 if (!vaga) {
                     return Promise.reject(new Error('Could not find Vaga'));
                 }
@@ -115,12 +118,13 @@ class VagaServices {
             }
         });
     }
-    vagaSearcherEmpresa(idEmpresa) {
+    vagaSearcherEmpresa(Token) {
         return __awaiter(this, void 0, void 0, function* () {
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
             let vagas = [];
             try {
-                const Empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: idEmpresa });
-                console.log({ Empresa });
+                const Empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: IdEmpresa });
                 if (!Empresa) {
                     return Promise.reject(new Error('Unable to find empresa'));
                 }

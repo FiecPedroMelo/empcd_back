@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const jwt_decode_1 = require("jwt-decode");
 const uuid_1 = require("uuid");
 const Empresa_1 = __importDefault(require("../models/entities/Empresa"));
 const Empresa_repositories_1 = __importDefault(require("../models/repositories/Empresa.repositories"));
@@ -50,11 +51,13 @@ class EmpresaServices {
             return yield Empresa_repositories_1.default.find();
         });
     }
-    EmpresaById(IdEmpresa) {
+    EmpresaById(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const idEmpresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
-            if (idEmpresa) {
-                return Promise.resolve(idEmpresa);
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
+            if (empresa) {
+                return Promise.resolve(empresa);
             }
             else {
                 return Promise.reject("id Empresa not found");

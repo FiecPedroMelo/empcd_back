@@ -46,9 +46,8 @@ class EmpresaController {
     EmpresaById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idEmpresa = req.params.idEmpresa;
-                const Empresabyid = yield Empresa_Service_1.default.Instance().EmpresaById(idEmpresa);
-                console.log(Empresabyid);
+                const Token = req.params.Token;
+                const Empresabyid = yield Empresa_Service_1.default.Instance().EmpresaById(Token);
                 res.json(Empresabyid);
             }
             catch (err) {

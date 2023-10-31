@@ -46,6 +46,7 @@ const csv_parser_1 = __importDefault(require("csv-parser"));
 const fs_1 = __importDefault(require("fs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
+const jwt_decode_1 = require("jwt-decode");
 class CandidatoLoginService {
     getCandidatoFromData(NomeCompleto, Email, CPF, Telefone, Senha, Genero, Deficiencia, DataNasc, Estado, Cidade, Bairro, Formacao, ExpAnteriores, Habilidades, ImagemCandidato) {
         const newCandidato = new Candidato_1.default();
@@ -132,17 +133,18 @@ class CandidatoLoginService {
             }
         });
     }
-    GetIdCandidato(Email, Senha) {
+    GetIdCandidato(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const hashDigest = (0, sha256_1.default)(Senha);
-            logger_1.default.debug("HashAntes: ", hashDigest);
-            const privateKey = "Empcd";
-            const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
-            logger_1.default.debug("HashDepois: ", hashDigest);
-            const foundCandidato = yield Candidato_repositories_1.default.findOneBy({ Email: Email, Senha: hmacDigest });
-            if (foundCandidato) {
-                const IdCandidato = foundCandidato.IdCand;
-                return IdCandidato;
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            /*const hashDigest = sha256(Senha);
+            logger.debug("HashAntes: ", hashDigest)
+            const privateKey = "Empcd"
+            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+            logger.debug("HashDepois: ",hashDigest)
+            const foundCandidato = await CandidatoRepository.findOneBy({Email: Email, Senha: payload.Senha});*/
+            if (payload.idCand) {
+                const IdCand = payload.idCand;
+                return IdCand;
             }
             else {
                 return new Error("id Candidato not found");

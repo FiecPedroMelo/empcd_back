@@ -46,6 +46,7 @@ const csv_parser_1 = __importDefault(require("csv-parser"));
 const fs_1 = __importDefault(require("fs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
+const jwt_decode_1 = require("jwt-decode");
 class EmpresaLoginService {
     getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF) {
         const newEmpresa = new Empresa_1.default();
@@ -78,16 +79,12 @@ class EmpresaLoginService {
                 if (foundEmpresa) {
                     const token = jwt.sign({ idEmpresa: foundEmpresa.IdEmpresa, Email: foundEmpresa.Email, Senha: foundEmpresa.Senha }, constants_1.SECRET);
                     const validation = true;
-                    const newToken = { token, validation };
-                    const IdEmpresa = foundEmpresa.IdEmpresa;
-                    return { newToken, IdEmpresa };
+                    return { token, validation };
                 }
                 else {
                     const token = '';
                     const validation = false;
-                    const newToken = { token, validation };
-                    const IdEmpresa = '';
-                    return { newToken, IdEmpresa };
+                    return { token, validation };
                 }
             }
             catch (err) {
@@ -122,19 +119,27 @@ class EmpresaLoginService {
             }
         });
     }
-    GetIdEmpresa(Email, Senha, Token) {
+    GetIdEmpresa(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const decode = jwt.decode(Token);
-            console.log(decode);
-            const hashDigest = (0, sha256_1.default)(Senha);
-            logger_1.default.debug("HashAntes: ", hashDigest);
-            const privateKey = "Empcd";
-            const hmacDigest = enc_base64_1.default.stringify((0, hmac_sha512_1.default)(hashDigest, privateKey));
-            logger_1.default.debug("HashDepois: ", hashDigest);
-            const foundEmpresa = yield Empresa_repositories_1.default.findOneBy({ Email, Senha: hmacDigest });
-            if (foundEmpresa) {
-                const IdEmpresa = foundEmpresa.IdEmpresa;
-                return IdEmpresa;
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            if (!payload) {
+                return new Error(`Invalid Empresa`);
+            }
+            /*const hashDigest = sha256(payload.Senha);
+            logger.debug("HashAntes: ", hashDigest)
+            const privateKey = "Empcd"
+            const hmacDigest = Base64.stringify(hmacSHA512(hashDigest, privateKey))
+            logger.debug("HashDepois: ",hashDigest)
+            const foundEmpresa = await EmpresaRepository.findOneBy({Email: payload.Email, Senha: hmacDigest});
+            if(foundEmpresa) {
+                const IdEmpresa = foundEmpresa.IdEmpresa
+                return IdEmpresa
+            } else {
+                return new Error("id Empresa not found")
+            }*/
+            if (payload.idEmpresa) {
+                const idEmpresa = payload.idEmpresa;
+                return idEmpresa;
             }
             else {
                 return new Error("id Empresa not found");

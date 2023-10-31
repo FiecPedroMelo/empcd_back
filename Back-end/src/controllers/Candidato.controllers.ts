@@ -30,9 +30,8 @@ class CandidatoController{
 
     public async getCandidatoId(req: Request, res: Response) {
         try {   
-            const idCandidato = req.params.id
-            const Candidatobyid = await CandidatoServices.Instance().IdbyCandidato(idCandidato)
-            console.log(Candidatobyid)
+            const Token = req.params.Token
+            const Candidatobyid = await CandidatoServices.Instance().IdbyCandidato(Token)
             res.json(Candidatobyid)
         } catch (err) {
             res.status(500).send(err)
@@ -42,8 +41,8 @@ class CandidatoController{
 
     public async deleteCandidato(req: Request, res: Response) {
         try {
-            const idCandidato = req.params.idCand
-        const deleteid = await CandidatoServices.Instance().deleteCandidatoId(idCandidato)
+            const Token = req.params.Token
+        const deleteid = await CandidatoServices.Instance().deleteCandidatoId(Token)
         res.json(deleteid)
         } catch (err) {
             res.status(500).send(err)
@@ -52,9 +51,9 @@ class CandidatoController{
     
     public async updateCandidato(req: Request, res: Response) {
         try {
-            const idCandidato = req.params.idCand
+            const Token = req.params.Token
             const CandidatoObject = req.body
-            await CandidatoServices.Instance().updateCandidato(idCandidato, CandidatoObject)
+            await CandidatoServices.Instance().updateCandidato(Token, CandidatoObject)
             res.json({ Mensagem: "Candidato already updated"})
         } catch (err) {
             res.status(500).send(err)

@@ -2,12 +2,12 @@ import { v4 } from "uuid";
 import { CandidatoDto } from "../models/dto/Candidato.dto";
 import Candidato from "../models/entities/Candidato";
 import CandidatoRepository from "../models/repositories/Candidato.repositories";
-import { Request } from "express";
-import Jimp from "jimp";
 import sha256 from "crypto-js/sha256";
 import logger from "../config/logger";
 import Base64 from "crypto-js/enc-base64";
 import hmacSHA512 from "crypto-js/hmac-sha512";
+import { jwtDecode } from "jwt-decode";
+import * as jwt from "jsonwebtoken";
 
 class CandidatoServices {
     private static instance: CandidatoServices
@@ -51,17 +51,21 @@ class CandidatoServices {
         return await CandidatoRepository.find()
     }
 
-    public async IdbyCandidato(IdCand: string): Promise<Candidato> {
-        const idCandidato = await CandidatoRepository.findOneBy({IdCand})
-        if (idCandidato) {
-            return Promise.resolve(idCandidato)
+    public async IdbyCandidato(Token: string): Promise<Candidato> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdCandidato: string = payload.IdCand
+        const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
+        if (candidato) {
+            return Promise.resolve(candidato)
         } else{
             return Promise.reject("id Candidato not found")
         }
     }
     
-    public async deleteCandidatoId(IdCand: string) {
-        const deleteById = await CandidatoRepository.delete({IdCand})
+    public async deleteCandidatoId(Token: string) {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdCandidato: string = payload.idCand
+        const deleteById = await CandidatoRepository.delete({IdCand: IdCandidato})
         if (deleteById) {
             return Promise.resolve('Deleted IdCand successfully')
           } else {
@@ -69,9 +73,11 @@ class CandidatoServices {
           }
     }
 
-    public async updateCandidato(IdCand: string, valid: CandidatoDto): Promise<Candidato> {
+    public async updateCandidato(Token: string, valid: CandidatoDto): Promise<Candidato> {
         try {
-            const data = await CandidatoRepository.findOneBy({IdCand})
+            const payload = jwtDecode(Token) as jwt.JwtPayload
+            const IdCandidato: string = payload.IdCand
+            const data = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
             if (!data) {
                 return Promise.reject('Could not find IdCandidato')
             }

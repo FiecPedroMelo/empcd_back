@@ -24,10 +24,8 @@ class CandidatoLoginController {
 
     async GetIdCandidato(req: Request, res: Response) {
         try {
-            const Email = req.params.Email
-            const Senha = req.params.Senha
-            const IdCandidato = await new CandidatoLoginService().GetIdCandidato(Email, Senha)
-            console.log(IdCandidato)
+            const Token = req.params.Token
+            const IdCandidato = await new CandidatoLoginService().GetIdCandidato(Token)
             res.json(IdCandidato)
         } catch(err){
             res.status(500).send(err)
