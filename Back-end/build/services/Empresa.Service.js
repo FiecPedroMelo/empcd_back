@@ -64,19 +64,21 @@ class EmpresaServices {
             }
         });
     }
-    deleteEmpresaId(IdEmpresa) {
+    deleteEmpresaId(Token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteById = yield Empresa_repositories_1.default.delete({ IdEmpresa });
-            if (deleteById) {
-                return Promise.resolve('Deleted IdEmpresa succesfully');
-            }
-            else {
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
+            const deleteEmpresa = yield Empresa_repositories_1.default.delete(IdEmpresa);
+            if (!deleteEmpresa) {
                 return Promise.reject(new Error('Unable to delete IdEmpresa'));
             }
+            return Promise.resolve('Deleted IdEmpresa succesfully');
         });
     }
-    updateEmpresa(IdEmpresa, valid) {
+    updateEmpresa(Token, valid) {
         return __awaiter(this, void 0, void 0, function* () {
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
             try {
                 const data = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
                 if (!data) {
@@ -100,6 +102,3 @@ class EmpresaServices {
     }
 }
 exports.default = EmpresaServices;
-function hmacSHA512(hashDigest, privateKey) {
-    throw new Error("Function not implemented.");
-}

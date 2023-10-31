@@ -13,9 +13,9 @@ EmpresaRouter.get("/:Token/getId", new Empresa_login_Controllers_1.default().Get
 EmpresaRouter.get("/:Token/getVagas", new Vaga_controllers_1.default().vagaSearcherEmpresa); //ok - token
 EmpresaRouter.post("/login", new Empresa_login_Controllers_1.default().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new Empresa_login_Controllers_1.default().signUpEmpresa); //ok - token
-EmpresaRouter.post("/:Token/vagas", new Vaga_controllers_1.default().createVaga); //ok - token
-EmpresaRouter.put('/:idEmpresa/updateEmpresa', new Empresa_controllers_1.default().updateEmpresa); //Rever(Tabelas interligadas)
-EmpresaRouter.delete("/:idEmpresa", new Empresa_controllers_1.default().deleteEmpresa); //Rever(Tabelas interligadas)
+EmpresaRouter.post("/:Token/createVaga", new Vaga_controllers_1.default().createVaga); //ok - token
+EmpresaRouter.put('/:Token/updateEmpresa', new Empresa_controllers_1.default().updateEmpresa); //ok - token
+EmpresaRouter.delete("/:Token/deleteEmpresa", new Empresa_controllers_1.default().deleteEmpresa); //ok - token
 //EmpresaRouter.get("/", new EmpresaController().getAll);
 //EmpresaRouter.get("/vagas", new VagaController().getVagas); 
 //EmpresaRouter.get("/vagas/:idVaga", new VagaController().getVagaById); 

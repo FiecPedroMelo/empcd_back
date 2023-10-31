@@ -88,7 +88,8 @@ class VagaServices {
     candidataVaga(IdVaga, Token) {
         return __awaiter(this, void 0, void 0, function* () {
             const payload = (0, jwt_decode_1.jwtDecode)(Token);
-            const IdCandidato = payload.IdCand;
+            const IdCandidato = payload.idCand;
+            console.log(payload);
             try {
                 const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
                 const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });

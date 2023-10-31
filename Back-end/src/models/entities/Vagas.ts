@@ -25,7 +25,7 @@ export class Vagas{
     @Column({default: true})
     Status: boolean
 
-    @ManyToOne(() => Empresa, (empresa) => empresa.vagas)
+    @ManyToOne(() => Empresa, (empresa) => empresa.vagas, {onDelete: "CASCADE"})
     empresa: Empresa
 
     @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.vagas, {nullable: true})

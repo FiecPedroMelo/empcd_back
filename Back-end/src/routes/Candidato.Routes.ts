@@ -15,7 +15,7 @@ CandidatoRouter.get("/:Token/getById", new CandidatoController().getCandidatoId)
 CandidatoRouter.put('/:Token/updateCandidato', new CandidatoController().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok - token
 
-CandidatoRouter.delete("/:Token/deleteCandidato", new CandidatoController().deleteCandidato); //ok 
+CandidatoRouter.delete("/:Token/deleteCandidato", new CandidatoController().deleteCandidato); //ok - token
 
 
 export default CandidatoRouter;

@@ -47,7 +47,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Vagas.prototype, "Status", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vagas),
+    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vagas, { onDelete: "CASCADE" }),
     __metadata("design:type", Empresa_1.default)
 ], Vagas.prototype, "empresa", void 0);
 __decorate([

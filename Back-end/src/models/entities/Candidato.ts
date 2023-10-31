@@ -48,7 +48,7 @@ class Candidato{
     @Column()
     Habilidades: string
 
-    @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.candidato, {nullable: true})
+    @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.candidato, {nullable: true, onDelete: "CASCADE"})
     vaga_aux: Vaga_aux[];
 
     static body: any

@@ -72,7 +72,8 @@ class VagaServices{
 
     public async candidataVaga(IdVaga: string, Token: string): Promise<Vaga_aux> {
         const payload = jwtDecode(Token) as jwt.JwtPayload
-        const IdCandidato: string = payload.IdCand
+        const IdCandidato: string = payload.idCand
+        console.log(payload)
         try {
             const vaga = await VagaRepository.findOneBy({IdVaga})
             const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})

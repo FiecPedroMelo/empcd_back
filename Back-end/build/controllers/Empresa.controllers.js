@@ -59,9 +59,8 @@ class EmpresaController {
     deleteEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idEmpresa = req.params.idEmpresa;
-                console.log(idEmpresa);
-                const deleteid = yield Empresa_Service_1.default.Instance().deleteEmpresaId(idEmpresa);
+                const Token = req.params.Token;
+                const deleteid = yield Empresa_Service_1.default.Instance().deleteEmpresaId(Token);
                 res.json(deleteid);
             }
             catch (err) {
@@ -72,9 +71,9 @@ class EmpresaController {
     updateEmpresa(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const idEmpresa = req.params.idEmpresa;
+                const Token = req.params.Token;
                 const EmpresaObject = req.body;
-                yield Empresa_Service_1.default.Instance().updateEmpresa(idEmpresa, EmpresaObject);
+                yield Empresa_Service_1.default.Instance().updateEmpresa(Token, EmpresaObject);
                 res.json({ Mensagem: "Empresa already updated" });
             }
             catch (err) {

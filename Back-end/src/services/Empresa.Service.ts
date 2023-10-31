@@ -4,6 +4,8 @@ import { v4 } from "uuid"
 import { EmpresaDto } from "../models/dto/Empresa.dto"
 import Empresa from "../models/entities/Empresa"
 import EmpresaRepository from "../models/repositories/Empresa.repositories"
+import Vaga_auxRepository from "../models/repositories/Vaga_aux.repositories"
+import vagaRepository from "../models/repositories/Vaga.repositories"
 
 class EmpresaServices {
     private static instance: EmpresaServices
@@ -51,16 +53,19 @@ class EmpresaServices {
         }
     }
 
-    public async deleteEmpresaId(IdEmpresa: string) {
-        const deleteById = await EmpresaRepository.delete({IdEmpresa})
-        if (deleteById) {
-            return Promise.resolve('Deleted IdEmpresa succesfully')
-        } else {
+    public async deleteEmpresaId(Token: string) {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
+        const deleteEmpresa = await EmpresaRepository.delete(IdEmpresa)
+        if (!deleteEmpresa) {
             return Promise.reject(new Error('Unable to delete IdEmpresa'))
         }
+        return Promise.resolve('Deleted IdEmpresa succesfully')
     }
 
-    public async updateEmpresa(IdEmpresa: string, valid: EmpresaDto): Promise<Empresa> {
+    public async updateEmpresa(Token: string, valid: EmpresaDto): Promise<Empresa> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
         try {
             const data = await EmpresaRepository.findOneBy({IdEmpresa})
             if (!data) {
@@ -85,7 +90,3 @@ class EmpresaServices {
 }
 
 export default EmpresaServices;
-
-function hmacSHA512(hashDigest: CryptoJS.lib.WordArray, privateKey: string): CryptoJS.lib.WordArray {
-    throw new Error("Function not implemented.")
-}

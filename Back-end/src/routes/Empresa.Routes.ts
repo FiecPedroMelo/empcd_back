@@ -11,10 +11,11 @@ EmpresaRouter.get("/:Token/getVagas", new VagaController().vagaSearcherEmpresa);
 
 EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok - token
-EmpresaRouter.post("/:Token/vagas", new VagaController().createVaga); //ok - token
+EmpresaRouter.post("/:Token/createVaga", new VagaController().createVaga); //ok - token
 
-EmpresaRouter.put('/:idEmpresa/updateEmpresa', new EmpresaController().updateEmpresa); //Rever(Tabelas interligadas)
-EmpresaRouter.delete("/:idEmpresa", new EmpresaController().deleteEmpresa); //Rever(Tabelas interligadas)
+EmpresaRouter.put('/:Token/updateEmpresa', new EmpresaController().updateEmpresa); //ok - token
+
+EmpresaRouter.delete("/:Token/deleteEmpresa", new EmpresaController().deleteEmpresa); //ok - token
 
 //EmpresaRouter.get("/", new EmpresaController().getAll);
 //EmpresaRouter.get("/vagas", new VagaController().getVagas); 

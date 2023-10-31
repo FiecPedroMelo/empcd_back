@@ -15,5 +15,5 @@ CandidatoRouter.get("/", new Candidato_controllers_1.default().getAll); //ok - t
 CandidatoRouter.get("/:Token/getById", new Candidato_controllers_1.default().getCandidatoId); //ok - token
 CandidatoRouter.put('/:Token/updateCandidato', new Candidato_controllers_1.default().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new Vaga_controllers_1.default().candidataVaga); //ok - token
-CandidatoRouter.delete("/:Token/deleteCandidato", new Candidato_controllers_1.default().deleteCandidato); //ok 
+CandidatoRouter.delete("/:Token/deleteCandidato", new Candidato_controllers_1.default().deleteCandidato); //ok - token
 exports.default = CandidatoRouter;

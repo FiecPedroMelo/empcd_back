@@ -74,7 +74,7 @@ __decorate([
     __metadata("design:type", String)
 ], Candidato.prototype, "Habilidades", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.candidato, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.candidato, { nullable: true, onDelete: "CASCADE" }),
     __metadata("design:type", Array)
 ], Candidato.prototype, "vaga_aux", void 0);
 Candidato = __decorate([

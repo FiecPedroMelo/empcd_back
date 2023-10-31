@@ -24,15 +24,15 @@ __decorate([
     __metadata("design:type", String)
 ], Vaga_aux.prototype, "IdVagaAux", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vaga_aux),
+    (0, typeorm_1.ManyToOne)(() => Empresa_1.default, (empresa) => empresa.vaga_aux, { onDelete: "CASCADE" }),
     __metadata("design:type", Empresa_1.default)
 ], Vaga_aux.prototype, "empresa", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Candidato_1.default, (candidato) => candidato.vaga_aux),
+    (0, typeorm_1.ManyToOne)(() => Candidato_1.default, (candidato) => candidato.vaga_aux, { onDelete: "CASCADE" }),
     __metadata("design:type", Candidato_1.default)
 ], Vaga_aux.prototype, "candidato", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Vagas_1.default, (vagas) => vagas.vaga_aux),
+    (0, typeorm_1.ManyToOne)(() => Vagas_1.default, (vagas) => vagas.vaga_aux, { onDelete: "CASCADE" }),
     __metadata("design:type", Vagas_1.default)
 ], Vaga_aux.prototype, "vagas", void 0);
 exports.Vaga_aux = Vaga_aux = __decorate([
