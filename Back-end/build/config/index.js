@@ -23,6 +23,7 @@ app.get('/nome', (Res, Req) => {
 app.get('/dados-fake', (req, res) => {
     setTimeout(() => res.json([3, 6, 5, 3, 2, 7, 5]), 5000);
 });
+// Resolver Validator e timer de login
 //app.use('/users', validator)
 //app.use('/api/v1/candidatos', validator)
 //app.use('/api/v1/empresas', validator)
