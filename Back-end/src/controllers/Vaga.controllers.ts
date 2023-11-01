@@ -74,6 +74,16 @@ class VagaController {
         }
     }
 
+    public async vagaSearcherCandidato(req: Request, res: Response) {
+        try{
+            const vagaSearcher = await VagaServices.Instance().vagaSearcherCandidato();
+            res.json(vagaSearcher)
+        } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
 }
 
 export default VagaController

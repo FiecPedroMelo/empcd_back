@@ -9,6 +9,7 @@ import { Vaga_aux } from "../models/entities/Vaga_aux"
 import Vaga_auxRepository from "../models/repositories/Vaga_aux.repositories"
 import { jwtDecode } from "jwt-decode"
 import * as jwt from "jsonwebtoken"
+import Empresa from "../models/entities/Empresa"
 
 class VagaServices{
     private static instance: VagaServices
@@ -112,11 +113,12 @@ class VagaServices{
                 return Promise.reject(new Error('Unable to find empresa'));
             } else {
                 const vagasPorEmpresa = await VagaRepository.findBy({empresa:Empresa})
-                vagasPorEmpresa.forEach(Exibirvaga => {
+                vagasPorEmpresa.forEach(vaga => {
                     const vagaResponse = new ExibirVagaDto();
+                    vagaResponse.IdVaga = vaga.IdVaga;
                     vagaResponse.NomeFantasia = Empresa.NomeFantasia
-                    vagaResponse.TituloCargo = Exibirvaga.TituloCargo
-                    vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga
+                    vagaResponse.TituloCargo = vaga.TituloCargo
+                    vagaResponse.DescricaoVaga = vaga.DescricaoVaga
                     vagas.push(vagaResponse)
                 })
             }
@@ -127,12 +129,14 @@ class VagaServices{
         return Promise.resolve(vagas);
     }
 
-    public async vagaSearcherCandidato() {
+    public async vagaSearcherCandidato(): Promise< ExibirVagaDto[] > {
         let vagas:ExibirVagaDto[] = []
         try {
             const TodasVagas = await VagaRepository.find()
             TodasVagas.forEach(vaga => {
                 const vagaResponse = new ExibirVagaDto();
+                console.log(vaga)
+                console.log(vaga.empresa)
                 vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
                 vagaResponse.TituloCargo = vaga.TituloCargo
                 vagaResponse.DescricaoVaga = vaga.DescricaoVaga
@@ -141,6 +145,8 @@ class VagaServices{
         } catch (err) {
             console.log(err);
         }
+
+        return Promise.resolve(vagas);
     }
 
 }

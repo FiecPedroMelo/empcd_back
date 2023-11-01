@@ -11,6 +11,7 @@ CandidatoRouter.post('/signUp', new CandidatoLoginController().signUpCandidato);
 CandidatoRouter.get("/:Token/getId", new CandidatoLoginController().GetIdCandidato); //ok - token
 CandidatoRouter.get("/", new CandidatoController().getAll); //ok - token
 CandidatoRouter.get("/:Token/getById", new CandidatoController().getCandidatoId); //ok - token
+CandidatoRouter.get("/vagaSearcherCand", new VagaController().vagaSearcherCandidato); //Resolver
 
 CandidatoRouter.put('/:Token/updateCandidato', new CandidatoController().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok - token

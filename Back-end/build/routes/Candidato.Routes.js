@@ -13,6 +13,7 @@ CandidatoRouter.post('/signUp', new Candidato_login_controller_1.default().signU
 CandidatoRouter.get("/:Token/getId", new Candidato_login_controller_1.default().GetIdCandidato); //ok - token
 CandidatoRouter.get("/", new Candidato_controllers_1.default().getAll); //ok - token
 CandidatoRouter.get("/:Token/getById", new Candidato_controllers_1.default().getCandidatoId); //ok - token
+CandidatoRouter.get("/vagaSearcherCand", new Vaga_controllers_1.default().vagaSearcherCandidato); //ok - token
 CandidatoRouter.put('/:Token/updateCandidato', new Candidato_controllers_1.default().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new Vaga_controllers_1.default().candidataVaga); //ok - token
 CandidatoRouter.delete("/:Token/deleteCandidato", new Candidato_controllers_1.default().deleteCandidato); //ok - token

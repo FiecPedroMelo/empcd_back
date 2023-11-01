@@ -98,5 +98,17 @@ class VagaController {
             }
         });
     }
+    vagaSearcherCandidato(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const vagaSearcher = yield Vaga_Service_1.default.Instance().vagaSearcherCandidato();
+                res.json(vagaSearcher);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
 }
 exports.default = VagaController;

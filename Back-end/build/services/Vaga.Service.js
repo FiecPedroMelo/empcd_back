@@ -131,11 +131,12 @@ class VagaServices {
                 }
                 else {
                     const vagasPorEmpresa = yield Vaga_repositories_1.default.findBy({ empresa: Empresa });
-                    vagasPorEmpresa.forEach(Exibirvaga => {
+                    vagasPorEmpresa.forEach(vaga => {
                         const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
+                        vagaResponse.IdVaga = vaga.IdVaga;
                         vagaResponse.NomeFantasia = Empresa.NomeFantasia;
-                        vagaResponse.TituloCargo = Exibirvaga.TituloCargo;
-                        vagaResponse.DescricaoVaga = Exibirvaga.DescricaoVaga;
+                        vagaResponse.TituloCargo = vaga.TituloCargo;
+                        vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
                         vagas.push(vagaResponse);
                     });
                 }
@@ -153,6 +154,8 @@ class VagaServices {
                 const TodasVagas = yield Vaga_repositories_1.default.find();
                 TodasVagas.forEach(vaga => {
                     const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
+                    console.log(vaga);
+                    console.log(vaga.empresa);
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
@@ -162,6 +165,7 @@ class VagaServices {
             catch (err) {
                 console.log(err);
             }
+            return Promise.resolve(vagas);
         });
     }
 }
