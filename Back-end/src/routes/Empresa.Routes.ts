@@ -1,19 +1,21 @@
 import { Router } from "express";
 import EmpresaController from "../controllers/Empresa.controllers";
 import VagaController from "../controllers/Vaga.controllers";
-import EmpresaLoginController from "../controllers/Empresa.login.Controllers";
+import EmpresaLoginController from "../controllers/Empresa.login.controllers";
 
 const EmpresaRouter = Router();
 
 EmpresaRouter.get("/:Token/empresa", new EmpresaController().EmpresaById); //ok - token
 EmpresaRouter.get("/:Token/getId", new EmpresaLoginController().GetIdEmpresa); //ok - token
 EmpresaRouter.get("/:Token/getVagas", new VagaController().vagaSearcherEmpresa); //ok - token
+EmpresaRouter.get("/:Token/vaga/:IdVaga/getStatus", new VagaController().statusVaga); //ok - token
 
 EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok - token
 EmpresaRouter.post("/:Token/createVaga", new VagaController().createVaga); //ok - token
 
 EmpresaRouter.put('/:Token/updateEmpresa', new EmpresaController().updateEmpresa); //ok - token
+EmpresaRouter.put('/:Token/vaga/:IdVaga/finalizaVaga', new VagaController().mudaStatusVaga); //ok - token
 
 EmpresaRouter.delete("/:Token/deleteEmpresa", new EmpresaController().deleteEmpresa); //ok - token
 

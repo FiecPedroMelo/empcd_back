@@ -10,6 +10,7 @@ import Vaga_auxRepository from "../models/repositories/Vaga_aux.repositories"
 import { jwtDecode } from "jwt-decode"
 import * as jwt from "jsonwebtoken"
 import Empresa from "../models/entities/Empresa"
+import { AppDataSource } from "../data-source"
 
 class VagaServices{
     private static instance: VagaServices
@@ -132,11 +133,12 @@ class VagaServices{
     public async vagaSearcherCandidato(): Promise< ExibirVagaDto[] > {
         let vagas:ExibirVagaDto[] = []
         try {
-            const TodasVagas = await VagaRepository.find()
-            TodasVagas.forEach(vaga => {
+            const TodasVagas = await AppDataSource.getRepository(Vaga)
+            .createQueryBuilder('vaga')
+            .leftJoinAndSelect('vaga.empresa', 'empresa')
+            .getMany();
+            TodasVagas.map(vaga => {
                 const vagaResponse = new ExibirVagaDto();
-                console.log(vaga)
-                console.log(vaga.empresa)
                 vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
                 vagaResponse.TituloCargo = vaga.TituloCargo
                 vagaResponse.DescricaoVaga = vaga.DescricaoVaga
@@ -147,6 +149,50 @@ class VagaServices{
         }
 
         return Promise.resolve(vagas);
+    }
+
+    public async mudaStatusVaga(Token: string, IdVaga: string): Promise<Vaga> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
+        const vaga = await AppDataSource.getRepository(Vaga)
+          .createQueryBuilder('vaga')
+          .leftJoinAndSelect('vaga.empresa', 'empresa')
+          .where('vaga.IdVaga = :id', { id: IdVaga })
+          .getOne();
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
+        if(!vaga){
+            return Promise.reject(new Error(`Vaga not found`));
+        } else if (!empresa){
+            return Promise.reject(new Error(`Empresa not found`));
+        } else if(vaga.empresa.IdEmpresa != empresa.IdEmpresa){
+            return Promise.reject(new Error(`Invalid Empresa`))
+        }
+        if(vaga.Status){
+            vaga.Status = false;
+        } else if(!vaga.Status){
+            vaga.Status = true;
+        }
+        await VagaRepository.save(vaga)
+        return Promise.resolve(vaga);
+    }
+
+    public async statusVaga(Token: string, IdVaga: string): Promise<Boolean> {
+        const payload = jwtDecode(Token) as jwt.JwtPayload
+        const IdEmpresa: string = payload.idEmpresa
+        const vaga = await AppDataSource.getRepository(Vaga)
+        .createQueryBuilder('vaga')
+        .leftJoinAndSelect('vaga.empresa', 'empresa')
+        .where('vaga.IdVaga = :id', { id: IdVaga })
+        .getOne();
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
+        if(!vaga){
+            return Promise.reject(new Error(`Vaga not found`));
+        } else if (!empresa){
+            return Promise.reject(new Error(`Empresa not found`));
+        } else if(vaga.empresa.IdEmpresa != empresa.IdEmpresa){
+            return Promise.reject(new Error(`Invalid Empresa`))
+        }
+        return Promise.resolve(vaga.Status);
     }
 
 }

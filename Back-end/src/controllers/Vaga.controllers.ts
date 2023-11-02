@@ -84,6 +84,30 @@ class VagaController {
         }
     }
 
+    public async mudaStatusVaga(req: Request, res: Response) {
+        try{
+            const Token = req.params.Token
+            const IdVaga = req.params.IdVaga
+            await VagaServices.Instance().mudaStatusVaga(Token, IdVaga);
+            res.status(200).send("Success")
+        } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
+    public async statusVaga(req: Request, res: Response){
+        try{
+            const Token = req.params.Token
+            const IdVaga = req.params.IdVaga
+            const status = await VagaServices.Instance().statusVaga(Token, IdVaga);
+            res.status(200).send(status)
+        } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
 }
 
 export default VagaController

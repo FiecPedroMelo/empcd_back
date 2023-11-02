@@ -35,7 +35,7 @@ class Empresa{
     UF: string;
 
     @OneToMany(() => Vagas, (vagas) => vagas.empresa, {nullable: true}) 
-    vagas: Vagas[]
+    vagas: Vagas[];
 
     @OneToMany(() => Vaga_aux, (vaga_aux) => vaga_aux.empresa, {nullable: true}) 
     vaga_aux: Vaga_aux[];

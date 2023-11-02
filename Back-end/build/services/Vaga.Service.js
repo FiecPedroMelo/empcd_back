@@ -21,6 +21,7 @@ const ExibirVaga_dto_1 = require("../models/dto/ExibirVaga.dto");
 const Vaga_aux_1 = require("../models/entities/Vaga_aux");
 const Vaga_aux_repositories_1 = __importDefault(require("../models/repositories/Vaga_aux.repositories"));
 const jwt_decode_1 = require("jwt-decode");
+const data_source_1 = require("../data-source");
 class VagaServices {
     constructor() { }
     static Instance() {
@@ -151,11 +152,12 @@ class VagaServices {
         return __awaiter(this, void 0, void 0, function* () {
             let vagas = [];
             try {
-                const TodasVagas = yield Vaga_repositories_1.default.find();
-                TodasVagas.forEach(vaga => {
+                const TodasVagas = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
+                    .createQueryBuilder('vaga')
+                    .leftJoinAndSelect('vaga.empresa', 'empresa')
+                    .getMany();
+                TodasVagas.map(vaga => {
                     const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
-                    console.log(vaga);
-                    console.log(vaga.empresa);
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
@@ -166,6 +168,57 @@ class VagaServices {
                 console.log(err);
             }
             return Promise.resolve(vagas);
+        });
+    }
+    mudaStatusVaga(Token, IdVaga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
+            const vaga = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
+                .createQueryBuilder('vaga')
+                .leftJoinAndSelect('vaga.empresa', 'empresa')
+                .where('vaga.IdVaga = :id', { id: IdVaga })
+                .getOne();
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
+            if (!vaga) {
+                return Promise.reject(new Error(`Vaga not found`));
+            }
+            else if (!empresa) {
+                return Promise.reject(new Error(`Empresa not found`));
+            }
+            else if (vaga.empresa.IdEmpresa != empresa.IdEmpresa) {
+                return Promise.reject(new Error(`Invalid Empresa`));
+            }
+            if (vaga.Status) {
+                vaga.Status = false;
+            }
+            else if (!vaga.Status) {
+                vaga.Status = true;
+            }
+            yield Vaga_repositories_1.default.save(vaga);
+            return Promise.resolve(vaga);
+        });
+    }
+    statusVaga(Token, IdVaga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const payload = (0, jwt_decode_1.jwtDecode)(Token);
+            const IdEmpresa = payload.idEmpresa;
+            const vaga = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
+                .createQueryBuilder('vaga')
+                .leftJoinAndSelect('vaga.empresa', 'empresa')
+                .where('vaga.IdVaga = :id', { id: IdVaga })
+                .getOne();
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
+            if (!vaga) {
+                return Promise.reject(new Error(`Vaga not found`));
+            }
+            else if (!empresa) {
+                return Promise.reject(new Error(`Empresa not found`));
+            }
+            else if (vaga.empresa.IdEmpresa != empresa.IdEmpresa) {
+                return Promise.reject(new Error(`Invalid Empresa`));
+            }
+            return Promise.resolve(vaga.Status);
         });
     }
 }
