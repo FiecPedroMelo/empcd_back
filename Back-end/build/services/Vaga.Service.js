@@ -36,7 +36,8 @@ class VagaServices {
                 const payload = (0, jwt_decode_1.jwtDecode)(Token);
                 const IdEmpresa = payload.idEmpresa;
                 const vaga = new Vagas_1.default();
-                vaga.IdVaga = (0, uuid_1.v4)();
+                const IdVaga = (0, uuid_1.v4)();
+                vaga.IdVaga = IdVaga;
                 const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: IdEmpresa });
                 if (!empresa) {
                     return Promise.reject(new Error(`No empresa found`));
@@ -47,7 +48,8 @@ class VagaServices {
                 vaga.Requisitos = valid.Requisitos;
                 vaga.DescricaoVaga = valid.DescricaoVaga;
                 vaga.Status = valid.Status;
-                return yield Vaga_repositories_1.default.save(vaga);
+                yield Vaga_repositories_1.default.save(vaga);
+                return IdVaga;
             }
             catch (err) {
                 return Promise.reject(new Error('Error saving vaga'));

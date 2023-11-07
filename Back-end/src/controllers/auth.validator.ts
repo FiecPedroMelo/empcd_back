@@ -5,8 +5,8 @@ import { SECRET } from "../constants";
 export async function validator(req: Request, res: Response, next: NextFunction){
     const bearerHeader = req.headers['authorization'];
     const bearerMiddle = bearerHeader?.split(' ');
-    const bearerJson = JSON.stringify(bearerMiddle);
-    const bearerString = JSON.parse(bearerJson);
+    const bearerjson = JSON.stringify(bearerMiddle);
+    const bearerString = JSON.parse(bearerjson);
     const bearer: jwt.Secret = bearerString.toString();
     const bearerToken = jwt.sign(req.params, bearer);
     try{

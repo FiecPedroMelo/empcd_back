@@ -22,12 +22,13 @@ class VagaServices{
         return VagaServices.instance
     }
 
-    public async createVaga(valid: VagaDto, Token: string): Promise<Vaga> {
+    public async createVaga(valid: VagaDto, Token: string): Promise<string> {
         try {
             const payload = jwtDecode(Token) as jwt.JwtPayload
             const IdEmpresa: string = payload.idEmpresa
             const vaga = new Vaga()
-            vaga.IdVaga = v4()
+            const IdVaga = v4()
+            vaga.IdVaga = IdVaga
             const empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa})
             if (!empresa) {
                 return Promise.reject(new Error(`No empresa found`))
@@ -38,7 +39,8 @@ class VagaServices{
             vaga.Requisitos = valid.Requisitos
             vaga.DescricaoVaga = valid.DescricaoVaga
             vaga.Status = valid.Status
-            return await VagaRepository.save(vaga)
+            await VagaRepository.save(vaga)
+            return IdVaga
         } catch (err) {
             return Promise.reject(new Error('Error saving vaga'));
         }

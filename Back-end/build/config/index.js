@@ -12,6 +12,7 @@ const Candidato_Routes_1 = __importDefault(require("../routes/Candidato.Routes")
 const Empresa_Routes_1 = __importDefault(require("../routes/Empresa.Routes"));
 const Vaga_Routes_1 = __importDefault(require("../routes/Vaga.Routes"));
 const Auth_Routes_1 = __importDefault(require("../routes/Auth.Routes"));
+const auth_validator_1 = require("../controllers/auth.validator");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -23,11 +24,10 @@ app.get('/nome', (Res, Req) => {
 app.get('/dados-fake', (req, res) => {
     setTimeout(() => res.json([3, 6, 5, 3, 2, 7, 5]), 5000);
 });
-// Resolver Validator e timer de login
-//app.use('/users', validator)
-//app.use('/api/v1/candidatos', validator)
-//app.use('/api/v1/empresas', validator)
-//app.use('/api/v1/vagas', validator)
+app.use('/users', auth_validator_1.validator);
+app.use('/api/v1/candidatos', auth_validator_1.validator);
+app.use('/api/v1/empresas', auth_validator_1.validator);
+app.use('/api/v1/vagas', auth_validator_1.validator);
 app.use('/api/v1/users', User_Routes_1.default);
 app.use('/api/v1/candidatos', Candidato_Routes_1.default);
 app.use('/api/v1/empresas', Empresa_Routes_1.default);

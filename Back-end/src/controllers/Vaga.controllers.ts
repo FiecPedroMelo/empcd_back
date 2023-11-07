@@ -13,7 +13,7 @@ class VagaController {
                 return res.status(500).send(`No valid Token`);
             }
             const savedVaga = await VagaServices.Instance().createVaga(VagaObject, Token);
-            res.send(`request saved with succesful ${JSON.stringify(savedVaga)}`)
+            res.send(savedVaga);
         } catch (err) {
             res.status(500).send(err)
             console.log(err)
