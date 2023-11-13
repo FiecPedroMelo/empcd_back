@@ -53,7 +53,7 @@ function validator(req, res, next) {
             res.status(403).send("User not allowed 1");
         }
         catch (err) {
-            res.status(403).send("User not allowed 2");
+            res.status(403).send("Failure finding user");
         }
     });
 }

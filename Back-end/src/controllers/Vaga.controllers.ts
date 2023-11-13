@@ -88,8 +88,8 @@ class VagaController {
         try{
             const Token = req.params.Token
             const IdVaga = req.params.IdVaga
-            await VagaServices.Instance().mudaStatusVaga(Token, IdVaga);
-            res.status(200).send("Success")
+            const vaga = await VagaServices.Instance().mudaStatusVaga(Token, IdVaga);
+            res.send(vaga)
         } catch(err){
             res.status(500).send(err)
             console.log(err)
@@ -99,9 +99,9 @@ class VagaController {
     public async statusVaga(req: Request, res: Response){
         try{
             const Token = req.params.Token
-            const IdVaga = req.params.IdVaga
-            const status = await VagaServices.Instance().statusVaga(Token, IdVaga);
-            res.status(200).send(status)
+            const Option = req.params.Option
+            const vagas = await VagaServices.Instance().statusVaga(Token, Option);
+            res.status(200).send(vagas)
         } catch(err){
             res.status(500).send(err)
             console.log(err)

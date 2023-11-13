@@ -115,8 +115,8 @@ class VagaController {
             try {
                 const Token = req.params.Token;
                 const IdVaga = req.params.IdVaga;
-                yield Vaga_Service_1.default.Instance().mudaStatusVaga(Token, IdVaga);
-                res.status(200).send("Success");
+                const vaga = yield Vaga_Service_1.default.Instance().mudaStatusVaga(Token, IdVaga);
+                res.send(vaga);
             }
             catch (err) {
                 res.status(500).send(err);
@@ -128,9 +128,9 @@ class VagaController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const Token = req.params.Token;
-                const IdVaga = req.params.IdVaga;
-                const status = yield Vaga_Service_1.default.Instance().statusVaga(Token, IdVaga);
-                res.status(200).send(status);
+                const Option = req.params.Option;
+                const vagas = yield Vaga_Service_1.default.Instance().statusVaga(Token, Option);
+                res.status(200).send(vagas);
             }
             catch (err) {
                 res.status(500).send(err);

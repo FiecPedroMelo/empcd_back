@@ -28,6 +28,7 @@ app.use('/users', auth_validator_1.validator);
 app.use('/api/v1/candidatos', auth_validator_1.validator);
 app.use('/api/v1/empresas', auth_validator_1.validator);
 app.use('/api/v1/vagas', auth_validator_1.validator);
+app.use('/api/v1/validator', auth_validator_1.validator);
 app.use('/api/v1/users', User_Routes_1.default);
 app.use('/api/v1/candidatos', Candidato_Routes_1.default);
 app.use('/api/v1/empresas', Empresa_Routes_1.default);

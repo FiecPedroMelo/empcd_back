@@ -140,6 +140,7 @@ class VagaServices {
                         vagaResponse.NomeFantasia = Empresa.NomeFantasia;
                         vagaResponse.TituloCargo = vaga.TituloCargo;
                         vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
+                        vagaResponse.Status = vaga.Status;
                         vagas.push(vagaResponse);
                     });
                 }
@@ -163,6 +164,7 @@ class VagaServices {
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
+                    vagaResponse.Status = vaga.Status;
                     vagas.push(vagaResponse);
                 });
             }
@@ -201,26 +203,39 @@ class VagaServices {
             return Promise.resolve(vaga);
         });
     }
-    statusVaga(Token, IdVaga) {
+    statusVaga(Token, option) {
         return __awaiter(this, void 0, void 0, function* () {
+            let opcao = false;
+            if (option == "true") {
+                opcao = true;
+            }
             const payload = (0, jwt_decode_1.jwtDecode)(Token);
             const IdEmpresa = payload.idEmpresa;
-            const vaga = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
+            const vagas = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
                 .createQueryBuilder('vaga')
                 .leftJoinAndSelect('vaga.empresa', 'empresa')
-                .where('vaga.IdVaga = :id', { id: IdVaga })
-                .getOne();
+                .where('vaga.Status = :status', { 'status': opcao })
+                .getMany();
             const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa });
-            if (!vaga) {
-                return Promise.reject(new Error(`Vaga not found`));
-            }
-            else if (!empresa) {
-                return Promise.reject(new Error(`Empresa not found`));
-            }
-            else if (vaga.empresa.IdEmpresa != empresa.IdEmpresa) {
-                return Promise.reject(new Error(`Invalid Empresa`));
-            }
-            return Promise.resolve(vaga.Status);
+            let selecao = [];
+            vagas.forEach(vaga => {
+                if (!vagas) {
+                    console.log('1' + vaga.IdVaga);
+                    return Promise.reject(new Error(`Vaga not found`));
+                }
+                else if (!empresa) {
+                    console.log('2' + vaga.IdVaga);
+                    return Promise.reject(new Error(`Empresa not found`));
+                }
+                else if (vaga.empresa.IdEmpresa != empresa.IdEmpresa) {
+                    console.log('3' + vaga.IdVaga);
+                    return Promise.reject(new Error(`Invalid Empresa`));
+                }
+                if (vaga.Status == opcao) {
+                    selecao.push(vaga);
+                }
+            });
+            return Promise.resolve(selecao);
         });
     }
 }

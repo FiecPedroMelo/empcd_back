@@ -122,6 +122,7 @@ class VagaServices{
                     vagaResponse.NomeFantasia = Empresa.NomeFantasia
                     vagaResponse.TituloCargo = vaga.TituloCargo
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga
+                    vagaResponse.Status = vaga.Status
                     vagas.push(vagaResponse)
                 })
             }
@@ -144,6 +145,7 @@ class VagaServices{
                 vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
                 vagaResponse.TituloCargo = vaga.TituloCargo
                 vagaResponse.DescricaoVaga = vaga.DescricaoVaga
+                vagaResponse.Status = vaga.Status
                 vagas.push(vagaResponse)
             })
         } catch (err) {
@@ -178,23 +180,36 @@ class VagaServices{
         return Promise.resolve(vaga);
     }
 
-    public async statusVaga(Token: string, IdVaga: string): Promise<Boolean> {
+    public async statusVaga(Token: string, option: string): Promise<Vaga[]> {
+        let opcao = false;
+        if (option == "true"){
+            opcao = true;
+        }
         const payload = jwtDecode(Token) as jwt.JwtPayload
         const IdEmpresa: string = payload.idEmpresa
-        const vaga = await AppDataSource.getRepository(Vaga)
+        const vagas = await AppDataSource.getRepository(Vaga)
         .createQueryBuilder('vaga')
         .leftJoinAndSelect('vaga.empresa', 'empresa')
-        .where('vaga.IdVaga = :id', { id: IdVaga })
-        .getOne();
+        .where('vaga.Status = :status', { 'status': opcao })
+        .getMany();
         const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
-        if(!vaga){
-            return Promise.reject(new Error(`Vaga not found`));
-        } else if (!empresa){
-            return Promise.reject(new Error(`Empresa not found`));
-        } else if(vaga.empresa.IdEmpresa != empresa.IdEmpresa){
-            return Promise.reject(new Error(`Invalid Empresa`))
-        }
-        return Promise.resolve(vaga.Status);
+        let selecao: Vaga[] = []
+        vagas.forEach(vaga => {
+            if(!vagas){
+                console.log('1' + vaga.IdVaga)
+                return Promise.reject(new Error(`Vaga not found`));
+            } else if (!empresa){
+                console.log('2' + vaga.IdVaga)
+                return Promise.reject(new Error(`Empresa not found`));
+            } else if(vaga.empresa.IdEmpresa != empresa.IdEmpresa){
+                console.log('3' + vaga.IdVaga)
+                return Promise.reject(new Error(`Invalid Empresa`))
+            }
+            if(vaga.Status == opcao){
+                selecao.push(vaga);
+            }
+        });
+        return Promise.resolve(selecao);
     }
 
 }

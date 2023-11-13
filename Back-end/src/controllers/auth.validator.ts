@@ -10,7 +10,7 @@ export async function validator(req: Request, res: Response, next: NextFunction)
     const bearer: jwt.Secret = bearerString.toString();
     const bearerToken = jwt.sign(req.params, bearer);
     try{
-    const token = await jwt.verify(bearerToken || '', SECRET) as any;
+        const token = await jwt.verify(bearerToken || '', SECRET) as any;
         (req as any).authUser = {id: token.id};
         if(token) {
             next();
@@ -18,6 +18,6 @@ export async function validator(req: Request, res: Response, next: NextFunction)
         }
         res.status(403).send("User not allowed 1");
     } catch(err){
-        res.status(403).send("User not allowed 2");
+        res.status(403).send("Failure finding user");
     }
 }

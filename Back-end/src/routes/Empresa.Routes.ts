@@ -8,7 +8,7 @@ const EmpresaRouter = Router();
 EmpresaRouter.get("/:Token/empresa", new EmpresaController().EmpresaById); //ok - token
 EmpresaRouter.get("/:Token/getId", new EmpresaLoginController().GetIdEmpresa); //ok - token
 EmpresaRouter.get("/:Token/getVagas", new VagaController().vagaSearcherEmpresa); //ok - token
-EmpresaRouter.get("/:Token/vaga/:IdVaga/getStatus", new VagaController().statusVaga); //ok - token
+EmpresaRouter.get("/:Token/status/:Option/getStatus", new VagaController().statusVaga); //ok - token
 
 EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok - token
