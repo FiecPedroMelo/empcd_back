@@ -18,7 +18,7 @@ const Candidato_repositories_1 = __importDefault(require("../models/repositories
 const Vaga_repositories_1 = __importDefault(require("../models/repositories/Vaga.repositories"));
 const Empresa_repositories_1 = __importDefault(require("../models/repositories/Empresa.repositories"));
 const ExibirVaga_dto_1 = require("../models/dto/ExibirVaga.dto");
-const Vaga_aux_1 = require("../models/entities/Vaga_aux");
+const Vaga_aux_1 = __importDefault(require("../models/entities/Vaga_aux"));
 const Vaga_aux_repositories_1 = __importDefault(require("../models/repositories/Vaga_aux.repositories"));
 const jwt_decode_1 = require("jwt-decode");
 const data_source_1 = require("../data-source");
@@ -121,7 +121,7 @@ class VagaServices {
                 if (!empresa) {
                     return Promise.reject(new Error('Could not find Empresa'));
                 }
-                const vaga_aux = new Vaga_aux_1.Vaga_aux();
+                const vaga_aux = new Vaga_aux_1.default();
                 vaga_aux.IdVagaAux = (0, uuid_1.v4)();
                 vaga_aux.empresa = empresa;
                 vaga_aux.vagas = vaga;

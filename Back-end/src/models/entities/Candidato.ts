@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn, OneToMany} from "typeorm"
-import { Vaga_aux } from "./Vaga_aux"
+import Vaga_aux from "./Vaga_aux"
 
 @Entity()
 class Candidato{

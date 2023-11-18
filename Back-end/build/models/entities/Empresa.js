@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Vagas_1 = __importDefault(require("./Vagas"));
-const Vaga_aux_1 = require("./Vaga_aux");
+const Vaga_aux_1 = __importDefault(require("./Vaga_aux"));
 let Empresa = class Empresa {
 };
 __decorate([
@@ -58,11 +58,15 @@ __decorate([
     __metadata("design:type", String)
 ], Empresa.prototype, "UF", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Empresa.prototype, "Descricao", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => Vagas_1.default, (vagas) => vagas.empresa, { nullable: true }),
     __metadata("design:type", Array)
 ], Empresa.prototype, "vagas", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.empresa, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.default, (vaga_aux) => vaga_aux.empresa, { nullable: true }),
     __metadata("design:type", Array)
 ], Empresa.prototype, "vaga_aux", void 0);
 Empresa = __decorate([

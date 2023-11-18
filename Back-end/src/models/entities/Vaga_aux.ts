@@ -4,7 +4,7 @@ import Empresa from "./Empresa";
 import Vagas from "./Vagas";
 
 @Entity()
-export class Vaga_aux {
+class Vaga_aux {
     @PrimaryColumn()
     IdVagaAux: string
 
@@ -17,3 +17,5 @@ export class Vaga_aux {
     @ManyToOne(() => Vagas, (vagas) => vagas.vaga_aux, {onDelete: "CASCADE"})
     vagas: Vagas
 }
+
+export default Vaga_aux;

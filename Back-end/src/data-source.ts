@@ -1,16 +1,15 @@
 import { DataSource } from "typeorm"
-import User from "./models/entities/User"
 import Candidato from "./models/entities/Candidato"
 import Empresa from "./models/entities/Empresa"
-import Vaga, { Vagas } from "./models/entities/Vagas"
-import { Vaga_aux } from "./models/entities/Vaga_aux"
+import Vagas from "./models/entities/Vagas"
+import Vaga_aux from "./models/entities/Vaga_aux"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
+    host: "fiectcc.c6hic1eh5cuk.us-east-1.rds.amazonaws.com",
     port: 3306,
-    username: "root",
-    password: "1234",
+    username: "admin",
+    password: "Fiec2023",
     database: "empcd",
     synchronize: true,
     logging: true,

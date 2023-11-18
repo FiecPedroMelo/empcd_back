@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import Vagas from "./Vagas";
-import { Vaga_aux } from "./Vaga_aux";
+import Vaga_aux from "./Vaga_aux";
 
 @Entity()
 class Empresa{
@@ -33,6 +33,9 @@ class Empresa{
 
     @Column()
     UF: string;
+
+    @Column()
+    Descricao: string;
 
     @OneToMany(() => Vagas, (vagas) => vagas.empresa, {nullable: true}) 
     vagas: Vagas[];

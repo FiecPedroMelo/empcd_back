@@ -12,11 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Vagas = void 0;
 const typeorm_1 = require("typeorm");
 const Empresa_1 = __importDefault(require("./Empresa"));
-const Vaga_aux_1 = require("./Vaga_aux");
-let Vagas = exports.Vagas = class Vagas {
+const Vaga_aux_1 = __importDefault(require("./Vaga_aux"));
+let Vagas = class Vagas {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
@@ -51,10 +50,10 @@ __decorate([
     __metadata("design:type", Empresa_1.default)
 ], Vagas.prototype, "empresa", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.Vaga_aux, (vaga_aux) => vaga_aux.vagas, { nullable: true }),
-    __metadata("design:type", Vaga_aux_1.Vaga_aux)
+    (0, typeorm_1.OneToMany)(() => Vaga_aux_1.default, (vaga_aux) => vaga_aux.vagas, { nullable: true }),
+    __metadata("design:type", Vaga_aux_1.default)
 ], Vagas.prototype, "vaga_aux", void 0);
-exports.Vagas = Vagas = __decorate([
+Vagas = __decorate([
     (0, typeorm_1.Entity)()
 ], Vagas);
 exports.default = Vagas;

@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, OneToMany } from "typeorm";
 import Empresa from "./Empresa";
-import { Vaga_aux } from "./Vaga_aux";
+import Vaga_aux from "./Vaga_aux";
 
 @Entity()
-export class Vagas{
+class Vagas{
     @PrimaryColumn()
     IdVaga: string
 

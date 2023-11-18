@@ -12,12 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Vaga_aux = void 0;
 const typeorm_1 = require("typeorm");
 const Candidato_1 = __importDefault(require("./Candidato"));
 const Empresa_1 = __importDefault(require("./Empresa"));
 const Vagas_1 = __importDefault(require("./Vagas"));
-let Vaga_aux = exports.Vaga_aux = class Vaga_aux {
+let Vaga_aux = class Vaga_aux {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
@@ -35,6 +34,7 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => Vagas_1.default, (vagas) => vagas.vaga_aux, { onDelete: "CASCADE" }),
     __metadata("design:type", Vagas_1.default)
 ], Vaga_aux.prototype, "vagas", void 0);
-exports.Vaga_aux = Vaga_aux = __decorate([
+Vaga_aux = __decorate([
     (0, typeorm_1.Entity)()
 ], Vaga_aux);
+exports.default = Vaga_aux;
