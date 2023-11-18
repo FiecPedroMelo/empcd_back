@@ -15,7 +15,7 @@ CandidatoRouter.get("/getVagas", new VagaController().vagaSearcherCandidato); //
 
 CandidatoRouter.put('/:Token/updateCandidato', new CandidatoController().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok - token
-
+ 
 CandidatoRouter.delete("/:Token/deleteCandidato", new CandidatoController().deleteCandidato); //ok - token
 
 

@@ -24,7 +24,7 @@ app.get('/dados-fake', (req: Request, res: Response) => {
 })
 app.use('/users', validator)
 app.use('/api/v1/candidatos', validator)
-app.use('/api/v1/empresas', validator)
+ app.use('/api/v1/empresas', validator)
 app.use('/api/v1/vagas', validator)
 app.use('/api/v1/validator', validator)
 app.use('/api/v1/users', UserRouter)
