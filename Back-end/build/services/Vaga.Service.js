@@ -81,21 +81,33 @@ class VagaServices {
     }
     getVagaById(IdVaga) {
         return __awaiter(this, void 0, void 0, function* () {
-            const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
+            let vaga = yield data_source_1.AppDataSource.getRepository(Vagas_1.default)
+                .createQueryBuilder('vaga')
+                .leftJoinAndSelect('vaga.empresa', 'empresa')
+                .where('vaga.IdVaga = :id', { id: IdVaga.toString() })
+                .getOne();
             if (!vaga) {
                 return Promise.reject(new Error('Unable to find Vaga'));
             }
-            return Promise.resolve(vaga);
+            let exibirVaga = new ExibirVaga_dto_1.ExibirVagaDto();
+            exibirVaga.IdVaga = vaga.IdVaga;
+            exibirVaga.NomeFantasia = vaga.empresa.NomeFantasia;
+            exibirVaga.TituloCargo = vaga.TituloCargo;
+            exibirVaga.DescricaoVaga = vaga.DescricaoVaga;
+            exibirVaga.Status = vaga.Status;
+            exibirVaga.Localizacao = vaga.Localizacao;
+            exibirVaga.Requisitos = vaga.Requisitos;
+            return Promise.resolve(exibirVaga);
         });
     }
     candidataVaga(IdVaga, Token) {
         return __awaiter(this, void 0, void 0, function* () {
             const payload = (0, jwt_decode_1.jwtDecode)(Token);
             const IdCandidato = payload.idCand;
-            console.log(payload);
             try {
                 const vaga = yield Vaga_repositories_1.default.findOneBy({ IdVaga });
                 const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });
+                console.log(candidato);
                 if (!vaga) {
                     return Promise.reject(new Error('Could not find Vaga'));
                 }
@@ -161,6 +173,7 @@ class VagaServices {
                     .getMany();
                 TodasVagas.map(vaga => {
                     const vagaResponse = new ExibirVaga_dto_1.ExibirVagaDto();
+                    vagaResponse.IdVaga = vaga.IdVaga;
                     vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
                     vagaResponse.TituloCargo = vaga.TituloCargo;
                     vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
@@ -236,6 +249,15 @@ class VagaServices {
                 }
             });
             return Promise.resolve(selecao);
+        });
+    }
+    getIdVaga(TituloCargo, DescricaoVaga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const vaga = yield Vaga_repositories_1.default.findOneBy({ TituloCargo, DescricaoVaga });
+            if (!vaga) {
+                return Promise.reject(new Error('Unable to find Vaga'));
+            }
+            return Promise.resolve(vaga.IdVaga);
         });
     }
 }

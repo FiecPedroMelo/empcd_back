@@ -45,7 +45,6 @@ class VagaController {
         try {   
             const idVaga = req.params.idVaga
             const Vagabyid = await VagaServices.Instance().getVagaById(idVaga)
-            console.log(Vagabyid)
             res.json(Vagabyid)
         } catch (err) {
             res.status(500).send(err)
@@ -103,6 +102,19 @@ class VagaController {
             const vagas = await VagaServices.Instance().statusVaga(Token, Option);
             res.status(200).send(vagas)
         } catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
+    public async getIdVaga(req: Request, res: Response) {
+        try {   
+            const TituloCargo = req.params.TituloCargo
+            const DescricaoVaga = req.params.DescricaoVaga
+            const Vagabyid = await VagaServices.Instance().getIdVaga(TituloCargo, DescricaoVaga)
+            console.log(Vagabyid)
+            res.json(Vagabyid)
+        } catch (err) {
             res.status(500).send(err)
             console.log(err)
         }

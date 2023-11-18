@@ -64,7 +64,6 @@ class VagaController {
             try {
                 const idVaga = req.params.idVaga;
                 const Vagabyid = yield Vaga_Service_1.default.Instance().getVagaById(idVaga);
-                console.log(Vagabyid);
                 res.json(Vagabyid);
             }
             catch (err) {
@@ -131,6 +130,21 @@ class VagaController {
                 const Option = req.params.Option;
                 const vagas = yield Vaga_Service_1.default.Instance().statusVaga(Token, Option);
                 res.status(200).send(vagas);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
+    getIdVaga(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const TituloCargo = req.params.TituloCargo;
+                const DescricaoVaga = req.params.DescricaoVaga;
+                const Vagabyid = yield Vaga_Service_1.default.Instance().getIdVaga(TituloCargo, DescricaoVaga);
+                console.log(Vagabyid);
+                res.json(Vagabyid);
             }
             catch (err) {
                 res.status(500).send(err);

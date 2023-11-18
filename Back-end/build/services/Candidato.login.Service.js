@@ -82,18 +82,16 @@ class CandidatoLoginService {
                 logger_1.default.debug("HashDepois: ", hashDigest);
                 const foundCandidato = yield Candidato_repositories_1.default.findOneBy({ Email, Senha: hmacDigest });
                 if (foundCandidato) {
-                    const token = jwt.sign({ idCand: foundCandidato.IdCand, Email: foundCandidato.Email, Senha: foundCandidato.Senha }, constants_1.SECRET);
+                    let Token = jwt.sign({ idCand: foundCandidato.IdCand, Email: foundCandidato.Email, Senha: foundCandidato.Senha }, constants_1.SECRET);
                     const validation = true;
-                    const newToken = { token, validation };
-                    const IdCand = foundCandidato.IdCand;
-                    return { newToken, IdCand };
+                    const token = { Token, validation };
+                    return token;
                 }
                 else {
-                    const token = '';
+                    const Token = '';
                     const validation = false;
-                    const newToken = { token, validation };
-                    const IdCand = '';
-                    return { newToken, IdCand };
+                    const token = { Token, validation };
+                    return token;
                 }
             }
             catch (err) {

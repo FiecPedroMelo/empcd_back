@@ -4,4 +4,6 @@ export class ExibirVagaDto {
     TituloCargo: string;
     DescricaoVaga: string;
     Status: boolean;
+    Localizacao: string;
+    Requisitos: string;
 }

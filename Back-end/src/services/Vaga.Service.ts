@@ -66,21 +66,33 @@ class VagaServices{
         return await VagaRepository.find()
     }
 
-    public async getVagaById(IdVaga: string): Promise<Vaga> {
-        const vaga = await VagaRepository.findOneBy({IdVaga})
+    public async getVagaById(IdVaga: string): Promise<ExibirVagaDto>{
+        let vaga = await AppDataSource.getRepository(Vaga)
+        .createQueryBuilder('vaga')
+        .leftJoinAndSelect('vaga.empresa', 'empresa')
+        .where('vaga.IdVaga = :id', { id: IdVaga.toString() })
+        .getOne();
         if(!vaga){
             return Promise.reject(new Error('Unable to find Vaga'))
         }
-        return Promise.resolve(vaga)
+        let exibirVaga = new ExibirVagaDto();
+        exibirVaga.IdVaga = vaga.IdVaga;
+        exibirVaga.NomeFantasia = vaga.empresa.NomeFantasia;
+        exibirVaga.TituloCargo = vaga.TituloCargo;
+        exibirVaga.DescricaoVaga = vaga.DescricaoVaga;
+        exibirVaga.Status = vaga.Status;
+        exibirVaga.Localizacao = vaga.Localizacao;
+        exibirVaga.Requisitos = vaga.Requisitos;
+        return Promise.resolve(exibirVaga)
     }
 
     public async candidataVaga(IdVaga: string, Token: string): Promise<Vaga_aux> {
         const payload = jwtDecode(Token) as jwt.JwtPayload
         const IdCandidato: string = payload.idCand
-        console.log(payload)
         try {
             const vaga = await VagaRepository.findOneBy({IdVaga})
             const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
+            console.log(candidato)
             if(!vaga) {
                 return Promise.reject(new Error('Could not find Vaga'));
             }
@@ -142,10 +154,11 @@ class VagaServices{
             .getMany();
             TodasVagas.map(vaga => {
                 const vagaResponse = new ExibirVagaDto();
-                vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia
-                vagaResponse.TituloCargo = vaga.TituloCargo
-                vagaResponse.DescricaoVaga = vaga.DescricaoVaga
-                vagaResponse.Status = vaga.Status
+                vagaResponse.IdVaga = vaga.IdVaga;
+                vagaResponse.NomeFantasia = vaga.empresa.NomeFantasia;
+                vagaResponse.TituloCargo = vaga.TituloCargo;
+                vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
+                vagaResponse.Status = vaga.Status;
                 vagas.push(vagaResponse)
             })
         } catch (err) {
@@ -210,6 +223,14 @@ class VagaServices{
             }
         });
         return Promise.resolve(selecao);
+    }
+
+    public async getIdVaga(TituloCargo: string, DescricaoVaga: string): Promise<string> {
+        const vaga = await VagaRepository.findOneBy({TituloCargo, DescricaoVaga})
+        if(!vaga){
+            return Promise.reject(new Error('Unable to find Vaga'))
+        }
+        return Promise.resolve(vaga.IdVaga)
     }
 
 }
