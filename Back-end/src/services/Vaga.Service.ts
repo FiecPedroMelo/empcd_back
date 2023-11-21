@@ -77,6 +77,7 @@ class VagaServices{
         }
         let exibirVaga = new ExibirVagaDto();
         exibirVaga.IdVaga = vaga.IdVaga;
+        exibirVaga.IdEmpresa = vaga.empresa.IdEmpresa;
         exibirVaga.NomeFantasia = vaga.empresa.NomeFantasia;
         exibirVaga.TituloCargo = vaga.TituloCargo;
         exibirVaga.DescricaoVaga = vaga.DescricaoVaga;
