@@ -23,7 +23,8 @@ class EmpresaLoginService {
         CNPJ: string,
         Cidade: string,
         Bairro: string,
-        UF: string) : Empresa{
+        UF: string,
+        Descricao: string) : Empresa{
         const newEmpresa = new Empresa();
         newEmpresa.IdEmpresa = v4();
         newEmpresa.RazaoSocial = RazaoSocial,
@@ -34,6 +35,7 @@ class EmpresaLoginService {
         newEmpresa.Cidade = Cidade,
         newEmpresa.Bairro = Bairro,
         newEmpresa.UF = UF
+        newEmpresa.Descricao = Descricao
         const hashDigest = sha256(Senha);
         logger.debug("HashAntes: ", hashDigest)
         const privateKey = "FIEC2023"
@@ -76,7 +78,8 @@ class EmpresaLoginService {
         CNPJ: string,
         Cidade: string,
         Bairro: string,
-        UF: string) {
+        UF: string,
+        Descricao: string) {
         try{
             const newEmpresa = new Empresa();
             newEmpresa.IdEmpresa = v4();
@@ -87,7 +90,8 @@ class EmpresaLoginService {
             newEmpresa.CNPJ = CNPJ,
             newEmpresa.Cidade = Cidade,
             newEmpresa.Bairro = Bairro,
-            newEmpresa.UF = UF
+            newEmpresa.UF = UF,
+            newEmpresa.Descricao = Descricao
             const hashDigest = sha256(Senha);
             logger.debug("HashAntes: ", hashDigest)
             const privateKey = "Empcd"
@@ -133,7 +137,7 @@ class EmpresaLoginService {
         if(file != null) {
             fs.createReadStream(file.path)
                 .pipe(csvParser())
-                .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF)))
+                .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF, data.Descricao)))
                 .on('end', () => {
                     console.log(Empresas);
                     EmpresaRepository.insert(Empresas);

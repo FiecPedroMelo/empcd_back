@@ -20,6 +20,7 @@ const logger_1 = __importDefault(require("../config/logger"));
 const enc_base64_1 = __importDefault(require("crypto-js/enc-base64"));
 const hmac_sha512_1 = __importDefault(require("crypto-js/hmac-sha512"));
 const jwt_decode_1 = require("jwt-decode");
+const Empresa_repositories_1 = __importDefault(require("../models/repositories/Empresa.repositories"));
 class CandidatoServices {
     constructor() { }
     static Instance() {
@@ -120,6 +121,17 @@ class CandidatoServices {
             }
             catch (err) {
                 return Promise.reject(new Error('Unable to update Candidato'));
+            }
+        });
+    }
+    IdbyEmpresa(IdEmpresa) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const empresa = yield Empresa_repositories_1.default.findOneBy({ IdEmpresa: IdEmpresa });
+            if (empresa) {
+                return Promise.resolve(empresa);
+            }
+            else {
+                return Promise.reject("id empresa not found");
             }
         });
     }

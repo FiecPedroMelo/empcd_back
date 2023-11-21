@@ -59,6 +59,31 @@ class EmpresaController{
             res.status(500).send(err)
         }
     }
+
+
+    public async getRelatorio(req: Request, res:Response){
+        try{
+            const Token = req.params.Token
+            const idVaga = req.params.idVaga
+            const relatorio = await EmpresaServices.Instance().getRelatorio(Token,idVaga);
+            res.send(relatorio)
+        }catch(err){
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
+    public async getCandidatoId(req: Request, res: Response) {
+        try {   
+            const IdCand = req.params.IdCand
+            const Candidatobyid = await EmpresaServices.Instance().IdbyCandidato(IdCand)
+            res.json(Candidatobyid)
+        } catch (err) {
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
+
 }
 
 export default EmpresaController

@@ -2,6 +2,7 @@ import { Router } from "express";
 import EmpresaController from "../controllers/Empresa.controllers";
 import VagaController from "../controllers/Vaga.controllers";
 import EmpresaLoginController from "../controllers/Empresa.login.controllers";
+import CandidatoController from "../controllers/Candidato.controllers";
 
 const EmpresaRouter = Router();
 
@@ -9,6 +10,8 @@ EmpresaRouter.get("/:Token/empresa", new EmpresaController().EmpresaById); //ok 
 EmpresaRouter.get("/:Token/getId", new EmpresaLoginController().GetIdEmpresa); //ok - token
 EmpresaRouter.get("/:Token/getVagas", new VagaController().vagaSearcherEmpresa); //ok - token
 EmpresaRouter.get("/:Token/status/:Option/getStatus", new VagaController().statusVaga); //ok - token
+EmpresaRouter.get("/:Token/get/:idVaga/relatorio", new EmpresaController().getRelatorio);
+EmpresaRouter.get("/:IdCand/getById", new EmpresaController().getCandidatoId);
 
 EmpresaRouter.post("/login", new EmpresaLoginController().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new EmpresaLoginController().signUpEmpresa); //ok - token

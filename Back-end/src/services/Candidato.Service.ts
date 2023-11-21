@@ -8,6 +8,8 @@ import Base64 from "crypto-js/enc-base64";
 import hmacSHA512 from "crypto-js/hmac-sha512";
 import { jwtDecode } from "jwt-decode";
 import * as jwt from "jsonwebtoken";
+import EmpresaRepository from "../models/repositories/Empresa.repositories";
+import Empresa from "../models/entities/Empresa";
 
 class CandidatoServices {
     private static instance: CandidatoServices
@@ -105,6 +107,15 @@ class CandidatoServices {
             return Promise.reject(new Error('Unable to update Candidato'))
         }
     }
+
+    public async IdbyEmpresa(IdEmpresa: string): Promise<Empresa> {
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa})
+        if (empresa) {
+            return Promise.resolve(empresa)
+        } else{
+            return Promise.reject("id empresa not found")
+        }
+    } 
 }
 
 export default CandidatoServices;

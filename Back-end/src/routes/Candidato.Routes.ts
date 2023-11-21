@@ -13,6 +13,7 @@ CandidatoRouter.get("/", new CandidatoController().getAll); //ok - token
 CandidatoRouter.get("/:Token/getById", new CandidatoController().getCandidatoId); //ok - token
 CandidatoRouter.get("/getVagas", new VagaController().vagaSearcherCandidato); //ok - token
 CandidatoRouter.get("/vaga/:TituloCargo/:DescricaoVaga", new VagaController().getIdVaga);
+CandidatoRouter.get("/:IdEmpresa/getEmpresaById", new CandidatoController().getEmpresaId);
 
 CandidatoRouter.put('/:Token/updateCandidato', new CandidatoController().updateCandidato); //ok - token
 CandidatoRouter.put('/:Token/vaga/:idVaga/candidataVaga', new VagaController().candidataVaga); //ok - token

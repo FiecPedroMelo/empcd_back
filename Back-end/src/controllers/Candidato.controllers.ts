@@ -60,7 +60,16 @@ class CandidatoController{
         }
     }
 
-    
+    public async getEmpresaId(req: Request, res: Response) {
+        try {   
+            const IdEmpresa = req.params.IdEmpresa
+            const Empresabyid = await CandidatoServices.Instance().IdbyEmpresa(IdEmpresa)
+            res.json(Empresabyid)
+        } catch (err) {
+            res.status(500).send(err)
+            console.log(err)
+        }
+    }
 }
 
 export default CandidatoController

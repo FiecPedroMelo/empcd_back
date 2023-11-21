@@ -48,7 +48,7 @@ const jwt = __importStar(require("jsonwebtoken"));
 const constants_1 = require("../constants");
 const jwt_decode_1 = require("jwt-decode");
 class EmpresaLoginService {
-    getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF) {
+    getEmpresaFromData(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, Descricao) {
         const newEmpresa = new Empresa_1.default();
         newEmpresa.IdEmpresa = (0, uuid_1.v4)();
         newEmpresa.RazaoSocial = RazaoSocial,
@@ -59,6 +59,7 @@ class EmpresaLoginService {
             newEmpresa.Cidade = Cidade,
             newEmpresa.Bairro = Bairro,
             newEmpresa.UF = UF;
+        newEmpresa.Descricao = Descricao;
         const hashDigest = (0, sha256_1.default)(Senha);
         logger_1.default.debug("HashAntes: ", hashDigest);
         const privateKey = "FIEC2023";
@@ -92,7 +93,7 @@ class EmpresaLoginService {
             }
         });
     }
-    signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF) {
+    signUpEmpresa(RazaoSocial, NomeFantasia, Email, Site, Senha, CNPJ, Cidade, Bairro, UF, Descricao) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const newEmpresa = new Empresa_1.default();
@@ -104,7 +105,8 @@ class EmpresaLoginService {
                     newEmpresa.CNPJ = CNPJ,
                     newEmpresa.Cidade = Cidade,
                     newEmpresa.Bairro = Bairro,
-                    newEmpresa.UF = UF;
+                    newEmpresa.UF = UF,
+                    newEmpresa.Descricao = Descricao;
                 const hashDigest = (0, sha256_1.default)(Senha);
                 logger_1.default.debug("HashAntes: ", hashDigest);
                 const privateKey = "Empcd";
@@ -153,7 +155,7 @@ class EmpresaLoginService {
             if (file != null) {
                 fs_1.default.createReadStream(file.path)
                     .pipe((0, csv_parser_1.default)())
-                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF)))
+                    .on('data', (data) => Empresas.push(this.getEmpresaFromData(data.RazaoSocial, data.NomeFantasia, data.Email, data.Site, data.Senha, data.CNPJ, data.Cidade, data.Bairro, data.UF, data.Descricao)))
                     .on('end', () => {
                     console.log(Empresas);
                     Empresa_repositories_1.default.insert(Empresas);

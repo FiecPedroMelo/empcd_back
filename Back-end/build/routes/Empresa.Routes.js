@@ -12,6 +12,8 @@ EmpresaRouter.get("/:Token/empresa", new Empresa_controllers_1.default().Empresa
 EmpresaRouter.get("/:Token/getId", new Empresa_login_controllers_1.default().GetIdEmpresa); //ok - token
 EmpresaRouter.get("/:Token/getVagas", new Vaga_controllers_1.default().vagaSearcherEmpresa); //ok - token
 EmpresaRouter.get("/:Token/status/:Option/getStatus", new Vaga_controllers_1.default().statusVaga); //ok - token
+EmpresaRouter.get("/:Token/get/:idVaga/relatorio", new Empresa_controllers_1.default().getRelatorio);
+EmpresaRouter.get("/:IdCand/getById", new Empresa_controllers_1.default().getCandidatoId);
 EmpresaRouter.post("/login", new Empresa_login_controllers_1.default().loginEmpresa); //ok - token
 EmpresaRouter.post("/signup", new Empresa_login_controllers_1.default().signUpEmpresa); //ok - token
 EmpresaRouter.post("/:Token/createVaga", new Vaga_controllers_1.default().createVaga); //ok - token

@@ -92,7 +92,6 @@ class VagaServices{
         try {
             const vaga = await VagaRepository.findOneBy({IdVaga})
             const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
-            console.log(candidato)
             if(!vaga) {
                 return Promise.reject(new Error('Could not find Vaga'));
             }
@@ -103,6 +102,7 @@ class VagaServices{
                 return Promise.reject(new Error('Vaga is already closed'));
             }
             const empresa = await EmpresaRepository.findOneBy(vaga.empresa)
+            console.log(empresa)
             if(!empresa) {
                 return Promise.reject(new Error('Could not find Empresa'));
             }
@@ -159,6 +159,7 @@ class VagaServices{
                 vagaResponse.TituloCargo = vaga.TituloCargo;
                 vagaResponse.DescricaoVaga = vaga.DescricaoVaga;
                 vagaResponse.Status = vaga.Status;
+                vagaResponse.IdEmpresa = vaga.empresa.IdEmpresa;
                 vagas.push(vagaResponse)
             })
         } catch (err) {
@@ -205,7 +206,7 @@ class VagaServices{
         .leftJoinAndSelect('vaga.empresa', 'empresa')
         .where('vaga.Status = :status', { 'status': opcao })
         .getMany();
-        const empresa = await EmpresaRepository.findOneBy({IdEmpresa})
+        const empresa = await EmpresaRepository.findOneBy({IdEmpresa: IdEmpresa})
         let selecao: Vaga[] = []
         vagas.forEach(vaga => {
             if(!vagas){
@@ -214,11 +215,8 @@ class VagaServices{
             } else if (!empresa){
                 console.log('2' + vaga.IdVaga)
                 return Promise.reject(new Error(`Empresa not found`));
-            } else if(vaga.empresa.IdEmpresa != empresa.IdEmpresa){
-                console.log('3' + vaga.IdVaga)
-                return Promise.reject(new Error(`Invalid Empresa`))
             }
-            if(vaga.Status == opcao){
+            if((vaga.Status == opcao) && (vaga.empresa.IdEmpresa == IdEmpresa)){
                 selecao.push(vaga);
             }
         });

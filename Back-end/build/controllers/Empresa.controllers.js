@@ -81,5 +81,32 @@ class EmpresaController {
             }
         });
     }
+    getRelatorio(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Token = req.params.Token;
+                const idVaga = req.params.idVaga;
+                const relatorio = yield Empresa_Service_1.default.Instance().getRelatorio(Token, idVaga);
+                res.send(relatorio);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
+    getCandidatoId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const IdCand = req.params.IdCand;
+                const Candidatobyid = yield Empresa_Service_1.default.Instance().IdbyCandidato(IdCand);
+                res.json(Candidatobyid);
+            }
+            catch (err) {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        });
+    }
 }
 exports.default = EmpresaController;

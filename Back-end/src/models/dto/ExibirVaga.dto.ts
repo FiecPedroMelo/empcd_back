@@ -1,5 +1,6 @@
 export class ExibirVagaDto {
     IdVaga: string;
+    IdEmpresa: string;
     NomeFantasia: string;
     TituloCargo: string;
     DescricaoVaga: string;
