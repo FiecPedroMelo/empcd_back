@@ -55,7 +55,7 @@ class CandidatoServices {
 
     public async IdbyCandidato(Token: string): Promise<Candidato> {
         const payload = jwtDecode(Token) as jwt.JwtPayload
-        const IdCandidato: string = payload.IdCand
+        const IdCandidato: string = payload.idCand
         const candidato = await CandidatoRepository.findOneBy({IdCand: IdCandidato})
         if (candidato) {
             return Promise.resolve(candidato)

@@ -66,7 +66,7 @@ class CandidatoServices {
     IdbyCandidato(Token) {
         return __awaiter(this, void 0, void 0, function* () {
             const payload = (0, jwt_decode_1.jwtDecode)(Token);
-            const IdCandidato = payload.IdCand;
+            const IdCandidato = payload.idCand;
             const candidato = yield Candidato_repositories_1.default.findOneBy({ IdCand: IdCandidato });
             if (candidato) {
                 return Promise.resolve(candidato);
